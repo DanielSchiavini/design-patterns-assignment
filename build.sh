@@ -1,8 +1,8 @@
 #!/bin/bash
 set -x
-docker run --rm -it ${TAG} \
-	--user="$(id -u):$(id -g)" \
-	--network=none \
+docker run --rm --interactive --tty \
+    --user="$(id -u):$(id -g)" \
+    --network=none \
     --volume "${PWD}":/data \
     "${LATEX_IMAGE}" \
-	pdflatex Report/final-assignment-report.tex
+    pdflatex Report/final-assignment-report.tex
