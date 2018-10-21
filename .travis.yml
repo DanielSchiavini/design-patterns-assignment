@@ -6,7 +6,7 @@ services:
   - docker
 
 env:
-  - IMAGE=blang/latex:ubuntu
+  - IMAGE="blang/latex:ubuntu"
   - TAG=${TRAVIS_BRANCH}-${TRAVIS_BUILD_NUMBER}
 
 before_script:
