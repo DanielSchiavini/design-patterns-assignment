@@ -4,5 +4,5 @@ docker run --rm -it ${TAG} \
 	--user="$(id -u):$(id -g)" \
 	--network=none \
     --volume "${PWD}":/data \
-    "${IMAGE}" \
+    "${LATEX_IMAGE}" \
 	pdflatex Report/final-assignment-report.tex
