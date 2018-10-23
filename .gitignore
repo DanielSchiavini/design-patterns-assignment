@@ -1,6 +1,5 @@
-# LaTeX files
-final-assignment-report.pdf
-final-assignment-report.aux
+# Build
+output/
 
 # Compiled class file
 *.class

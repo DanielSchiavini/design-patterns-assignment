@@ -1,8 +1,11 @@
 #!/bin/bash
-set -x
+mkdir output 2>/dev/null
+
 docker run --rm --interactive --tty \
     --user="$(id -u):$(id -g)" \
     --network=none \
     --volume "${PWD}":/data \
     "${LATEX_IMAGE}" \
-    pdflatex Report/final-assignment-report.tex
+    pdflatex -output-directory=output \
+    Report/final-assignment-report.tex
+

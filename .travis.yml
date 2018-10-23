@@ -1,3 +1,4 @@
+
 sudo: required
 
 language: java
@@ -13,3 +14,13 @@ before_script:
 
 script:
   - ./build.sh
+
+deploy:
+  local-dir: output
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: master
+
