@@ -1,0 +1,15 @@
+sudo: required
+
+language: java
+
+services:
+  - docker
+
+env:
+  - LATEX_IMAGE="blang/latex:ubuntu"
+
+before_script:
+  - docker pull ${LATEX_IMAGE}
+
+script:
+  - ./build.sh
