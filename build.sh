@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 docker run --rm --interactive --tty \
     --user="$(id -u):$(id -g)" \
     --network=none \
