@@ -6,6 +6,5 @@ docker run --rm --interactive --tty \
     --network=none \
     --volume "${PWD}":/data \
     "${LATEX_IMAGE}" \
-    pdflatex -output-directory=output \
-    Report/final-assignment-report.tex
+    ./build-latex.sh
 

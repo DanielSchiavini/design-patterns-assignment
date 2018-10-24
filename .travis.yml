@@ -7,13 +7,16 @@ services:
   - docker
 
 env:
-  - LATEX_IMAGE="blang/latex:ubuntu"
+  global:
+    - LATEX_IMAGE="blang/latex:ubuntu"
+    - JAVA_IMAGE="openjdk:latest"
 
-before_script:
+install:
   - docker pull ${LATEX_IMAGE}
 
 script:
-  - ./build.sh
+  - ./docker-latex.sh
+  - ./build-java.sh
 
 deploy:
   local-dir: output
