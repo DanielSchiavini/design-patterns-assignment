@@ -6,17 +6,19 @@ language: java
 services:
   - docker
 
-env:
-  global:
-    - LATEX_IMAGE="blang/latex:ubuntu"
-    - JAVA_IMAGE="openjdk:latest"
+addons:
+  apt:
+    packages:
+    - junit
 
 install:
   - docker pull ${LATEX_IMAGE}
+  - ./docker-latex.sh
+  - cd Jabberpoint
+  - ant
 
 script:
-  - ./docker-latex.sh
-  - ./build-java.sh
+  - ant test
 
 deploy:
   local-dir: output
