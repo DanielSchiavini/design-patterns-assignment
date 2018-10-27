@@ -12,7 +12,6 @@ addons:
     - junit
 
 install:
-  - docker pull ${LATEX_IMAGE}
   - ./docker-latex.sh
   - cd Jabberpoint
   - ant
