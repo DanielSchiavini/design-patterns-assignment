@@ -13,7 +13,7 @@ install:
 script:
   - ant test
 
-after_script:
+before_deploy:
   - ant jar
   - cd ..
   - ./docker-latex.sh
