@@ -1,11 +1,10 @@
 #!/bin/bash
 mkdir output 2>/dev/null
 
-docker run --rm --interactive --tty \
-    --user="$(id -u):$(id -g)" \
-    --network=none \
-    --workdir=/data \
-    --volume "${PWD}":/data \
-    "${JAVA_IMAGE}" \
-    ./build-java.sh
+export JAVA_IMAGE="frekele/ant"
 
+docker run --rm --interactive --tty \
+    --workdir=/data \
+    --volume "${PWD}/Jabberpoint":/data \
+    "${JAVA_IMAGE}" \
+    /bin/bash # ant "$@"

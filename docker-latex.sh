@@ -1,10 +1,12 @@
 #!/bin/bash
 mkdir output 2>/dev/null
 
+export LATEX_IMAGE="blang/latex:ubuntu"
+
+docker pull ${LATEX_IMAGE}
+
 docker run --rm --interactive --tty \
-    --user="$(id -u):$(id -g)" \
     --network=none \
     --volume "${PWD}":/data \
-    "${LATEX_IMAGE}" \
+    ${LATEX_IMAGE} \
     ./build-latex.sh
-
