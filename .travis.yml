@@ -7,12 +7,16 @@ services:
   - docker
 
 install:
-  #- ./docker-latex.sh
   - cd Jabberpoint
   - ant
 
 script:
   - ant test
+
+after_script:
+  - ant jar
+  - cd ..
+  - ./docker-latex.sh
 
 deploy:
   local-dir: output

@@ -1,32 +1,24 @@
 package test;
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import jabberPoint.Accessor;
 import jabberPoint.Presentation;
-import jabberPoint.SlideViewerComponent;
+import jabberPoint.Slide;
 import jabberPoint.Style;
-import test.fakes.FakeSlideViewer;
 
-public class TestPresentation {
+public class PresentationTest {
 
 	private Presentation presentation = null;
-	private FakeSlideViewer slideViewerFrame = null;
 	
 	@Before
 	public void setUp() throws Exception {
 		Style.createStyles();
 		presentation = new Presentation();
-		slideViewerFrame = new FakeSlideViewer();
 		Accessor.getDemoAccessor().loadFile(presentation, "");
 		presentation.setSlideNumber(0);
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@Test
@@ -53,47 +45,64 @@ public class TestPresentation {
 
 	@Test
 	public void testGetSlideNumber() {
-		// TODO
+		int expected = 0;
+		int result = presentation.getSlideNumber();
+		assertEquals(expected, result);
 	}
 
 	@Test
 	public void testSetSlideNumber() {
-		// TODO
+		int expected = 2;
+		presentation.setSlideNumber(expected);
+		int result = presentation.getSlideNumber();
+		assertEquals(expected, result);
 	}
 
 	@Test
 	public void testPrevSlide() {
-		// TODO
+		presentation.setSlideNumber(2);
+		int expected = 1;
+		presentation.prevSlide();
+		int result = presentation.getSlideNumber();
+		assertEquals(expected, result);
 	}
 
 	@Test
 	public void testNextSlide() {
-		// TODO
+		int expected = 1;
+		presentation.nextSlide();
+		int result = presentation.getSlideNumber();
+		assertEquals(expected, result);
 	}
 
 	@Test
 	public void testClear() {
-		// TODO
+		int expected = 0;
+		presentation = new Presentation();
+		int result = presentation.getSize();
+		assertEquals(expected, result);
 	}
 
 	@Test
 	public void testAppend() {
-		// TODO
+		int expected = 4;
+		presentation.append(presentation.getSlide(0));
+		int result = presentation.getSize();
+		assertEquals(expected, result);
 	}
 
 	@Test
 	public void testGetSlide() {
-		// TODO
+		Slide expected = presentation.getSlide(0);
+		presentation.append(expected);
+		Slide result = presentation.getSlide(3);
+		assertSame(expected, result);
 	}
 
 	@Test
 	public void testGetCurrentSlide() {
-		// TODO
+		Slide expected = presentation.getSlide(0);
+		Slide result = presentation.getCurrentSlide();
+		assertSame(expected, result);
 	}
-
-	@Test
-	public void testExit() {
-		// TODO
-	}
-
 }

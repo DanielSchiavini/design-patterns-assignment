@@ -6,5 +6,6 @@ export JAVA_IMAGE="frekele/ant"
 docker run --rm --interactive --tty \
     --workdir=/data \
     --volume "${PWD}/Jabberpoint":/data \
+    --volume "${PWD}/output":/output \
     "${JAVA_IMAGE}" \
-    /bin/bash # ant "$@"
+    ant "$@"
