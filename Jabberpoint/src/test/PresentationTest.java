@@ -9,7 +9,7 @@ import jabberPoint.Presentation;
 import jabberPoint.Slide;
 import jabberPoint.Style;
 
-public class TestPresentation {
+public class PresentationTest {
 
 	private Presentation presentation = null;
 	
