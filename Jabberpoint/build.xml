@@ -10,8 +10,7 @@
 
   <target name="compile">
     <mkdir dir="${build.dir}"/>
-    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" encoding="iso-8859-1"/>
-    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" encoding="iso-8859-1">
         <classpath refid="classpath"/>
     </javac>
   </target>

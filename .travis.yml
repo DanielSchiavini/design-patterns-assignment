@@ -6,11 +6,6 @@ language: java
 services:
   - docker
 
-addons:
-  apt:
-    packages:
-      - junit
-
 install:
   #- ./docker-latex.sh
   - cd Jabberpoint
@@ -27,4 +22,3 @@ deploy:
   keep-history: true
   on:
     branch: master
-
