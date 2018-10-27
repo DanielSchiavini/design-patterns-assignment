@@ -9,10 +9,10 @@ services:
 addons:
   apt:
     packages:
-    - junit
+      - junit
 
 install:
-  - ./docker-latex.sh
+  #- ./docker-latex.sh
   - cd Jabberpoint
   - ant
 

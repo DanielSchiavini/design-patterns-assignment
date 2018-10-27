@@ -1,5 +1,4 @@
 package test;
-
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -10,20 +9,18 @@ import jabberPoint.Accessor;
 import jabberPoint.Presentation;
 import jabberPoint.SlideViewerComponent;
 import jabberPoint.Style;
-import test.fakes.FakeSlideViewerFrame;
+import test.fakes.FakeSlideViewer;
 
 public class TestPresentation {
 
 	private Presentation presentation = null;
-	private FakeSlideViewerFrame slideViewerFrame = null;
-	private SlideViewerComponent slideViewerComponent = null;
+	private FakeSlideViewer slideViewerFrame = null;
 	
 	@Before
 	public void setUp() throws Exception {
 		Style.createStyles();
 		presentation = new Presentation();
-		slideViewerFrame = new FakeSlideViewerFrame("Jabberpoint test", presentation);
-		slideViewerComponent = slideViewerFrame.getSlideViewerComponent();
+		slideViewerFrame = new FakeSlideViewer();
 		Accessor.getDemoAccessor().loadFile(presentation, "");
 		presentation.setSlideNumber(0);
 	}

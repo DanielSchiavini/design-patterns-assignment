@@ -18,7 +18,7 @@ import javax.swing.JFrame;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class SlideViewerComponent extends JComponent {
+public class SlideViewerComponent extends JComponent implements SlideViewer {
 		
 	private Slide slide; // de huidige slide
 	private Font labelFont = null; // het font voor labels
