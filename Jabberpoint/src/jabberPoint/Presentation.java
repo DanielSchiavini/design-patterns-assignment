@@ -18,14 +18,14 @@ public class Presentation {
 	private String showTitle; // de titel van de presentatie
 	private ArrayList<Slide> showList = null; // een ArrayList met de Slides
 	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide
-	private SlideViewer slideViewComponent = null; // de viewcomponent voor de Slides
+	private SlideViewerComponent slideViewComponent = null; // de viewcomponent voor de Slides
 
 	public Presentation() {
 		slideViewComponent = null;
 		clear();
 	}
 
-	public Presentation(SlideViewer slideViewerComponent) {
+	public Presentation(SlideViewerComponent slideViewerComponent) {
 		this.slideViewComponent = slideViewerComponent;
 		clear();
 	}
@@ -42,7 +42,7 @@ public class Presentation {
 		showTitle = nt;
 	}
 
-	public void setShowView(SlideViewer slideViewerComponent) {
+	public void setShowView(SlideViewerComponent slideViewerComponent) {
 		this.slideViewComponent = slideViewerComponent;
 	}
 
