@@ -2,6 +2,9 @@
 <!DOCTYPE presentation SYSTEM "jabberpoint.dtd">
 <presentation>
 	<showtitle>XML-Based Presentation for Jabberpoint</showtitle>
+	<toc>
+		<title>JabberPoint</title>
+	</toc>
 	<slide>
 		<title>JabberPoint XML-Demo</title>
 		<item kind="text"  level="1">Welkom bij Jabberpoint</item>
@@ -16,6 +19,7 @@
 	</slide>
 	<slide>
 		<title>Een bijna lege slide</title>
+		<subject>JabberPoint XML-Demo</subject>
 		<item kind="text"  level="1"> </item>
 	</slide>
 	<slide>
@@ -30,6 +34,8 @@
 		<item kind="text"  level="1"> </item>
 		<item kind="image"  level="2">serclogo_fc.jpg</item>
 	</slide>
+	<toc>
+	</toc>
 	<slide>
 		<title>JabberPoint: Levels en stijlen</title>
 		<item kind="text"  level="1">Level 1</item>

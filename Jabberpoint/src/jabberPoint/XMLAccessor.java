@@ -13,6 +13,7 @@ import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
@@ -34,7 +35,9 @@ public class XMLAccessor extends Accessor {
     /** namen van xml tags of attributen */
     protected static final String SHOWTITLE = "showtitle";
     protected static final String SLIDETITLE = "title";
+    protected static final String SLIDESUBJECT = "subject";
     protected static final String SLIDE = "slide";
+    protected static final String TOC = "toc";
     protected static final String ITEM = "item";
     protected static final String LEVEL = "level";
     protected static final String KIND = "kind";
@@ -47,10 +50,12 @@ public class XMLAccessor extends Accessor {
     protected static final String NFE = "Number Format Exception";
     
     
-    private String getTitle(Element element, String tagName) {
+    private String getText(Element element, String tagName) {
     	NodeList titles = element.getElementsByTagName(tagName);
-    	return titles.item(0).getTextContent();
-    	
+    	if (titles.getLength() > 0) {
+    		return titles.item(0).getTextContent();
+    	}
+    	return null;
     }
 
 	public void loadFile(Presentation presentation, String filename) throws IOException {
@@ -59,16 +64,28 @@ public class XMLAccessor extends Accessor {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
 			Document document = builder.parse(new File(filename)); // maak een JDOM document
 			Element doc = document.getDocumentElement();
-			presentation.setTitle(getTitle(doc, SHOWTITLE));
+			presentation.setTitle(getText(doc, SHOWTITLE));
 
-			NodeList slides = doc.getElementsByTagName(SLIDE);
+			NodeList slides = doc.getChildNodes();
 			max = slides.getLength();
 			for (slideNumber = 0; slideNumber < max; slideNumber++) {
-				Element xmlSlide = (Element) slides.item(slideNumber);
-				Slide slide = new Slide();
-				slide.setTitle(getTitle(xmlSlide, SLIDETITLE));
+				Node xmlNode = slides.item(slideNumber);
+				String nodeName = xmlNode.getNodeName();
+
+				Slide slide;
+				if (nodeName == SLIDE) {
+					slide = new Slide();
+				} else if (nodeName == TOC) {
+					slide = new TableOfContentsSlide(presentation);
+				} else {
+					continue;
+				}
+
+				Element xmlSlide = (Element)xmlNode;
+				slide.setTitle(getText(xmlSlide, SLIDETITLE));
+				slide.setSubject(getText(xmlSlide, SLIDESUBJECT));
 				presentation.append(slide);
-				
+
 				NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
 				maxItems = slideItems.getLength();
 				for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
@@ -125,8 +142,16 @@ public class XMLAccessor extends Accessor {
 		out.println("</showtitle>");
 		for (int slideNumber=0; slideNumber<presentation.getSize(); slideNumber++) {
 			Slide slide = presentation.getSlide(slideNumber);
-			out.println("<slide>");
-			out.println("<title>" + slide.getTitle() + "</title>");
+			String slideType = slide instanceof TableOfContentsSlide ? "toc" : "slide";
+			out.println("<" + slideType + ">");
+			String title = slide.getTitle();
+			if (title != null && !title.equals("")) {
+				out.println("<title>" + title + "</title>");
+			}
+			String subject = slide.getSubject();
+			if (subject != null && !subject.equals("")) {
+				out.println("<subject>" + subject + "</subject>");
+			}
 			Vector<SlideItem> slideItems = slide.getSlideItems();
 			for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
 				SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
@@ -146,7 +171,7 @@ public class XMLAccessor extends Accessor {
 				}
 				out.println("</item>");
 			}
-			out.println("</slide>");
+			out.println("</" + slideType + ">");
 		}
 		out.println("</presentation>");
 		out.close();

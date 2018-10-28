@@ -23,7 +23,7 @@ public class PresentationTest {
 
 	@Test
 	public void testGetSize() {
-		int expected = 3;
+		int expected = 5;
 		int result = presentation.getSize();
 		assertEquals(expected, result);
 	}
@@ -85,7 +85,7 @@ public class PresentationTest {
 
 	@Test
 	public void testAppend() {
-		int expected = 4;
+		int expected = 6;
 		presentation.append(presentation.getSlide(0));
 		int result = presentation.getSize();
 		assertEquals(expected, result);
@@ -95,7 +95,7 @@ public class PresentationTest {
 	public void testGetSlide() {
 		Slide expected = presentation.getSlide(0);
 		presentation.append(expected);
-		Slide result = presentation.getSlide(3);
+		Slide result = presentation.getSlide(5);
 		assertSame(expected, result);
 	}
 
