@@ -1,6 +1,6 @@
 # Build
 output/
-src/bin/
+Jabberpoint/bin/
 
 # Compiled class file
 *.class
