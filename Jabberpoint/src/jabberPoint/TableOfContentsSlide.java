@@ -14,11 +14,18 @@ public class TableOfContentsSlide extends Slide {
 		setTitle(title);
 		this.presentation = presentation;
 	}
-	
+
 	public TableOfContentsSlide(Presentation presentation) {
 		this(presentation, DEFAULT_TITLE);
 	}
 
+	public void setTitle(String newTitle) {
+		if (newTitle == null || newTitle.isEmpty()) {
+			newTitle = DEFAULT_TITLE;
+		}
+		super.setTitle(newTitle);
+	}
+	
 	public String getSubject() {
 		return null;
 	}
@@ -38,7 +45,7 @@ public class TableOfContentsSlide extends Slide {
 			}
 			
 			String subject = slide.getSubject();
-			if (subject == null || "".equals(subject)) {
+			if (subject == null || subject.isEmpty()) {
 				subject = slide.getTitle();
 			}
 			if (subject != lastSubject) {

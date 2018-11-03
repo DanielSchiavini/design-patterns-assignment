@@ -144,14 +144,16 @@ public class XMLAccessor extends Accessor {
 			Slide slide = presentation.getSlide(slideNumber);
 			String slideType = slide instanceof TableOfContentsSlide ? "toc" : "slide";
 			out.println("<" + slideType + ">");
+			
 			String title = slide.getTitle();
-			if (title != null && !title.equals("")) {
+			if (title != null && !title.isEmpty()) {
 				out.println("<title>" + title + "</title>");
 			}
 			String subject = slide.getSubject();
-			if (subject != null && !subject.equals("")) {
+			if (subject != null && !subject.isEmpty()) {
 				out.println("<subject>" + subject + "</subject>");
 			}
+			
 			Vector<SlideItem> slideItems = slide.getSlideItems();
 			for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
 				SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);

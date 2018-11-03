@@ -69,5 +69,4 @@ public class XMLAccessorTest {
 			resultReader.close();
 		}
 	}
-
 }

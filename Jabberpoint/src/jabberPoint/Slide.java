@@ -78,14 +78,13 @@ public class Slide {
 		float scale = getScale(area);
 	    int y = area.y;
 		/* De titel hoeft niet meer apart behandeld te worden */
-	    if (this.title != null) {
-		    Style style = Style.getStyle(this.title.getLevel());
-		    this.title.draw(area.x, y, scale, g, style, view);
-		    y += this.title.getBoundingBox(g, view, scale, style).height;
-	    }
+	    SlideItem slideItem = this.title;
+	    Style style = Style.getStyle(slideItem.getLevel());
+	    slideItem.draw(area.x, y, scale, g, style, view);
+	    y += slideItem.getBoundingBox(g, view, scale, style).height;
 	    for (int number=0; number<getSize(); number++) {
-	      SlideItem slideItem = (SlideItem)getSlideItems().elementAt(number);
-	      Style style = Style.getStyle(slideItem.getLevel());
+	      slideItem = (SlideItem)getSlideItems().elementAt(number);
+	      style = Style.getStyle(slideItem.getLevel());
 	      slideItem.draw(area.x, y, scale, g, style, view);
 	      y += slideItem.getBoundingBox(g, view, scale, style).height;
 	    }
