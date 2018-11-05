@@ -2,9 +2,33 @@
 
 \usepackage{xcolor}
 \usepackage{fancyheadings}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[section]{placeins}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{2606}{\star}
 
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  commentstyle=\color{mygreen},    % comment style
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={interface,abstract,static}, % if you want to add more keywords to the set
+  %numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  stringstyle=\color{mymauve}      % string literal style
+}
 
 \newcommand{\todo}[1]{\textcolor{red}{[#1]}}
+\newcommand{\code}[1]{\lstinline[columns=fixed]{#1}}
+
 \lhead{Open Universiteit}
 \chead{IM0102, Design patterns}
 \rhead{Eindopdracht}
@@ -15,28 +39,96 @@
 \section*{Studentgegevens}
 \begin{description}
 	\item [Cursuscode] IM0102
-	\item \todo{Titel van het scenario}
-	\item [Naam] \todo{invullen}
-	\item [Studentnummer] \todo{invullen}
-	\item [Naam] \todo{invullen}
-	\item [Studentnummer] \todo{invullen}
+	\item Jabberpoint Inhoudsopgave
+	\item [Naam] Daniel S. C. Schiavini
+	\item [Studentnummer] 851102873
 \end{description}
 
 \section*{Aanpak}
-\todo{<Geef aan hoe jullie de opdracht hebben aangepakt en wie wat heeft gedaan, maximaal 1 A-4. Geef expliciet aandacht aan de volgorde van activiteiten>}
+De oorspronkelijke bedoeling was om deze opdracht uit te voeren in een team met een andere student.
+Echter, er was geen andere student beschikbaar met een vergelijkbare tempo.
+Daardoor heb ik deze opdracht alleen uitgevoerd.
 
+Voordat ik wist dat ik de opdracht alleen mag uitvoeren, heb ik een Git repository gemaakt.
+Dit document wordt automatisch gebouwd door het gebruik van TravisCI.
+Zodra een nieuwe versie van het rapport naar GitHub wordt gepushed, draait een script dat het PDF-bestand bouwt.
+Het script bouwt nu ook Jabberpoint, draait unit tests, en als alles gelukt is wordt ook een JAR-bestand gemaakt.
+In de master branch hangt een deployment vast dat het PDF en JAR naar GitHub pages publiceert.
 
+Jabberpoint had nog geen geautomatiseerde tests ingebouwd, en omdat ik dat belangrijk vind, heb ik van tevoren JUnit tests geschreven.
+Echter niet alle klassen waren testbaar - TravisCI draait in een Linux-container waarin de Graphic Java-klassen niet gecreëerd kunnen worden.
+Ik had niet genoeg tijd had om dit probleem op te lossen, daarom heb ik alleen tests geschreven voor de domein- en accessor-klassen.
 
 \section{Probleemanalyse}
+De opdracht om een inhoudsopgave te implementeren in Jabberpoint is best interessant.
+Om een inhoudsopgave te implementeren, is kennis nodig van de hele presentatie.
+Een verandering in elke slide kan invloed hebben op alle inhoudsopgaven.
 
+Om het probleem te analyseren kunnen we het beste de opdracht in eisen omschrijven:
+\begin{enumerate}
+    \item De gebruiker moet een of meer inhoudsopgaven kunnen toevoegen aan een presentatie.
+    \item De inhoudsopgave is een slide waarin alle onderwerpen van de presentatie worden getoond.
+    \item Het onderwerp moet slechts eenmaal worden getoond wanneer meerdere slides achter elkaar hetzelfde onderwerp hebben.
+    \item De inhoudsopgave moet automatisch worden geüpdatet wanneer slides worden toegevoegd of verwijderd.
+    \item De titel moet als onderwerp worden gebruikt wanneer een slide geen onderwerp heeft (\textbf{aanname}).
+    \item Het onderwerp mag op slides worden getoond, behalve in de inhoudsopgave (optioneel).
+    \item De onderwerpen in de inhoudsopgave mogen volgnummers krijgen (optioneel).
+    \item Het onderwerp van de slide die na een inhoudsopgave komt, mag een speciale aanduiding krijgen (i.e. een alternatieve letterstijl) (optioneel).
+    \item De stijl van de inhoudsopgave is vrij te bepalen.
+\end{enumerate}
 
 \section{Ontwerp}
+Het onderwerp zoals geïmplementeerd verandert weinig van het originele Jabberpoint-ontwerp.
+Er is een nieuwe klasse toegevoegd voor de inhoudsopgaven, namelijk \code{TableOfContentsSlide}.
+Deze nieuwe klasse is een sub-klasse van \code{Slide}.
 
+Het grootste verschil tussen de klassen is dat de inhoudsopgave kennis moet hebben van de hele presentatie.
+Daardoor krijgt een \code{TableOfContentsSlide} een referentie naar de presentatie in de constructor.
+
+Zodra de inhoudsopgave getekend gaat worden, worden de presentatie onderwerpen gelezen en wordt een nieuwe lijst van sub-items gemaakt.
+Daarvoor kunnen wij de bestaande publieke methoden van de \code{Slide} klasse gebruiken.
+Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
+
+De aangepaste klassendiagram wordt in figuur~\ref{fig:diagram} getoond.
+\begin{figure}
+ \caption{
+    Klassendiagram voor de domein-objecten.\label{fig:design}
+    De ster (\star) geeft de nieuwe klasse en methoden aan.
+ }
+ \centering \includegraphics[width=\textwidth]{Diagrams/design.pdf}
+\end{figure}
+
+Het voordeel van dit onderwerp is dat er vrij weinig hoeft te veranderen.
+Voor de rest van de code is een inhoudsopgave een normale slide die zijn eigen content genereert.
+Output-klassen mogen zelf bepalen of er een referentie wordt opslagen naar een inhoudsopgave, of een lijst van de inhoud van de slides.
+
+Voor de implementatie van de \code{draw} methode was een manier nodig om alle eerdere slide-items te verwijderen.
+Het is natuurlijk ook mogelijk om de \code{items} attribuut rechtstreeks te veranderen;
+maar het is in Java nooit verstandig om attributen van andere klassen te veranderen.
+Daarvoor komt een nieuwe \textbf{protected} methode \code{clear} in de slide.
+De attributen van \code{Slide} zijn \textbf{private} geworden.
+
+Het is verstandig om software te implementeren in de meest simpele manier, en dan itereren om deze te verbeteren.
+Daarom vind ik dat het bij de opdracht past om een aantal verbeteringen ook door te voeren.
+Dit wordt verder uitgelegd in de volgende sectie.
+
+\subsection{Traceerbaarheid van eisen}
+Relatie aangeven probleemanalyse 
+-> ontwerp: 
+–hoe heeft de probleemanalyse je geholpen 
 
 \section{Keuzen}
+- wanneer items genereren
 
+- logic voor lezen van slides in presentatie?
 
+- extract abstract from Slide class?
+
+- toc te veel kennis van slide: misschien nieuwe slide maken en die laten tekenen? maar dan bij output heb je de items niet..
+
+- refactoring van UI-domein vermengeling
 
 \section{Sourcecode}
 
 \end{document}
+
