@@ -37,8 +37,7 @@ public class TextItemTest {
 		Style style = new Style(indent, color, points, leading);
 		AttributedString result = item.getAttributedString(style, scale);
 		Font font = (Font)result.getIterator().getAttribute(TextAttribute.FONT);
-		assertEquals("SansSerif", font.getFamily());
-		assertEquals("SansSerif.bold", font.getFontName());
+		assertEquals("Helvetica", font.getName());
 		assertTrue(font.isBold());
 		assertEquals(15, font.getSize());
 	}
