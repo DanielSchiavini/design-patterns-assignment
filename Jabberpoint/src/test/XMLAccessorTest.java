@@ -27,7 +27,7 @@ public class XMLAccessorTest {
 
 	@After
 	public void tearDown() throws Exception {
-	    File testFile = new File(".test-save-file.xml");
+	    File testFile = new File("test-save-file.xml");
 	    if (testFile.exists()) {
 	       testFile.delete();     
 	    }
@@ -36,23 +36,25 @@ public class XMLAccessorTest {
 	@Test
 	public void testLoadFile() throws IOException {
 		accessor.loadFile(presentation, "test.xml");
-		assertEquals(5, presentation.getSize());
+		assertEquals(7, presentation.getSize());
 		assertEquals("XML-Based Presentation for Jabberpoint", presentation.getTitle());
-		assertEquals("Een bijna lege slide", presentation.getSlide(1).getTitle());
+		assertEquals("jabberPoint.TableOfContentsSlide",
+				presentation.getSlide(0).getClass().getName());
+		assertEquals("Een bijna lege slide", presentation.getSlide(2).getTitle());
 		assertEquals(null, presentation.getCurrentSlide());
 		assertEquals("TextItem[2,Herschreven door]",
-				presentation.getSlide(0).getSlideItem(2).toString());
+				presentation.getSlide(1).getSlideItem(2).toString());
 		assertEquals("BitmapItem[1,JabberPoint.jpg]",
-				presentation.getSlide(4).getSlideItem(4).toString());
+				presentation.getSlide(6).getSlideItem(4).toString());
 	}
 
 	@Test
 	public void testSaveFile() throws Exception {
 		accessor.loadFile(presentation, "test.xml");
-		accessor.saveFile(presentation, ".test-save-file.xml");
+		accessor.saveFile(presentation, "test-save-file.xml");
 
 		BufferedReader expectedReader = new BufferedReader(new FileReader("test.xml"));
-		BufferedReader resultReader = new BufferedReader(new FileReader(".test-save-file.xml"));    
+		BufferedReader resultReader = new BufferedReader(new FileReader("test-save-file.xml"));    
 		try {
 			String expectedLine = expectedReader.readLine();
 			while (expectedLine != null) {
@@ -67,5 +69,4 @@ public class XMLAccessorTest {
 			resultReader.close();
 		}
 	}
-
 }

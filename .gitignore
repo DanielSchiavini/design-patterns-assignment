@@ -9,5 +9,6 @@ Jabberpoint/bin/
 *.log
 
 # IDE files #
-/.metadata/
-/.recommenders/
+.metadata
+.recommenders
+.settings

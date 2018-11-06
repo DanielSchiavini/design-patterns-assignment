@@ -13,6 +13,9 @@ class DemoPresentation extends Accessor {
 
 	public void loadFile(Presentation presentation, String unusedFilename) {
 		presentation.setTitle("Demo Presentation");
+		
+		presentation.append(new TableOfContentsSlide(presentation));
+		
 		Slide slide;
 		slide = new Slide();
 		slide.setTitle("JabberPoint");
@@ -38,6 +41,8 @@ class DemoPresentation extends Accessor {
 		slide.append(3, "Zo ziet level 3 er uit");
 		slide.append(4, "En dit is level 4");
 		presentation.append(slide);
+
+		presentation.append(new TableOfContentsSlide(presentation, "Overzicht"));
 
 		slide = new Slide();
 		slide.setTitle("De derde slide");

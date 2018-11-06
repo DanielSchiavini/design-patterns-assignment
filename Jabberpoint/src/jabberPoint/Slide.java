@@ -18,8 +18,9 @@ public class Slide {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	/* Geen String meer maar een TextItem */
-	protected TextItem title; // de titel wordt apart bewaard
-	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
+	private TextItem title; // de titel wordt apart bewaard
+	private Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
+	private String subject = null;
 
 	public Slide() {
 		items = new Vector<SlideItem>();
@@ -28,6 +29,16 @@ public class Slide {
 	// Voeg een SlideItem toe
 	public void append(SlideItem anItem) {
 		items.addElement(anItem);
+	}
+
+	// Maak een TextItem van String, en voeg het TextItem toe
+	public void append(int level, String message) {
+		append(new TextItem(level, message));
+	}
+
+	// Verwijder alle slide items
+	protected void clear() {
+		items.clear();
 	}
 
 	// geef de titel van de slide
@@ -42,9 +53,15 @@ public class Slide {
 		title = new TextItem(0, newTitle);
 	}
 
-	// Maak een TextItem van String, en voeg het TextItem toe
-	public void append(int level, String message) {
-		append(new TextItem(level, message));
+	// geef het onderwerp van de slide
+	public String getSubject() {
+		return subject;
+	}
+
+	// verander het onderwerp van de slide
+	public void setSubject(String subject) {
+		/* Creëer nu een TextItem op basis van de nieuwe titel */
+		this.subject  = subject;
 	}
 
 	// geef het betreffende SlideItem
