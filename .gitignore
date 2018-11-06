@@ -1,8 +1,8 @@
 # Build
 output/
 Jabberpoint/bin/
-
-# Compiled class file
+/Report/*.pdf
+/Report/*.gz
 *.class
 
 # Log file
