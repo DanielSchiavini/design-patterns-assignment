@@ -31,7 +31,7 @@ public class TableOfContentsSlide extends Slide {
 	}
 	
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
-		items.clear();
+		clear();
 		String lastSubject = "";
 		int slideCount = this.presentation.getSize();
 		boolean isCurrent = false;
