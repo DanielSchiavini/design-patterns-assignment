@@ -39,7 +39,7 @@ public class Slide {
 
 	// verander de titel van de slide
 	public void setTitle(String newTitle) {
-		/* Cre�er nu een TextItem op basis van de nieuwe titel */
+		/* Creëer nu een TextItem op basis van de nieuwe titel */
 		title = new TextItem(0, newTitle);
 	}
 
