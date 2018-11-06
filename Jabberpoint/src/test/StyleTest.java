@@ -28,8 +28,7 @@ public class StyleTest {
 		for (int i = 0; i <= 5; ++i) {
 			Style style = Style.getStyle(i);
 			Font font = style.getFont(1.0F);
-			assertEquals("SansSerif", font.getFamily());
-			assertEquals("SansSerif.bold", font.getFontName());
+			assertEquals("Helvetica", font.getName());
 			assertTrue(font.isBold());
 			assertEquals(expectedSize[i], font.getSize());
 		}
