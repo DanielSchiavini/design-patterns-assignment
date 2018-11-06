@@ -20,6 +20,7 @@ public class Slide {
 	/* Geen String meer maar een TextItem */
 	protected TextItem title; // de titel wordt apart bewaard
 	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
+	protected String subject = null;
 
 	public Slide() {
 		items = new Vector<SlideItem>();
@@ -40,6 +41,17 @@ public class Slide {
 	public void setTitle(String newTitle) {
 		/* Creëer nu een TextItem op basis van de nieuwe titel */
 		title = new TextItem(0, newTitle);
+	}
+
+	// geef het onderwerp van de slide
+	public String getSubject() {
+		return subject;
+	}
+
+	// verander het onderwerp van de slide
+	public void setSubject(String subject) {
+		/* Cre�er nu een TextItem op basis van de nieuwe titel */
+		this.subject  = subject;
 	}
 
 	// Maak een TextItem van String, en voeg het TextItem toe
