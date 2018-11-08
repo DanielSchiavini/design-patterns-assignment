@@ -90,6 +90,7 @@
     Ik had niet genoeg tijd had om dit probleem op te lossen, daarom heb ik alleen tests geschreven voor de domein- en accessor-klassen.
 
 \section{Probleemanalyse}
+    \label{sec:probleemanalyse}
     Om het probleem te analyseren kunnen we het beste de opdracht in eisen omschrijven:
 
     \begin{itemize}
@@ -146,14 +147,13 @@
     Dit wordt verder uitgelegd in de volgende sectie.
 
     \subsection{Traceerbaarheid van eisen}
-        In deze sectie geef ik een lijst van de eisen en welke onderdelen van het ontwerp zijn verantwoordelijk om de eis te realiseren.
-        Dit geeft dus een relatie aan tussen het probleemanalyse en het ontwerp.
-        
+        In deze sectie geef ik onderdelen van het ontwerp aan die verantwoordelijk zijn om de eisen (zie sectie~\ref{sec:probleemanalyse}) te realiseren.
+        Dit geeft dus de relatie tussen probleemanalyse en ontwerp.
+
         \begin{itemize}
             \item De \code{Accessor}-klassen zijn verantwoordelijk voor de volgende eisen: \reqref{toevoegen}.
-            \item De \code{TableOfContentsSlide} klasse is verantwoordelijk voor:
-                \reqref{tonen}, \reqref{samenvoegen}, \reqref{updaten}, \reqref{titel}, \reqref{volgnummers},
-                \reqref{aanduiding} en \reqref{stijl}.
+            \item De \code{TableOfContentsSlide} klasse is verantwoordelijk voor: \reqref{tonen}, \reqref{samenvoegen},
+                \reqref{updaten}, \reqref{titel}, \reqref{volgnummers}, \reqref{aanduiding} en \reqref{stijl}.
             \item De \code{Slide} klasse is verantwoordelijk voor: \reqref{onderwerpen}.
         \end{itemize}
 
