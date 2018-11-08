@@ -4,21 +4,39 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 
+/**
+ * Class responsible for showing a slide with the table of contents.
+ */
 public class TableOfContentsSlide extends Slide {
 
+	// title to be used if no title was given.
 	private static String DEFAULT_TITLE = "Inhoudsopgave";
+	
+	// A reference to the presentation
 	private Presentation presentation;
 
+	/**
+	 * Creates a new table of contents slide.
+	 * @param presentation - A reference to the presentation.
+	 * @param title - The title of the slide.
+	 */
 	public TableOfContentsSlide(Presentation presentation, String title) {
 		super();
 		setTitle(title);
 		this.presentation = presentation;
 	}
 
+	/**
+	 * Creates a new table of contents slide without a title.
+	 * @param presentation - A reference to the presentation.
+	 */
 	public TableOfContentsSlide(Presentation presentation) {
 		this(presentation, DEFAULT_TITLE);
 	}
 
+	/**
+	 * Sets the title of the slide.
+	 */
 	public void setTitle(String newTitle) {
 		if (newTitle == null || newTitle.isEmpty()) {
 			newTitle = DEFAULT_TITLE;
@@ -26,15 +44,26 @@ public class TableOfContentsSlide extends Slide {
 		super.setTitle(newTitle);
 	}
 	
+	/**
+	 * Gets the subject of this slide. Note that tables of contents may not have a subject.
+	 */
 	public String getSubject() {
 		return null;
 	}
 	
-	public void draw(Graphics g, Rectangle area, ImageObserver view) {
+	/**
+	 * Re-generates the table of contents.
+	 */
+	private void generateItems() {
+		// delete all slide items
 		clear();
+		// keep track of the last subject so we don't repeat it
 		String lastSubject = "";
-		int slideCount = this.presentation.getSize();
+		// the current subject gets a special style (i.e. the subject after the table of contents)
 		boolean isCurrent = false;
+
+		// go through all the slides in the presentation
+		int slideCount = this.presentation.getSize();
 		for (int i = 0; i < slideCount; ++i) {
 			Slide slide = this.presentation.getSlide(i);
 			if (slide instanceof TableOfContentsSlide) {
@@ -46,15 +75,24 @@ public class TableOfContentsSlide extends Slide {
 			
 			String subject = slide.getSubject();
 			if (subject == null || subject.isEmpty()) {
+				// Use the title of the slide as default if no subject is given.
 				subject = slide.getTitle();
 			}
+
 			if (subject != lastSubject) {
+				// the subject changed, let's add it to the slide items.
 				int level = isCurrent ? 1 : 2;
 				append(level, subject);
 				lastSubject = subject;
 				isCurrent = false;
 			}
 		}
+	}
+	
+	public void draw(Graphics g, Rectangle area, ImageObserver view) {
+		// The table of contents must be automatically re-generated whenever slides change.
+		// Since we do not have a mechanism to know when that happens, we re-generate in every draw.
+		this.generateItems();
 		super.draw(g, area, view);
 	}
 }
