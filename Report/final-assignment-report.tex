@@ -55,6 +55,12 @@
 
 \newcommand{\reqref}[1]{\ref{req:#1}}
 
+% questions
+\newcommand{\question}[1]{
+  \subsubsection*{#1}
+  \pdfbookmark[2]{#1}{question:#1}
+}
+
 % code in text
 \newcommand{\code}[1]{\lstinline[columns=fixed]{#1}}
 
@@ -159,13 +165,31 @@
 
 
 \section{Keuzen}
-    \todo{wanneer items genereren}
-    \todo{logic voor lezen van slides in presentatie?}
-    \todo{extract abstract from Slide class?}
-    \todo{toc te veel kennis van slide: misschien nieuwe slide maken en die laten tekenen? maar dan bij output heb je de items niet..}
-    \todo{refactoring van UI-domein vermengeling}
+    \question{Wanneer items genereren}
+    \question{logic voor lezen van slides in presentatie?}
+    \question{extract abstract from Slide class?}
+    \question{toc te veel kennis van slide: misschien nieuwe slide maken en die laten tekenen? maar dan bij output heb je de items niet..}
+    \question{refactoring van UI-domein vermengeling}
+    \question{moet een inhoudsopgave verplicht een titel hebben?}
+    \question{layouts i.p.v. draw}
 
 \section{Sourcecode}
+In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
+Alle links hebben betreft zowel op Jabberpoint als voor dit rapport.
+\begin{itemize}
+    \item Java en \LaTeX ~code:
+        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment}{github.com/DanielSchiavini/design-patterns-assignment}.
+    \item Aanpassingen op Jabberpoint:
+        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/compare/v0.0.1...master}{%
+        github.com/DanielSchiavini/design-patterns-assignment/compare/v0.0.1...master}.
+    \item Gegenereerde bestanden:
+        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/tree/gh-pages}{github.com/DanielSchiavini/design-patterns-assignment/tree/gh-pages}
+    \item Laatste build-rapport van TravisCI:
+        \hyperlink{https://travis-ci.com/DanielSchiavini/design-patterns-assignment}{travis-ci.com/DanielSchiavini/design-patterns-assignment}
+    \item Rapporten van TravisCI:
+        \hyperlink{https://travis-ci.com/DanielSchiavini/design-patterns-assignment/builds}{travis-ci.com/DanielSchiavini/design-patterns-assignment/builds}
+    \item Optionele implementaties:
+        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/pulls}{github.com/DanielSchiavini/design-patterns-assignment/pulls}
+\end{itemize}
 
 \end{document}
-
