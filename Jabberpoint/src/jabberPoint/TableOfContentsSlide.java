@@ -54,7 +54,7 @@ public class TableOfContentsSlide extends Slide {
 	/**
 	 * Re-generates the table of contents.
 	 */
-	private void generateItems() {
+	public void generateItems() {
 		// delete all slide items
 		clear();
 		// keep track of the last subject so we don't repeat it
