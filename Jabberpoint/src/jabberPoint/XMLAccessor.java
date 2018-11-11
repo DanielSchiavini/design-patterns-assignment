@@ -18,13 +18,14 @@ import org.w3c.dom.NodeList;
 
 
 /** XMLAccessor, reads and writes XML files
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
  * @version 1.3 2004/08/17 Sylvia Stuurman
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 2018 Daniel Schiavini
  */
 
 public class XMLAccessor extends Accessor {
@@ -49,17 +50,29 @@ public class XMLAccessor extends Accessor {
     protected static final String UNKNOWNTYPE = "Unknown Element type";
     protected static final String NFE = "Number Format Exception";
     
-    
+    /**
+     * Reads a text element inside a XML node.
+     * Note the first one will be returned if more than one element with this tag is found.
+     * @param element - The XML element.
+     * @param tagName - The tag to be read.
+     * @return The text, if found, or null otherwise.
+     */
     private String getText(Element element, String tagName) {
     	NodeList titles = element.getElementsByTagName(tagName);
-    	if (titles.getLength() > 0) {
+    	if (titles.getLength() >= 1) {
     		return titles.item(0).getTextContent();
     	}
     	return null;
     }
 
+    /**
+     * Opens a XML file and loads the presentation data found in it.
+     * Parsing errors are printed to the output but ignored otherwise.
+     * @param presentation - The presentation where the data will be added to.
+     * @param filename - The name of the file to be read.
+     */
 	public void loadFile(Presentation presentation, String filename) throws IOException {
-		int slideNumber, itemNumber, max = 0, maxItems = 0;
+		int slideNumber, max = 0;
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
 			Document document = builder.parse(new File(filename)); // maak een JDOM document
@@ -69,31 +82,7 @@ public class XMLAccessor extends Accessor {
 			NodeList slides = doc.getChildNodes();
 			max = slides.getLength();
 			for (slideNumber = 0; slideNumber < max; slideNumber++) {
-				Node xmlNode = slides.item(slideNumber);
-				String nodeName = xmlNode.getNodeName();
-
-				Slide slide;
-				if (nodeName == SLIDE) {
-					Element xmlSlide = (Element)xmlNode;
-					ContentSlide contentSlide = new ContentSlide();
-					slide = contentSlide;
-					slide.setTitle(getText(xmlSlide, SLIDETITLE));
-					contentSlide.setSubject(getText(xmlSlide, SLIDESUBJECT));
-					NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
-					maxItems = slideItems.getLength();
-					for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
-						Element item = (Element) slideItems.item(itemNumber);
-						loadSlideItem(contentSlide, item);
-					}
-				} else if (nodeName == TOC) {
-					Element xmlSlide = (Element)xmlNode;
-					slide = new TableOfContentsSlide(presentation);
-					slide.setTitle(getText(xmlSlide, SLIDETITLE));
-				} else {
-					continue;
-				}
-
-				presentation.append(slide);
+				loadSlide(presentation, slides.item(slideNumber));
 			}
 		} 
 		catch (IOException iox) {
@@ -108,6 +97,41 @@ public class XMLAccessor extends Accessor {
 		
 	}
 
+	/**
+	 * Loads a slide and adds it to the presentation.
+	 * @param presentation - The presentation where the slide will be added to.
+	 * @param xmlNode - The XML node where the slide information can be found.
+	 */
+    private void loadSlide(Presentation presentation, Node xmlNode) {
+		String nodeName = xmlNode.getNodeName();
+
+		if (nodeName == SLIDE) {
+			Element xmlSlide = (Element)xmlNode;
+			ContentSlide slide = new ContentSlide();
+			slide.setTitle(getText(xmlSlide, SLIDETITLE));
+			slide.setSubject(getText(xmlSlide, SLIDESUBJECT));
+			NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
+			int maxItems = slideItems.getLength();
+			for (int itemNumber = 0; itemNumber < maxItems; itemNumber++) {
+				Element item = (Element) slideItems.item(itemNumber);
+				loadSlideItem(slide, item);
+			}
+			presentation.append(slide);
+		} else if (nodeName == TOC) {
+			Element xmlSlide = (Element)xmlNode;
+			TableOfContentsSlide slide = new TableOfContentsSlide(presentation);
+			slide.setTitle(getText(xmlSlide, SLIDETITLE));
+			presentation.append(slide);
+		} else {
+			return;
+		}
+    }
+
+	/**
+	 * Loads a slide item and adds it to the slide.
+	 * @param presentation - The presentation where the slide will be added to.
+	 * @param element - The XML element where the slide information can be found.
+	 */
 	protected void loadSlideItem(ContentSlide slide, Element item) {
 		int level = 1; // default
 		NamedNodeMap attributes = item.getAttributes();
@@ -134,6 +158,11 @@ public class XMLAccessor extends Accessor {
 		}
 	}
 
+	/**
+	 * Saves a presentation into a XML file.
+	 * @param presentation - The presentation to be saved.
+	 * @param filename - The path to the file.
+	 */
 	public void saveFile(Presentation presentation, String filename) throws IOException {
 		PrintWriter out = new PrintWriter(new FileWriter(filename));
 		out.println("<?xml version=\"1.0\"?>");
@@ -164,33 +193,37 @@ public class XMLAccessor extends Accessor {
 		out.println("<slide>");
 		out.println("<title>" + slide.getTitle() + "</title>");
 		String subject = slide.getSubject();
-		if (subject != null && !subject.isEmpty()) {
-			out.println("<subject>" + subject + "</subject>");
-		}
-		
-		Vector<SlideItem> slideItems = slide.getSlideItems();
-		for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
-			SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
-			writeSlideItem(out, slideItem);
-			out.println("</item>");
-		}
+			if (subject != null && !subject.isEmpty()) {
+				out.println("<subject>" + subject + "</subject>");
+			}
+			
+			Vector<SlideItem> slideItems = slide.getSlideItems();
+			for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
+				SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
+				writeSlideItem(out, slideItem);
+				out.println("</item>");
+			}
 		out.println("</slide>");
 	}
 
+	/**
+	 * Writes the slide item.
+	 * Note: Only text and bitmap slide items that are written; any other types are ignored.  
+	 * @param out - The print writer.
+	 * @param slideItem - The slide item to be written.
+	 */
 	private void writeSlideItem(PrintWriter out, SlideItem slideItem) {
 		out.print("<item kind="); 
 		if (slideItem instanceof TextItem) {
 			out.print("\"text\" level=\"" + slideItem.getLevel() + "\">");
 			out.print( ( (TextItem) slideItem).getText());
 		}
+		else if (slideItem instanceof BitmapItem) {
+			out.print("\"image\" level=\"" + slideItem.getLevel() + "\">");
+			out.print( ( (BitmapItem) slideItem).getName());
+		}
 		else {
-			if (slideItem instanceof BitmapItem) {
-				out.print("\"image\" level=\"" + slideItem.getLevel() + "\">");
-				out.print( ( (BitmapItem) slideItem).getName());
-			}
-			else {
-				System.out.println("Ignoring " + slideItem);
-			}
+			System.out.println("Ignoring " + slideItem);
 		}
 	}
 }
