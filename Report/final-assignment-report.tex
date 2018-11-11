@@ -165,9 +165,43 @@
 
 
 \section{Keuzen}
+    Klasse \code{TableOfContentsSlide} is uiteraard verantwoordelijk voor het genereren van de inhoudsopgave.
+    Daarbij hebben we de optie om de slide-items die al geïmplementeerd zijn te hergebruiken.
+    Het is dus logisch om de software zo optimaal mogelijk te hergebruiken, en niet alleen de slide-items maar ook het tekenen van deze items.
+    De inhoudsopgave is in feite een slide die zijn eigen content genereert.
+    
+    In de rest van deze sectie gaan we een aantal vragen door die zijn opgeroepen tijdens het analyseproces.
+    
+    \question{Hoe moet de Slide klasse-structuur eruit zien?}
+    Het is vanzelfsprekend dat \code{TableOfContentsSlide} een groot deel van de \code{Slide} code nodig heeft.
+    Bij het analyseren van Jabberpoint heb ik gemerkt dat de nieuwe klasse eigenlijk \textit{alle} code moet gebruiken.
+    Het enige onderdeel dat niet nodig is voor de inhoudsopgave is het nieuwe onderwerp-veld.
+    
+    Meestal als een variatie komt voor een bestaand concept, moet er een interface (of abstracte klasse) komen die het oude en het nieuwe concept implementeren.
+    De rest van het systeem werkt dan met de interface en hoeft niets te weten van de exacte implementatie.
+    Dit is hier ook het geval, de presentatie-klassen hoeven immers niet te weten of een slide een inhoudsopgave is of niet.
+    
+    We zouden dus \code{Slide} abstract kunnen maken en een nieuwe klasse maken die naast de bestaande methoden een onderwerp heeft.
+    Als we echter denken aan wat voor andere soorten \code{Slide} er in de toekomst nog komen, is het aannemelijk dat deze ook in de inhoudsopgave moeten worden getoond.
+    
+    Een alternatief ontwerp is geïmplementeerd in \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/pull/17}{PR \#17}.
+    In deze PR is een extra klasse \code{ContentSlide} gemaakt die slide-items heeft.
+    Hierin maakt de \code{TableOfContentsSlide} elke keer een nieuwe \code{ContentSlide}.
+    Dit ontwerp is een geldig alternatief maar er zijn niet veel voordelen.
+    De software wordt ingewikkelder en er moeten extra \textit{casts} worden uitgevoerd.
+
     \question{Wanneer items genereren}
+    De table of contents is in feite een slide met een inhoud die gegenereerd wordt.
+    De vraag is wanneer deze generatie moet gebeuren.
+    In het gepresenteerde ontwerp wordt de slide opnieuw gegenereerd in elke \code{draw}.
+    
+    Een alternatief zou zijn om een manier te implementeren om de \code{TableOfContentsSlide} te laten weten als iets verandert.
+    Bijvoorbeeld de observable pattern zou hier gebruikt kunnen worden.
+    
+    Dat is echter niet nodig, de generatie is redelijk efficiënt aangezien \code{draw} alleen wordt aangeroepen als de slide zichtbaar is.
+    \code{SlideViewerComponent} roept immers \code{repaint} alleen aan wanneer de slide op het scherm komt.
+    
     \question{logic voor lezen van slides in presentatie?}
-    \question{extract abstract from Slide class?}
     \question{toc te veel kennis van slide: misschien nieuwe slide maken en die laten tekenen? maar dan bij output heb je de items niet..}
     \question{refactoring van UI-domein vermengeling}
     \question{moet een inhoudsopgave verplicht een titel hebben?}
