@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jabberPoint.Presentation;
+import jabberPoint.ContentSlide;
 import jabberPoint.XMLAccessor;
 
 public class XMLAccessorTest {
@@ -43,9 +44,9 @@ public class XMLAccessorTest {
 		assertEquals("Een bijna lege slide", presentation.getSlide(2).getTitle());
 		assertEquals(null, presentation.getCurrentSlide());
 		assertEquals("TextItem[2,Herschreven door]",
-				presentation.getSlide(1).getSlideItem(2).toString());
+				((ContentSlide)presentation.getSlide(1)).getSlideItem(2).toString());
 		assertEquals("BitmapItem[1,JabberPoint.jpg]",
-				presentation.getSlide(6).getSlideItem(4).toString());
+				((ContentSlide)presentation.getSlide(6)).getSlideItem(4).toString());
 	}
 
 	@Test

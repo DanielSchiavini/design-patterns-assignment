@@ -74,24 +74,26 @@ public class XMLAccessor extends Accessor {
 
 				Slide slide;
 				if (nodeName == SLIDE) {
-					slide = new Slide();
+					Element xmlSlide = (Element)xmlNode;
+					ContentSlide contentSlide = new ContentSlide();
+					slide = contentSlide;
+					slide.setTitle(getText(xmlSlide, SLIDETITLE));
+					contentSlide.setSubject(getText(xmlSlide, SLIDESUBJECT));
+					NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
+					maxItems = slideItems.getLength();
+					for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
+						Element item = (Element) slideItems.item(itemNumber);
+						loadSlideItem(contentSlide, item);
+					}
 				} else if (nodeName == TOC) {
+					Element xmlSlide = (Element)xmlNode;
 					slide = new TableOfContentsSlide(presentation);
+					slide.setTitle(getText(xmlSlide, SLIDETITLE));
 				} else {
 					continue;
 				}
 
-				Element xmlSlide = (Element)xmlNode;
-				slide.setTitle(getText(xmlSlide, SLIDETITLE));
-				slide.setSubject(getText(xmlSlide, SLIDESUBJECT));
 				presentation.append(slide);
-
-				NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
-				maxItems = slideItems.getLength();
-				for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
-					Element item = (Element) slideItems.item(itemNumber);
-					loadSlideItem(slide, item);
-				}
 			}
 		} 
 		catch (IOException iox) {
@@ -106,7 +108,7 @@ public class XMLAccessor extends Accessor {
 		
 	}
 
-	protected void loadSlideItem(Slide slide, Element item) {
+	protected void loadSlideItem(ContentSlide slide, Element item) {
 		int level = 1; // default
 		NamedNodeMap attributes = item.getAttributes();
 		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
@@ -142,40 +144,53 @@ public class XMLAccessor extends Accessor {
 		out.println("</showtitle>");
 		for (int slideNumber=0; slideNumber<presentation.getSize(); slideNumber++) {
 			Slide slide = presentation.getSlide(slideNumber);
-			String slideType = slide instanceof TableOfContentsSlide ? "toc" : "slide";
-			out.println("<" + slideType + ">");
-			
-			String title = slide.getTitle();
-			if (title != null && !title.isEmpty()) {
-				out.println("<title>" + title + "</title>");
+			if (slide instanceof TableOfContentsSlide) {
+				writeTableOfContents(out, (TableOfContentsSlide)slide);
+			} else if (slide instanceof ContentSlide ) {
+				writeContentSlide(out, (ContentSlide)slide);
 			}
-			String subject = slide.getSubject();
-			if (subject != null && !subject.isEmpty()) {
-				out.println("<subject>" + subject + "</subject>");
-			}
-			
-			Vector<SlideItem> slideItems = slide.getSlideItems();
-			for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
-				SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
-				out.print("<item kind="); 
-				if (slideItem instanceof TextItem) {
-					out.print("\"text\" level=\"" + slideItem.getLevel() + "\">");
-					out.print( ( (TextItem) slideItem).getText());
-				}
-				else {
-					if (slideItem instanceof BitmapItem) {
-						out.print("\"image\" level=\"" + slideItem.getLevel() + "\">");
-						out.print( ( (BitmapItem) slideItem).getName());
-					}
-					else {
-						System.out.println("Ignoring " + slideItem);
-					}
-				}
-				out.println("</item>");
-			}
-			out.println("</" + slideType + ">");
 		}
 		out.println("</presentation>");
 		out.close();
+	}
+
+	private void writeTableOfContents(PrintWriter out, TableOfContentsSlide slide) {
+		out.println("<toc>");
+		out.println("<title>" + slide.getTitle() + "</title>");
+		out.println("</toc>");
+	}
+
+	private void writeContentSlide(PrintWriter out, ContentSlide slide) {
+		out.println("<slide>");
+		out.println("<title>" + slide.getTitle() + "</title>");
+		String subject = slide.getSubject();
+		if (subject != null && !subject.isEmpty()) {
+			out.println("<subject>" + subject + "</subject>");
+		}
+		
+		Vector<SlideItem> slideItems = slide.getSlideItems();
+		for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
+			SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
+			writeSlideItem(out, slideItem);
+			out.println("</item>");
+		}
+		out.println("</slide>");
+	}
+
+	private void writeSlideItem(PrintWriter out, SlideItem slideItem) {
+		out.print("<item kind="); 
+		if (slideItem instanceof TextItem) {
+			out.print("\"text\" level=\"" + slideItem.getLevel() + "\">");
+			out.print( ( (TextItem) slideItem).getText());
+		}
+		else {
+			if (slideItem instanceof BitmapItem) {
+				out.print("\"image\" level=\"" + slideItem.getLevel() + "\">");
+				out.print( ( (BitmapItem) slideItem).getName());
+			}
+			else {
+				System.out.println("Ignoring " + slideItem);
+			}
+		}
 	}
 }

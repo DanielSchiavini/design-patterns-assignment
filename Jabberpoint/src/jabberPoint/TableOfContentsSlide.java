@@ -45,23 +45,17 @@ public class TableOfContentsSlide extends Slide {
 	}
 	
 	/**
-	 * Gets the subject of this slide. Note that tables of contents may not have a subject.
-	 */
-	public String getSubject() {
-		return null;
-	}
-	
-	/**
 	 * Re-generates the table of contents.
 	 */
-	private void generateItems() {
-		// delete all slide items
-		clear();
+	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		// keep track of the last subject so we don't repeat it
 		String lastSubject = "";
 		// the current subject gets a special style (i.e. the subject after the table of contents)
 		boolean isCurrent = false;
 
+		ContentSlide content = new ContentSlide();
+		content.setTitle(getTitle());
+		
 		// go through all the slides in the presentation
 		int slideCount = this.presentation.getSize();
 		for (int i = 0; i < slideCount; ++i) {
@@ -69,30 +63,24 @@ public class TableOfContentsSlide extends Slide {
 			if (slide instanceof TableOfContentsSlide) {
 				// the current section is the one right after this table of contents.
 				isCurrent = slide == this;
-				// ignore any table of contents slide except the current one.
-				continue;
-			}
-			
-			String subject = slide.getSubject();
-			if (subject == null || subject.isEmpty()) {
-				// Use the title of the slide as default if no subject is given.
-				subject = slide.getTitle();
-			}
-
-			if (subject != lastSubject) {
-				// the subject changed, let's add it to the slide items.
-				int level = isCurrent ? 1 : 2;
-				append(level, subject);
-				lastSubject = subject;
-				isCurrent = false;
+			} else if (slide instanceof ContentSlide) {
+				ContentSlide customSlide = (ContentSlide)slide;
+				String subject = customSlide.getSubject();
+				if (subject == null || subject.isEmpty()) {
+					// Use the title of the slide as default if no subject is given.
+					subject = customSlide.getTitle();
+				}
+	
+				if (subject != lastSubject) {
+					// the subject changed, let's add it to the slide items.
+					int level = isCurrent ? 1 : 2;
+					content.append(level, subject);
+					lastSubject = subject;
+					isCurrent = false;
+				}
 			}
 		}
-	}
-	
-	public void draw(Graphics g, Rectangle area, ImageObserver view) {
-		// The table of contents must be automatically re-generated whenever slides change.
-		// Since we do not have a mechanism to know when that happens, we re-generate in every draw.
-		this.generateItems();
-		super.draw(g, area, view);
+		
+		content.draw(g, area, view);
 	}
 }

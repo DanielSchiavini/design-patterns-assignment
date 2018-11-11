@@ -7,17 +7,17 @@ import java.util.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
-import jabberPoint.Slide;
+import jabberPoint.ContentSlide;
 import jabberPoint.SlideItem;
 import jabberPoint.TextItem;
 
-public class SlideTest {
+public class ContentSlideTest {
 
-	Slide slide = null;
+	ContentSlide slide = null;
 	
 	@Before
 	public void setUp() throws Exception {
-		slide = new Slide();
+		slide = new ContentSlide();
 	}
 
 	@Test
