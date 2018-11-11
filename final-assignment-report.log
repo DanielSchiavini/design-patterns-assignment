@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.22)  9 NOV 2018 23:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.22)  11 NOV 2018 12:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -565,20 +565,20 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 (../output/final-assignment-report.aux)
 \openout1 = `final-assignment-report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -611,7 +611,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring ON on input line 66.
+Package hyperref Info: Link coloring ON on input line 72.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -621,68 +621,120 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count114
 )
-LaTeX Info: Redefining \ref on input line 66.
-LaTeX Info: Redefining \pageref on input line 66.
-LaTeX Info: Redefining \nameref on input line 66.
+LaTeX Info: Redefining \ref on input line 72.
+LaTeX Info: Redefining \pageref on input line 72.
+LaTeX Info: Redefining \nameref on input line 72.
 
 (../output/final-assignment-report.out) (../output/final-assignment-report.out)
 \@outlinefile=\write3
 \openout3 = `final-assignment-report.out'.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 97.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 103.
+
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 97.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 103.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-Overfull \hbox (22.05617pt too wide) in paragraph at lines 114--117
+Overfull \hbox (22.05617pt too wide) in paragraph at lines 120--123
 \OT1/cmr/m/n/10 Het on-der-w-erp zoals ge^^?^^Pmplementeerd ve-ran-dert weinig 
 van het orig-inele Jabberpoint-
  []
 
-<Diagrams/design.pdf, id=49, 782.925pt x 373.395pt>
+<Diagrams/design.pdf, id=77, 782.925pt x 373.395pt>
 File: Diagrams/design.pdf Graphic file (type pdf)
  <use Diagrams/design.pdf>
-Package pdftex.def Info: Diagrams/design.pdf used on input line 131.
+Package pdftex.def Info: Diagrams/design.pdf used on input line 137.
 (pdftex.def)             Requested size: 345.0pt x 164.53929pt.
 
-[2 <./Diagrams/design.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 162--167
-
+[2 <./Diagrams/design.pdf>] [3]
+Overfull \hbox (42.50269pt too wide) in paragraph at lines 198--200
+[]\OT1/cmr/m/n/10 Een al-ter-natief zou zijn om een manier te im-ple-menteren o
+m de [][][]
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 170.
-[3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 170.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 214.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 214.
+
+Overfull \hbox (15.35878pt too wide) in paragraph at lines 214--216
+[]\OT1/cmr/m/n/10 Java en L[]T[]X code: [][]github.com/DanielSchiavini/design-p
+atterns-assignment[][]. 
+ []
+
+
+Overfull \hbox (10.27853pt too wide) in paragraph at lines 216--219
+[]\OT1/cmr/m/n/10 Aanpassingen op Jab-ber-point: [][]github.com/DanielSchiavini
+/design-patterns-
+ []
+
+
+Overfull \hbox (76.43134pt too wide) in paragraph at lines 219--221
+[]\OT1/cmr/m/n/10 Gegenereerde be-standen: [][]github.com/DanielSchiavini/desig
+n-patterns-assignment/tree/gh-
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 229.
+[4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 229.
  (../output/final-assignment-report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 170.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 170.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 229.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 229.
 Package rerunfilecheck Info: File `final-assignment-report.out' has not changed
 .
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 170.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 229.
  ) 
 Here is how much of TeX's memory you used:
- 7779 strings out of 493029
- 108631 string characters out of 6136234
- 222143 words of memory out of 5000000
- 11224 multiletter control sequences out of 15000+600000
- 5457 words of font info for 20 fonts, out of 8000000 for 9000
+ 7816 strings out of 493029
+ 110303 string characters out of 6136234
+ 223143 words of memory out of 5000000
+ 11238 multiletter control sequences out of 15000+600000
+ 5803 words of font info for 21 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 29i,12n,45p,240b,1173s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on ../output/final-assignment-report.pdf (3 pages, 226901 bytes)
+ 29i,12n,45p,475b,1173s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{https://github.com/DanielSchiavini/design-pattern
+s-assignment/pulls} has been referenced but does not exist, replaced by a fixed
+ one
+
+pdfTeX warning (dest): name{https://travis-ci.com/DanielSchiavini/design-patter
+ns-assignment/builds} has been referenced but does not exist, replaced by a fix
+ed one
+
+pdfTeX warning (dest): name{https://travis-ci.com/DanielSchiavini/design-patter
+ns-assignment} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{https://github.com/DanielSchiavini/design-patterns-
+assignment/tree/gh-pages} has been referenced but does not exist, replaced by a
+ fixed one
+
+pdfTeX warning (dest): name{https://github.com/DanielSchiavini/design-patterns-
+assignment/compare/v0.0.1...master} has been referenced but does not exist, rep
+laced by a fixed one
+
+pdfTeX warning (dest): name{https://github.com/DanielSchiavini/design-patterns-
+assignment} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{https://github.com/DanielSchiavini/design-patterns-
+assignment/pull/17} has been referenced but does not exist, replaced by a fixed
+ one
+
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmti10.pfb>
+Output written on ../output/final-assignment-report.pdf (4 pages, 253658 bytes)
 .
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
- 30 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 175 PDF objects out of 1000 (max. 8388607)
+ 159 compressed objects within 2 object streams
+ 52 named destinations out of 1000 (max. 500000)
+ 102 words of extra memory for PDF output out of 10000 (max. 10000000)
 
