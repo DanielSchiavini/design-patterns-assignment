@@ -39,7 +39,15 @@
 % TODO command
 \newcommand{\todo}[1]{\textcolor{red}{[#1]}\\}
 
-% New custom label command
+% PR command, based on https://tex.stackexchange.com/a/35314/59718
+\makeatletter
+\newcommand*{\PR}{\begingroup\@makeother\#\@PR}
+\newcommand*{\@PR}[1]{%
+  \href{https://github.com/DanielSchiavini/design-patterns-assignment/pull/#1}{PR #1}%
+  \endgroup}
+\makeatother
+
+% New custom label command used for requirements, based on https://tex.stackexchange.com/a/18192/59718
 \makeatletter
 \newcommand{\customlabel}[2]{%
    \protected@write \@auxout {}{\string \newlabel {#1}{{#2}{\thepage}{#2}{#1}{}} }%
@@ -92,7 +100,7 @@
     In de master branch hangt een deployment vast dat het PDF en JAR naar \href{https://github.com/DanielSchiavini/design-patterns-assignment/tree/gh-pages}{GitHub pages} publiceert.
     Deze automatisering is iets minder nodig zonder team, maar het is nog steeds wel nuttig.
 
-    Jabberpoint had nog geen geautomatiseerde tests en omdat ik dat belangrijk vind, heb ik van tevoren JUnit tests geschreven.
+    Jabberpoint had nog geen geautomatiseerde tests en omdat ik dat belangrijk vind, heb ik van tevoren JUnit tests geschreven (zie \PR{5}, \PR{9} en \PR{10}).
     Echter niet alle klassen waren testbaar -- TravisCI draait in een Linux-container waarin de Graphic Java-klassen niet gecreëerd kunnen worden.
     Ik had niet genoeg tijd had om dit probleem op te lossen, daarom heb ik alleen tests geschreven voor de domein- en accessor-klassen.
 
@@ -134,11 +142,12 @@
     Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
 
     De aangepaste klassendiagram wordt in figuur~\ref{fig:design} getoond.
+    \todo{Add presentation attribute to TableOfContents}
+
     \begin{figure}[!htb]
      \caption{
         Klassendiagram voor de domein-objecten.\label{fig:design}
         Sterren geven de nieuwe klasse en methoden aan.
-        \todo{Add presentation attribute to TableOfContents}
      }
      \centering \includegraphics[width=\textwidth]{Diagrams/design.pdf}
     \end{figure}
