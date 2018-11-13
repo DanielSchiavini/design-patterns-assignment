@@ -41,11 +41,15 @@
 
 % PR command, based on https://tex.stackexchange.com/a/35314/59718
 \makeatletter
-\newcommand*{\PR}{\begingroup\@makeother\#\@PR}
-\newcommand*{\@PR}[1]{%
-  \href{https://github.com/DanielSchiavini/design-patterns-assignment/pull/#1}{PR #1}%
+\newcommand*{\repo}{\begingroup\@makeother\#\@repo}
+\newcommand*{\@repo}[2]{%
+  \href{https://github.com/DanielSchiavini/design-patterns-assignment/#1}{#2}%
   \endgroup}
 \makeatother
+
+\newcommand{\PR}[1]{\repo{pull/#1}{PR\##1}}
+\newcommand{\repolink}[1]{\repo{#1}{github.com/DanielSchiavini/design-patterns-assignment/#1}}
+\newcommand{\cilink}[1]{\href{https://travis-ci.com/DanielSchiavini/design-patterns-assignment/#1}{travis-ci.com/DanielSchiavini/design-patterns-assignment/#1}}
 
 % New custom label command used for requirements, based on https://tex.stackexchange.com/a/18192/59718
 \makeatletter
@@ -272,18 +276,17 @@ In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
 Alle links betreffen zowel Jabberpoint als dit rapport.
 \begin{itemize}
     \item Java en \LaTeX ~code:
-        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment}{github.com/DanielSchiavini/design-patterns-assignment}.
+        \repolink{}
     \item Aanpassingen op Jabberpoint:
-        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/compare/v0.0.1...master}{%
-        github.com/DanielSchiavini/design-patterns-assignment/compare/v0.0.1...master}.
+        \repolink{compare/v0.0.1...master}.
     \item Gegenereerde bestanden:
-        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/tree/gh-pages}{github.com/DanielSchiavini/design-patterns-assignment/tree/gh-pages}
+        \repolink{tree/gh-pages}
     \item Laatste build-rapport van TravisCI:
-        \hyperlink{https://travis-ci.com/DanielSchiavini/design-patterns-assignment}{travis-ci.com/DanielSchiavini/design-patterns-assignment}
+        \cilink{}
     \item Rapporten van TravisCI:
-        \hyperlink{https://travis-ci.com/DanielSchiavini/design-patterns-assignment/builds}{travis-ci.com/DanielSchiavini/design-patterns-assignment/builds}
+        \cilink{builds}
     \item Optionele implementaties:
-        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/pulls}{github.com/DanielSchiavini/design-patterns-assignment/pulls}
+        \repolink{pulls}
 \end{itemize}
 
 \end{document}
