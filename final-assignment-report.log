@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.22)  13 NOV 2018 20:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.22)  13 NOV 2018 21:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -639,93 +639,84 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 129--130
-
- []
-
-
-Overfull \hbox (22.05617pt too wide) in paragraph at lines 137--140
+Overfull \hbox (22.05617pt too wide) in paragraph at lines 135--138
 \OT1/cmr/m/n/10 Het on-der-w-erp zoals ge^^?^^Pmplementeerd ve-ran-dert weinig 
 van het orig-inele Jabberpoint-
  []
 
-<Diagrams/design.pdf, id=76, 782.925pt x 459.7175pt>
+<Diagrams/design.pdf, id=74, 782.925pt x 459.7175pt>
 File: Diagrams/design.pdf Graphic file (type pdf)
  <use Diagrams/design.pdf>
-Package pdftex.def Info: Diagrams/design.pdf used on input line 154.
+Package pdftex.def Info: Diagrams/design.pdf used on input line 152.
 (pdftex.def)             Requested size: 345.0pt x 202.57796pt.
 
 [2] [3 <./Diagrams/design.pdf>]
-Overfull \hbox (16.78789pt too wide) in paragraph at lines 204--210
+Overfull \hbox (16.78789pt too wide) in paragraph at lines 202--208
 [][][] \OT1/cmr/m/n/10 geen items meer, maar alleen een ti-tel en [][][]. Een e
 x-tra klasse [][][]
  []
 
-<Diagrams/design-alternative.pdf, id=111, 869.2475pt x 406.51875pt>
+<Diagrams/design-alternative.pdf, id=109, 869.2475pt x 406.51875pt>
 File: Diagrams/design-alternative.pdf Graphic file (type pdf)
 
 <use Diagrams/design-alternative.pdf>
-Package pdftex.def Info: Diagrams/design-alternative.pdf used on input line 217
+Package pdftex.def Info: Diagrams/design-alternative.pdf used on input line 215
 .
 (pdftex.def)             Requested size: 345.0pt x 161.34541pt.
 
-Overfull \hbox (42.50269pt too wide) in paragraph at lines 226--228
+Overfull \hbox (42.50269pt too wide) in paragraph at lines 224--226
 []\OT1/cmr/m/n/10 Een al-ter-natief zou zijn om een manier te im-ple-menteren o
 m de [][][]
  []
 
 [4 <./Diagrams/design-alternative.pdf>]
-Overfull \hbox (2.44507pt too wide) in paragraph at lines 270--272
+Overfull \hbox (2.44507pt too wide) in paragraph at lines 268--270
 \OT1/cmr/m/n/10 500.000 ge-bruik-ers nu ook in de cloud draaien, maar zon-der d
 e gebruikerinterface-
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 274--278
-
- []
-
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 280--281
-
+Overfull \hbox (9.49945pt too wide) in paragraph at lines 284--286
+\OT1/cmr/m/n/10 prob-leem op te lossen. Deze oploss-ing wordt be-noemd in [][]\
+OT1/cmr/bx/n/10 Eis 7[][] \OT1/cmr/m/n/10 en ge^^?^^Pmplementeerd
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 286.
+(Font)              <7> on input line 291.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 286.
+(Font)              <5> on input line 291.
 
-Overfull \hbox (68.80331pt too wide) in paragraph at lines 286--288
+Overfull \hbox (68.80331pt too wide) in paragraph at lines 291--293
 []\OT1/cmr/m/n/10 Java en L[]T[]X code: [][]github.com/DanielSchiavini/design-p
 atterns-assignment/tree/master[][] 
  []
 
 
-Overfull \hbox (10.27853pt too wide) in paragraph at lines 288--290
+Overfull \hbox (10.27853pt too wide) in paragraph at lines 293--295
 []\OT1/cmr/m/n/10 Aanpassingen op Jab-ber-point: [][]github.com/DanielSchiavini
 /design-patterns-
  []
 
 
-Overfull \hbox (76.43134pt too wide) in paragraph at lines 290--292
+Overfull \hbox (76.43134pt too wide) in paragraph at lines 295--297
 []\OT1/cmr/m/n/10 Gegenereerde be-standen: [][]github.com/DanielSchiavini/desig
 n-patterns-assignment/tree/gh-
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 300.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 305.
 [6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 300.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 305.
  (../output/final-assignment-report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 300.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 300.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 305.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 305.
 Package rerunfilecheck Info: File `final-assignment-report.out' has not changed
 .
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 300.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 305.
  ) 
 Here is how much of TeX's memory you used:
  7822 strings out of 493029
- 109832 string characters out of 6136234
+ 109828 string characters out of 6136234
  223143 words of memory out of 5000000
  11248 multiletter control sequences out of 15000+600000
  5803 words of font info for 21 fonts, out of 8000000 for 9000
@@ -742,11 +733,11 @@ texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive
 ist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmti10.pfb>
-Output written on ../output/final-assignment-report.pdf (6 pages, 472095 bytes)
+Output written on ../output/final-assignment-report.pdf (6 pages, 468049 bytes)
 .
 PDF statistics:
- 181 PDF objects out of 1000 (max. 8388607)
- 162 compressed objects within 2 object streams
+ 184 PDF objects out of 1000 (max. 8388607)
+ 165 compressed objects within 2 object streams
  47 named destinations out of 1000 (max. 500000)
  99 words of extra memory for PDF output out of 10000 (max. 10000000)
 
