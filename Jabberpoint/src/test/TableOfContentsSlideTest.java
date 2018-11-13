@@ -36,15 +36,15 @@ public class TableOfContentsSlideTest {
 		assertEquals(3, slideItems.size());
 
 		TextItem item = (TextItem)slideItems.elementAt(0);
-		assertEquals("JabberPoint", item.getText());
+		assertEquals("1) JabberPoint", item.getText());
 		assertEquals(1, item.getLevel());
 
 		item = (TextItem)slideItems.elementAt(1);
-		assertEquals("Demonstratie van levels en stijlen", item.getText());
+		assertEquals("2) Demonstratie van levels en stijlen", item.getText());
 		assertEquals(2, item.getLevel());
 
 		item = (TextItem)slideItems.elementAt(2);
-		assertEquals("De derde slide", item.getText());
+		assertEquals("3) De derde slide", item.getText());
 		assertEquals(2, item.getLevel());
 	}
 
@@ -56,15 +56,15 @@ public class TableOfContentsSlideTest {
 		assertEquals(3, slideItems.size());
 
 		TextItem item = (TextItem)slideItems.elementAt(0);
-		assertEquals("JabberPoint", item.getText());
+		assertEquals("1) JabberPoint", item.getText());
 		assertEquals(2, item.getLevel());
 
 		item = (TextItem)slideItems.elementAt(1);
-		assertEquals("Demonstratie van levels en stijlen", item.getText());
+		assertEquals("2) Demonstratie van levels en stijlen", item.getText());
 		assertEquals(2, item.getLevel());
 
 		item = (TextItem)slideItems.elementAt(2);
-		assertEquals("De derde slide", item.getText());
+		assertEquals("3) De derde slide", item.getText());
 		assertEquals(1, item.getLevel());
 	}
 

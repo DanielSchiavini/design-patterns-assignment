@@ -64,6 +64,7 @@ public class TableOfContentsSlide extends Slide {
 
 		// go through all the slides in the presentation
 		int slideCount = this.presentation.getSize();
+		int subjectNumber = 1;
 		for (int i = 0; i < slideCount; ++i) {
 			Slide slide = this.presentation.getSlide(i);
 			if (slide instanceof TableOfContentsSlide) {
@@ -82,8 +83,9 @@ public class TableOfContentsSlide extends Slide {
 			if (subject != lastSubject) {
 				// the subject changed, let's add it to the slide items.
 				int level = isCurrent ? 1 : 2;
-				append(level, subject);
+				append(level, String.format("%d) %s", subjectNumber, subject));
 				lastSubject = subject;
+				subjectNumber += 1;
 				isCurrent = false;
 			}
 		}
