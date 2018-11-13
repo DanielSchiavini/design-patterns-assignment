@@ -126,8 +126,6 @@
         \requirement{stijl}{De stijl van de inhoudsopgave is vrij te bepalen.}
     \end{itemize}
 
-    \todo{PR voor \reqref{volgnummers} en \reqref{onderwerpen}.}
-
     De opdracht om een inhoudsopgave te implementeren in Jabberpoint is best interessant.
     Om een inhoudsopgave te tonen, is kennis nodig van de hele presentatie.
     Een verandering in elke slide kan invloed hebben op alle inhoudsopgaven.
@@ -277,10 +275,14 @@
     Deze aanpassing is geïmplementeerd in \PR{21}.
     
     \question{Moet een inhoudsopgave een andere stijl krijgen?}
-    De standaard stijl van de inhoudsopgave is niet optimaal.
-    Het is niet helemaal duidelijk dat het om een lijst van onderwerpen gaat.
+    De standaard stijl van de inhoudsopgave is niet optimaal, alhoewel \reqref{stijl} expliciet aangeeft dat stijlen vrij te bepalen zijn.
+    Het is echter niet helemaal duidelijk dat het om een lijst van onderwerpen gaat.
+    
     Door een icoontje toe te voegen aan elke item en steeds dezelfde indentatie te gebruiken, kan dit verbeterd worden.
     Deze verbetering is doorgevoerd in \PR{22}.
+    
+    Anderzijds kunnen we volgnummers toevoegen aan elke item om hetzelfde probleem op te lossen.
+    Deze oplossing wordt benoemd in \reqref{volgnummers} en geïmplementeerd in \PR{23}.
 
 \section{Sourcecode}
 In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
