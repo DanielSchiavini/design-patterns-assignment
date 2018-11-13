@@ -9,9 +9,6 @@ import java.awt.image.ImageObserver;
  */
 public class TableOfContentsSlide extends Slide {
 
-	// title to be used if no title was given.
-	private static String DEFAULT_TITLE = "Inhoudsopgave";
-	
 	// A reference to the presentation
 	private Presentation presentation;
 
@@ -21,9 +18,8 @@ public class TableOfContentsSlide extends Slide {
 	 * @param title - The title of the slide.
 	 */
 	public TableOfContentsSlide(Presentation presentation, String title) {
-		super();
+		this(presentation);
 		setTitle(title);
-		this.presentation = presentation;
 	}
 
 	/**
@@ -31,26 +27,17 @@ public class TableOfContentsSlide extends Slide {
 	 * @param presentation - A reference to the presentation.
 	 */
 	public TableOfContentsSlide(Presentation presentation) {
-		this(presentation, DEFAULT_TITLE);
+		super();
+		this.presentation = presentation;
 	}
 
-	/**
-	 * Sets the title of the slide.
-	 */
-	public void setTitle(String newTitle) {
-		if (newTitle == null || newTitle.isEmpty()) {
-			newTitle = DEFAULT_TITLE;
-		}
-		super.setTitle(newTitle);
-	}
-	
 	/**
 	 * Gets the subject of this slide. Note that tables of contents may not have a subject.
 	 */
 	public String getSubject() {
 		return null;
 	}
-	
+
 	/**
 	 * Re-generates the table of contents.
 	 */
@@ -88,7 +75,7 @@ public class TableOfContentsSlide extends Slide {
 			}
 		}
 	}
-	
+
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		// The table of contents must be automatically re-generated whenever slides change.
 		// Since we do not have a mechanism to know when that happens, we re-generate in every draw.
