@@ -126,8 +126,6 @@
         \requirement{stijl}{De stijl van de inhoudsopgave is vrij te bepalen.}
     \end{itemize}
 
-    \todo{PR voor \reqref{volgnummers} en \reqref{onderwerpen}.}
-
     De opdracht om een inhoudsopgave te implementeren in Jabberpoint is best interessant.
     Om een inhoudsopgave te tonen, is kennis nodig van de hele presentatie.
     Een verandering in elke slide kan invloed hebben op alle inhoudsopgaven.
@@ -224,7 +222,7 @@
     In het gepresenteerde ontwerp wordt de slide opnieuw gegenereerd in elke \code{draw}.
     
     Een alternatief zou zijn om een manier te implementeren om de \code{TableOfContentsSlide} te laten weten als iets verandert.
-    Bijvoorbeeld de observable pattern zou hier gebruikt kunnen worden.
+    Bijvoorbeeld het observable patroon zou hier gebruikt kunnen worden.
     
     Dat is echter niet nodig, de generatie is redelijk efficiënt, immers \code{draw} wordt alleen aangeroepen als de slide zichtbaar komt.
     \code{SlideViewerComponent} roept namelijk \code{repaint} aan wanneer de slide op het scherm komt.
@@ -254,14 +252,14 @@
     
     De keuze om de onderwerpenlijst in de inhoudsopgave te implementeren geeft dus een betere inkapseling.
 
-    \question{UI-domein vermengeling}
+    \question{UI-domein vermenging}
     Het feite dat slides en slide-items verantwoordelijk zijn om zichzelf te tekenen heeft wel voordelen.
     Dit volgt het principe van inkapseling, immers alleen de klassen zelf weten hoe ze eruit moeten zien.
 
     Echter het testen en uitbreiden van de software wordt heel lastig.
     Zodra gegevens gekoppeld worden aan presentatie kunnen we moeilijk de gegevens ergens anders vandaan halen.
     Integreren van een database of een API wordt dan lastig.
-    Bovendien kunnen we de gegevens moelijk in andere omgevingen laten zien.
+    Bovendien kunnen we de gegevens moeilijk in andere omgevingen laten zien.
     
     Deze veel voorkomende fout zien we vaak, zeker in grote projecten.
     De aanname dat het een desktop-applicatie betreft wordt verspreid door de code, testen en uitbreiden kost steeds meer moeite.
@@ -272,12 +270,19 @@
 
     \question{Moet een inhoudsopgave verplicht een titel hebben?}
     In de opdracht wordt niet benoemd of elke inhoudsopgave verplicht een titel moet krijgen.
-    Eerst heb ik een versie van de applicatie gemaakt die een standaard-titel gaf ("inhoudsopgave") als er geen titel was gegeven.
-    Echter aangezien alle slides een titel nodig hebben, is dit later verwijderd en de titel is weer verplicht.
-    \todo{PR maken?}
+    De opgeleverde versie van de applicatie geeft een standaard-titel ("inhoudsopgave") als er geen titel wordt gegeven.
+    Echter aangezien alle slides een titel nodig hebben, is het niet raar om de titel van de inhoudsopgave ook verplicht te maken.
+    Deze aanpassing is geïmplementeerd in \PR{21}.
     
     \question{Moet een inhoudsopgave een andere stijl krijgen?}
-    \todo{PR maken?}
+    De standaard stijl van de inhoudsopgave is niet optimaal, alhoewel \reqref{stijl} expliciet aangeeft dat stijlen vrij te bepalen zijn.
+    Het is echter niet helemaal duidelijk dat het om een lijst van onderwerpen gaat.
+    
+    Door een icoontje toe te voegen aan elke item en steeds dezelfde indentatie te gebruiken, kan dit verbeterd worden.
+    Deze verbetering is doorgevoerd in \PR{22}.
+    
+    Anderzijds kunnen we volgnummers toevoegen aan elke item om hetzelfde probleem op te lossen.
+    Deze oplossing wordt benoemd in \reqref{volgnummers} en geïmplementeerd in \PR{23}.
 
 \section{Sourcecode}
 In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
