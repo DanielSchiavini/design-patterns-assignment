@@ -126,7 +126,7 @@
         \requirement{stijl}{De stijl van de inhoudsopgave is vrij te bepalen.}
     \end{itemize}
 
-    \todo{Create PR for \reqref{volgnummers} and \reqref{onderwerpen}.}
+    \todo{PR voor \reqref{volgnummers} en \reqref{onderwerpen}.}
 
     De opdracht om een inhoudsopgave te implementeren in Jabberpoint is best interessant.
     Om een inhoudsopgave te tonen, is kennis nodig van de hele presentatie.
@@ -146,8 +146,6 @@
     Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
 
     De aangepaste klassendiagram wordt in figuur~\ref{fig:design} getoond.
-    \todo{Add presentation attribute to TableOfContents}
-
     \begin{figure}[!htb]
      \caption{
         Klassendiagram voor de domein-objecten.\label{fig:design}
@@ -210,7 +208,15 @@
     Dit ontwerp is een geldig alternatief maar er staan niet veel voordelen tegenover de toegenomen complexiteit.
     De software wordt immers ingewikkelder en er moeten extra \textit{casts} worden uitgevoerd (\textit{code smells}).
 
-    \todo{Add diagram}
+    De alternatieve klassendiagram wordt in figuur~\ref{fig:design-alternative} getoond.
+    \begin{figure}[!htb]
+     \caption{
+        Alternatieve klassendiagram voor de domein-objecten.\label{fig:design-alternative}
+        Sterren geven de nieuwe klasse en methoden aan.
+     }
+     \centering \includegraphics[width=\textwidth]{Diagrams/design-alternative.pdf}
+    \end{figure}
+
 
     \question{Wanneer items genereren}
     De table of contents is in feite een slide met een inhoud die gegenereerd wordt.
@@ -268,15 +274,17 @@
     In de opdracht wordt niet benoemd of elke inhoudsopgave verplicht een titel moet krijgen.
     Eerst heb ik een versie van de applicatie gemaakt die een standaard-titel gaf ("inhoudsopgave") als er geen titel was gegeven.
     Echter aangezien alle slides een titel nodig hebben, is dit later verwijderd en de titel is weer verplicht.
-
-    \todo{make PR}
+    \todo{PR maken?}
+    
+    \question{Moet een inhoudsopgave een andere stijl krijgen?}
+    \todo{PR maken?}
 
 \section{Sourcecode}
 In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
 Alle links betreffen zowel Jabberpoint als dit rapport.
 \begin{itemize}
     \item Java en \LaTeX ~code:
-        \repolink{}
+        \repolink{tree/master}
     \item Aanpassingen op Jabberpoint:
         \repolink{compare/v0.0.1...master}.
     \item Gegenereerde bestanden:
