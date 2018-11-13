@@ -47,7 +47,7 @@ public class TableOfContentsSlide extends Slide {
 	/**
 	 * Re-generates the table of contents.
 	 */
-	public void draw(Graphics g, Rectangle area, ImageObserver view) {
+	public ContentSlide generate() {
 		// keep track of the last subject so we don't repeat it
 		String lastSubject = "";
 		// the current subject gets a special style (i.e. the subject after the table of contents)
@@ -80,7 +80,13 @@ public class TableOfContentsSlide extends Slide {
 				}
 			}
 		}
-		
-		content.draw(g, area, view);
+		return content;
+	}
+
+	/**
+	 * Draws the table of contents
+	 */
+	public void draw(Graphics g, Rectangle area, ImageObserver view) {
+		generate().draw(g, area, view);
 	}
 }

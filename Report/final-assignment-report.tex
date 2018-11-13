@@ -39,7 +39,19 @@
 % TODO command
 \newcommand{\todo}[1]{\textcolor{red}{[#1]}\\}
 
-% New custom label command
+% PR command, based on https://tex.stackexchange.com/a/35314/59718
+\makeatletter
+\newcommand*{\repo}{\begingroup\@makeother\#\@repo}
+\newcommand*{\@repo}[2]{%
+  \href{https://github.com/DanielSchiavini/design-patterns-assignment/#1}{#2}%
+  \endgroup}
+\makeatother
+
+\newcommand{\PR}[1]{\repo{pull/#1}{PR\##1}}
+\newcommand{\repolink}[1]{\repo{#1}{github.com/DanielSchiavini/design-patterns-assignment/#1}}
+\newcommand{\cilink}[1]{\href{https://travis-ci.com/DanielSchiavini/design-patterns-assignment/#1}{travis-ci.com/DanielSchiavini/design-patterns-assignment/#1}}
+
+% New custom label command used for requirements, based on https://tex.stackexchange.com/a/18192/59718
 \makeatletter
 \newcommand{\customlabel}[2]{%
    \protected@write \@auxout {}{\string \newlabel {#1}{{#2}{\thepage}{#2}{#1}{}} }%
@@ -75,7 +87,7 @@
 \section*{Studentgegevens}
     \begin{description}
         \item [Cursuscode] IM0102
-        \item Jabberpoint Inhoudsopgave
+        \item [Opdracht] Jabberpoint Inhoudsopgave
         \item [Naam] Daniel S. C. Schiavini
         \item [Studentnummer] 851102873
     \end{description}
@@ -85,15 +97,18 @@
     Echter, er was geen andere student beschikbaar met een vergelijkbare tempo.
     Daardoor heb ik deze opdracht alleen uitgevoerd.
 
-    Voordat ik wist dat ik de opdracht alleen mag uitvoeren, heb ik een Git repository gemaakt.
+    Voordat ik wist dat ik de opdracht alleen mag uitvoeren, had ik al een Git repository gemaakt.
     Ik heb de repository zo geconfigureerd dat dit document automatisch wordt gebouwd door het gebruik van TravisCI.
     Zodra een nieuwe versie van het rapport naar GitHub wordt gepushed, draait een script dat het PDF-bestand maakt.
     Het script bouwt ook Jabberpoint, draait unit tests, en als alles gelukt is wordt ook een JAR-bestand gemaakt.
     In de master branch hangt een deployment vast dat het PDF en JAR naar \href{https://github.com/DanielSchiavini/design-patterns-assignment/tree/gh-pages}{GitHub pages} publiceert.
+    Deze automatisering is iets minder nodig zonder team, maar het is nog steeds wel nuttig.
 
-    Jabberpoint had nog geen geautomatiseerde tests ingebouwd, en omdat ik dat belangrijk vind, heb ik van tevoren JUnit tests geschreven.
-    Echter niet alle klassen waren testbaar - TravisCI draait in een Linux-container waarin de Graphic Java-klassen niet gecreëerd kunnen worden.
+    Jabberpoint had nog geen geautomatiseerde tests en omdat ik dat belangrijk vind, heb ik van tevoren JUnit tests geschreven (zie \PR{5}, \PR{9} en \PR{10}).
+    Echter niet alle klassen waren testbaar -- TravisCI draait in een Linux-container waarin de Graphic Java-klassen niet gecreëerd kunnen worden.
     Ik had niet genoeg tijd had om dit probleem op te lossen, daarom heb ik alleen tests geschreven voor de domein- en accessor-klassen.
+
+    Het schrijven van de tests was een goede hulpmiddel om Jabberpoint te leren kennen en om het probleemanalyse van de volgende sectie uit te voeren.
 
 \section{Probleemanalyse}
     \label{sec:probleemanalyse}
@@ -111,8 +126,10 @@
         \requirement{stijl}{De stijl van de inhoudsopgave is vrij te bepalen.}
     \end{itemize}
 
+    \todo{PR voor \reqref{volgnummers} en \reqref{onderwerpen}.}
+
     De opdracht om een inhoudsopgave te implementeren in Jabberpoint is best interessant.
-    Om een inhoudsopgave te implementeren, is kennis nodig van de hele presentatie.
+    Om een inhoudsopgave te tonen, is kennis nodig van de hele presentatie.
     Een verandering in elke slide kan invloed hebben op alle inhoudsopgaven.
     Deze circulaire afhankelijkheid maakt de opdracht uitdagend.
 
@@ -124,7 +141,7 @@
     Het grootste verschil tussen de klassen is dat de inhoudsopgave kennis moet hebben van de hele presentatie.
     Daardoor krijgt een \code{TableOfContentsSlide} een referentie naar de presentatie in de constructor.
 
-    Zodra de inhoudsopgave getekend gaat worden, worden de presentatie onderwerpen gelezen en wordt een nieuwe lijst van sub-items gemaakt.
+    Zodra de inhoudsopgave getekend gaat worden, worden de presentatie onderwerpen gelezen en wordt een nieuwe lijst van slide-items gemaakt.
     Daartoe kunnen wij de bestaande methoden van de \code{Slide} klasse gebruiken.
     Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
 
@@ -143,28 +160,28 @@
     Accessor-klassen mogen zelf bepalen of er een referentie wordt opslagen naar een inhoudsopgave, of een lijst van de inhoud van de slides.
 
     Voor de implementatie van de \code{draw} methode was een manier nodig om alle eerdere slide-items te verwijderen.
-    Het is natuurlijk ook mogelijk om de \code{items} attribuut rechtstreeks te veranderen;
+    Het is natuurlijk ook mogelijk om de \code{items} attribuut rechtstreeks te veranderen (zelfs een super-klasse);
     maar het is in Java nooit verstandig om attributen van andere klassen te veranderen.
     Daarvoor komt een nieuwe \textbf{protected} methode \code{clear} in de slide.
     De attributen van \code{Slide} zijn \textbf{private} geworden.
 
     Het is verstandig om software te implementeren in de meest simpele manier, en dan itereren om deze te verbeteren.
     Daarom vind ik dat het bij de opdracht past om een aantal verbeteringen ook door te voeren.
-    Dit wordt verder uitgelegd in de volgende sectie.
+    Dit wordt verder uitgelegd in sectie~\ref{sec:keuzen}.
 
     \subsection{Traceerbaarheid van eisen}
         In deze sectie geef ik onderdelen van het ontwerp aan die verantwoordelijk zijn om de eisen (zie sectie~\ref{sec:probleemanalyse}) te realiseren.
         Dit geeft dus de relatie tussen probleemanalyse en ontwerp.
 
         \begin{itemize}
-            \item De \code{Accessor}-klassen zijn verantwoordelijk voor de volgende eisen: \reqref{toevoegen}.
+            \item De \code{Accessor}-klassen zijn verantwoordelijk voor \reqref{toevoegen}.
             \item De \code{TableOfContentsSlide} klasse is verantwoordelijk voor: \reqref{tonen}, \reqref{samenvoegen},
                 \reqref{updaten}, \reqref{titel}, \reqref{volgnummers}, \reqref{aanduiding} en \reqref{stijl}.
             \item De \code{Slide} klasse is verantwoordelijk voor: \reqref{onderwerpen}.
         \end{itemize}
 
 
-\section{Keuzen}
+\section{Keuzen}\label{sec:keuzen}
     Klasse \code{TableOfContentsSlide} is uiteraard verantwoordelijk voor het genereren van de inhoudsopgave.
     Daarbij hebben we de optie om de slide-items die al geïmplementeerd zijn te hergebruiken.
     Het is dus logisch om de software zo optimaal mogelijk te hergebruiken, en niet alleen de slide-items maar ook het tekenen van deze items.
@@ -185,10 +202,21 @@
     Als we echter denken aan wat voor andere soorten \code{Slide} er in de toekomst nog komen, is het aannemelijk dat deze ook in de inhoudsopgave moeten worden getoond.
     
     Een alternatief ontwerp is geïmplementeerd in \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/pull/17}{PR \#17}.
-    In deze PR is een extra klasse \code{ContentSlide} gemaakt die slide-items heeft.
+    In deze PR heeft \code{Slide} geen items meer, maar alleen een titel en \code{draw}.
+    Een extra klasse \code{ContentSlide} gemaakt die slide-items heeft.
     Hierin maakt de \code{TableOfContentsSlide} elke keer een nieuwe \code{ContentSlide}.
-    Dit ontwerp is een geldig alternatief maar er zijn niet veel voordelen.
-    De software wordt ingewikkelder en er moeten extra \textit{casts} worden uitgevoerd.
+    Dit ontwerp is een geldig alternatief maar er staan niet veel voordelen tegenover de toegenomen complexiteit.
+    De software wordt immers ingewikkelder en er moeten extra \textit{casts} worden uitgevoerd (\textit{code smells}).
+
+    De alternatieve klassendiagram wordt in figuur~\ref{fig:design-alternative} getoond.
+    \begin{figure}[!htb]
+     \caption{
+        Alternatieve klassendiagram voor de domein-objecten.\label{fig:design-alternative}
+        Sterren geven de nieuwe klasse en methoden aan.
+     }
+     \centering \includegraphics[width=\textwidth]{Diagrams/design-alternative.pdf}
+    \end{figure}
+
 
     \question{Wanneer items genereren}
     De table of contents is in feite een slide met een inhoud die gegenereerd wordt.
@@ -198,32 +226,75 @@
     Een alternatief zou zijn om een manier te implementeren om de \code{TableOfContentsSlide} te laten weten als iets verandert.
     Bijvoorbeeld de observable pattern zou hier gebruikt kunnen worden.
     
-    Dat is echter niet nodig, de generatie is redelijk efficiënt aangezien \code{draw} alleen wordt aangeroepen als de slide zichtbaar is.
-    \code{SlideViewerComponent} roept immers \code{repaint} alleen aan wanneer de slide op het scherm komt.
+    Dat is echter niet nodig, de generatie is redelijk efficiënt, immers \code{draw} wordt alleen aangeroepen als de slide zichtbaar komt.
+    \code{SlideViewerComponent} roept namelijk \code{repaint} aan wanneer de slide op het scherm komt.
     
-    \question{logic voor lezen van slides in presentatie?}
-    \question{toc te veel kennis van slide: misschien nieuwe slide maken en die laten tekenen? maar dan bij output heb je de items niet..}
-    \question{refactoring van UI-domein vermengeling}
-    \question{moet een inhoudsopgave verplicht een titel hebben?}
-    \question{layouts i.p.v. draw}
+    \question{Welke klasse is verantwoordelijk voor de onderwerpen?}
+    De inhoudsopgave moet toegang krijgen tot een lijst van onderwerpen in de presentatie.
+    In het ontwerp krijgt \code{TableOfContentsSlide} een referentie naar de presentatie, en is zelf verantwoordelijk om deze te lezen.
+    En alternatief hierop is om de presentatie verantwoordelijk te houden voor de onderwerpen in de slides.
+    \code{TableOfContentsSlide} zou dan een ontvangt dan een onderwerpen-lijst.
+
+    De voordelen zijn:
+    \begin{itemize}
+        \item De inhoudsopgave hoeft niets te weten van de presentaties.
+        \item De presentatie is verantwoordelijk om slides te lezen.
+        \item De circulaire referentie wordt opgeheven.
+        \item De lijst van onderwerpen kan tussen de verschillende inhoudsopgaven worden gedeeld.
+    \end{itemize}
+
+    De nadelen zijn:
+    \begin{itemize}
+        \item Er komt meer logica in de presentatie die alleen nodig is voor de inhoudsopgave.
+        \item De inhoudsopgaven moeten nog steeds alle items doorlopen om te bepalen welk onderwerp het volgende is.
+        \item De methoden die nodig zijn om het ontwerp te presenteren bestaan al in de presentatie.
+        \item Het is conceptueel correct om een circulaire referentie te hebben, immers een inhoudsopgave moet de presentatie lezen.
+        \item De presentatie klasse wordt nog complexer.
+    \end{itemize}
+    
+    De keuze om de onderwerpenlijst in de inhoudsopgave te implementeren geeft dus een betere inkapseling.
+
+    \question{UI-domein vermengeling}
+    Het feite dat slides en slide-items verantwoordelijk zijn om zichzelf te tekenen heeft wel voordelen.
+    Dit volgt het principe van inkapseling, immers alleen de klassen zelf weten hoe ze eruit moeten zien.
+
+    Echter het testen en uitbreiden van de software wordt heel lastig.
+    Zodra gegevens gekoppeld worden aan presentatie kunnen we moeilijk de gegevens ergens anders vandaan halen.
+    Integreren van een database of een API wordt dan lastig.
+    Bovendien kunnen we de gegevens moelijk in andere omgevingen laten zien.
+    
+    Deze veel voorkomende fout zien we vaak, zeker in grote projecten.
+    De aanname dat het een desktop-applicatie betreft wordt verspreid door de code, testen en uitbreiden kost steeds meer moeite.
+    Ik zou graag de gegevens willen scheiden van JWT-afhankelijkheden, maar dit is geen kleine opgave en valt buiten de scope van deze opdracht.
+
+    In een persoonlijke notitie, mijn huidige klant loopt tegen hetzelfde probleem aan in een veel grotere schaal.
+    Wij willen de logica van hun applicatie met 500.000 gebruikers nu ook in de cloud draaien, maar zonder de gebruikerinterface-afhankelijkheden gaat dit niet eenvoudig.
+
+    \question{Moet een inhoudsopgave verplicht een titel hebben?}
+    In de opdracht wordt niet benoemd of elke inhoudsopgave verplicht een titel moet krijgen.
+    Eerst heb ik een versie van de applicatie gemaakt die een standaard-titel gaf ("inhoudsopgave") als er geen titel was gegeven.
+    Echter aangezien alle slides een titel nodig hebben, is dit later verwijderd en de titel is weer verplicht.
+    \todo{PR maken?}
+    
+    \question{Moet een inhoudsopgave een andere stijl krijgen?}
+    \todo{PR maken?}
 
 \section{Sourcecode}
 In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
-Alle links hebben betreft zowel op Jabberpoint als voor dit rapport.
+Alle links betreffen zowel Jabberpoint als dit rapport.
 \begin{itemize}
     \item Java en \LaTeX ~code:
-        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment}{github.com/DanielSchiavini/design-patterns-assignment}.
+        \repolink{tree/master}
     \item Aanpassingen op Jabberpoint:
-        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/compare/v0.0.1...master}{%
-        github.com/DanielSchiavini/design-patterns-assignment/compare/v0.0.1...master}.
+        \repolink{compare/v0.0.1...master}.
     \item Gegenereerde bestanden:
-        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/tree/gh-pages}{github.com/DanielSchiavini/design-patterns-assignment/tree/gh-pages}
+        \repolink{tree/gh-pages}
     \item Laatste build-rapport van TravisCI:
-        \hyperlink{https://travis-ci.com/DanielSchiavini/design-patterns-assignment}{travis-ci.com/DanielSchiavini/design-patterns-assignment}
+        \cilink{}
     \item Rapporten van TravisCI:
-        \hyperlink{https://travis-ci.com/DanielSchiavini/design-patterns-assignment/builds}{travis-ci.com/DanielSchiavini/design-patterns-assignment/builds}
+        \cilink{builds}
     \item Optionele implementaties:
-        \hyperlink{https://github.com/DanielSchiavini/design-patterns-assignment/pulls}{github.com/DanielSchiavini/design-patterns-assignment/pulls}
+        \repolink{pulls}
 \end{itemize}
 
 \end{document}
