@@ -12,11 +12,12 @@ install:
 
 script:
   - ant test
-
-before_deploy:
-  - ant jar
   - cd ..
   - ./docker-latex.sh
+
+before_deploy:
+  - cd Jabberpoint
+  - ant jar
 
 deploy:
   local-dir: output
