@@ -4,9 +4,8 @@
 \BOOKMARK [1][-]{section.3}{Keuzen}{}% 4
 \BOOKMARK [2][-]{question:Hoe moet de Slide klasse-structuur eruit zien?.2}{Hoe moet de Slide klasse-structuur eruit zien?}{section.3}% 5
 \BOOKMARK [2][-]{question:Wanneer items genereren.2}{Wanneer items genereren}{section.3}% 6
-\BOOKMARK [2][-]{question:logic voor lezen van slides in presentatie?.2}{logic voor lezen van slides in presentatie?}{section.3}% 7
-\BOOKMARK [2][-]{question:toc te veel kennis van slide: misschien nieuwe slide maken en die laten tekenen? maar dan bij output heb je de items niet...2}{toc te veel kennis van slide: misschien nieuwe slide maken en die laten tekenen? maar dan bij output heb je de items niet..}{section.3}% 8
-\BOOKMARK [2][-]{question:refactoring van UI-domein vermengeling.2}{refactoring van UI-domein vermengeling}{section.3}% 9
-\BOOKMARK [2][-]{question:moet een inhoudsopgave verplicht een titel hebben?.2}{moet een inhoudsopgave verplicht een titel hebben?}{section.3}% 10
-\BOOKMARK [2][-]{question:layouts i.p.v. draw.2}{layouts i.p.v. draw}{section.3}% 11
-\BOOKMARK [1][-]{section.4}{Sourcecode}{}% 12
+\BOOKMARK [2][-]{question:Welke klasse is verantwoordelijk voor de onderwerpen?.2}{Welke klasse is verantwoordelijk voor de onderwerpen?}{section.3}% 7
+\BOOKMARK [2][-]{question:UI-domein vermengeling.2}{UI-domein vermengeling}{section.3}% 8
+\BOOKMARK [2][-]{question:Moet een inhoudsopgave verplicht een titel hebben?.2}{Moet een inhoudsopgave verplicht een titel hebben?}{section.3}% 9
+\BOOKMARK [2][-]{question:Moet een inhoudsopgave een andere stijl krijgen?.2}{Moet een inhoudsopgave een andere stijl krijgen?}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{Sourcecode}{}% 11
