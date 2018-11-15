@@ -71,7 +71,7 @@ public class TableOfContentsSlide extends Slide {
 					subject = customSlide.getTitle();
 				}
 	
-				if (subject != lastSubject) {
+			if (!subject.equals(lastSubject)) {
 					// the subject changed, let's add it to the slide items.
 					int level = isCurrent ? 1 : 2;
 					content.append(level, subject);
