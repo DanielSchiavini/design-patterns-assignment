@@ -73,7 +73,6 @@
 % questions
 \newcommand{\question}[1]{
   \subsection{#1}
-  \pdfbookmark[2]{#1}{question:#1}
 }
 
 % code in text
@@ -302,7 +301,7 @@
      \caption{
         Inhoudsopgave van de demo-presentatie in de style branch.\label{fig:style}
      }
-     \centering \includegraphics[width=\textwidth]{Screenshots/style.png}
+     \centering \includegraphics[width=0.9\textwidth]{Screenshots/style.png}
     \end{figure}
 
     Anderzijds kunnen we volgnummers toevoegen aan elke item om hetzelfde probleem op te lossen.
@@ -312,7 +311,7 @@
      \caption{
         Inhoudsopgave van de demo-presentatie in de numbers branch.\label{fig:numbers}
      }
-     \centering \includegraphics[width=\textwidth]{Screenshots/numbers.png}
+     \centering \includegraphics[width=0.9\textwidth]{Screenshots/numbers.png}
     \end{figure}
     
 \section{Sourcecode}
@@ -323,7 +322,7 @@ Alle links betreffen zowel Jabberpoint als dit rapport.
         \repolink{tree/master/Jabberpoint}\\
         De werking ervan wordt uitgelegd in sectie~\ref{sec:ontwerp}.
     \item \LaTeX ~code:
-        \repolink{tree/master/Report}
+        \repo{tree/master/Report}{github.com/DanielSchiavini/design-patterns-assignment/tree\-/master\-/Report}
     \item Aanpassingen op Jabberpoint:
         \repolink{compare/v0.0.1...master}.
     \item Gegenereerde bestanden:
