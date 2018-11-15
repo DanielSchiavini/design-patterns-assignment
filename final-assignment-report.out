@@ -3,15 +3,9 @@
 \BOOKMARK [2][-]{subsection.2.1}{Traceerbaarheid van eisen}{section.2}% 3
 \BOOKMARK [1][-]{section.3}{Keuzen}{}% 4
 \BOOKMARK [2][-]{subsection.3.1}{Hoe moet de Slide klasse-structuur eruit zien?}{section.3}% 5
-\BOOKMARK [2][-]{question:Hoe moet de Slide klasse-structuur eruit zien?.2}{Hoe moet de Slide klasse-structuur eruit zien?}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.2}{Wanneer moeten items worden gegenereerd?}{section.3}% 7
-\BOOKMARK [2][-]{question:Wanneer moeten items worden gegenereerd?.2}{Wanneer moeten items worden gegenereerd?}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.3}{Welke klasse is verantwoordelijk voor onderwerpen?}{section.3}% 9
-\BOOKMARK [2][-]{question:Welke klasse is verantwoordelijk voor onderwerpen?.2}{Welke klasse is verantwoordelijk voor onderwerpen?}{section.3}% 10
-\BOOKMARK [2][-]{subsection.3.4}{Moeten UI- en domeinobjecten worden gesplitst?}{section.3}% 11
-\BOOKMARK [2][-]{question:Moeten UI- en domeinobjecten worden gesplitst?.2}{Moeten UI- en domeinobjecten worden gesplitst?}{section.3}% 12
-\BOOKMARK [2][-]{subsection.3.5}{Moet een inhoudsopgave verplicht een titel hebben?}{section.3}% 13
-\BOOKMARK [2][-]{question:Moet een inhoudsopgave verplicht een titel hebben?.2}{Moet een inhoudsopgave verplicht een titel hebben?}{section.3}% 14
-\BOOKMARK [2][-]{subsection.3.6}{Moet een inhoudsopgave een andere stijl krijgen?}{section.3}% 15
-\BOOKMARK [2][-]{question:Moet een inhoudsopgave een andere stijl krijgen?.2}{Moet een inhoudsopgave een andere stijl krijgen?}{section.3}% 16
-\BOOKMARK [1][-]{section.4}{Sourcecode}{}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Wanneer moeten items worden gegenereerd?}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.3}{Welke klasse is verantwoordelijk voor onderwerpen?}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.4}{Moeten UI- en domeinobjecten worden gesplitst?}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.5}{Moet een inhoudsopgave verplicht een titel hebben?}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.6}{Moet een inhoudsopgave een andere stijl krijgen?}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{Sourcecode}{}% 11
