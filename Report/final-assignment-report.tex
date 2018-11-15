@@ -1,7 +1,7 @@
 \documentclass[a4paper]{article}
 
 \usepackage{xcolor}
-\usepackage{fancyheadings}
+\usepackage{fancyhdr}
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage[section]{placeins}
@@ -36,6 +36,9 @@
   stringstyle=\color{mymauve}      % string literal style
 }
 
+% Translate figure names
+\renewcommand{\figurename}{Figuur}
+
 % TODO command
 \newcommand{\todo}[1]{\textcolor{red}{[#1]}\\}
 
@@ -48,7 +51,7 @@
 \makeatother
 
 \newcommand{\PR}[1]{\repo{pull/#1}{PR\##1}}
-\newcommand{\repolink}[1]{\repo{#1}{github.com\-/Daniel\-Schiavini\-/design-\-patterns-\-assignment\-/#1}}
+\newcommand{\repolink}[1]{\repo{#1}{github.com\-/Daniel\-Schiavini\-/de\-sign-\-pat\-terns-\-as\-sign\-ment\-/#1}}
 \newcommand{\cilink}[1]{\href{https://travis-ci.com/DanielSchiavini/design-patterns-assignment/#1}{travis-ci.com/DanielSchiavini/design-patterns-assignment/#1}}
 
 % New custom label command used for requirements, based on https://tex.stackexchange.com/a/18192/59718
@@ -176,10 +179,10 @@
     Daarom vind ik dat het bij de opdracht past om een aantal verbeteringen ook door te voeren.
     Dit wordt verder uitgelegd in sectie~\ref{sec:keuzen}.
 
-    Een screenshot van de inhoudsopgave van de test-presentatie wordt in figuur~\ref{fig:master} getoond.
+    Een screenshot van de inhoudsopgave van de demo-presentatie wordt in figuur~\ref{fig:master} getoond.
     \begin{figure}[!htb]
      \caption{
-        Inhoudsopgave van de test-presentatie in de master branch.\label{fig:master}
+        Inhoudsopgave van de demo-presentatie in de master branch.\label{fig:master}
      }
      \centering \includegraphics[width=\textwidth]{Screenshots/master.png}
     \end{figure}
@@ -280,7 +283,7 @@
     Ik zou graag de gegevens willen scheiden van JWT-afhankelijkheden, maar dit is geen kleine opgave en valt buiten de scope van deze opdracht.
 
     In een persoonlijke notitie, mijn huidige klant loopt tegen hetzelfde pro\-bleem aan in een veel grotere schaal.
-    Wij willen de logica van hun applicatie met 500.000 gebruikers nu ook in de cloud draaien, maar zonder de gebruikerinterface-afhankelijkheden gaat dit niet eenvoudig.
+    Wij willen de logica van hun applicatie met 500.000 gebruikers nu ook in de cloud draaien, maar zonder de ge\-bruik\-ers\-inter\-face-afhankelijkheden gaat dit niet eenvoudig.
 
     \question{Moet een inhoudsopgave verplicht een titel hebben?}
     In de opdracht wordt niet benoemd of elke inhoudsopgave verplicht een titel moet krijgen.
@@ -294,22 +297,20 @@
     
     Door een icoontje toe te voegen aan elke item en steeds dezelfde indentatie te gebruiken, kan dit verbeterd worden.
     Deze verbetering is doorgevoerd in \PR{22}.
-    
     Een screenshot van de inhoudsopgave met deze stijl wordt in figuur~\ref{fig:style} getoond.
     \begin{figure}[!htb]
      \caption{
-        Inhoudsopgave van de test-presentatie in de style branch.\label{fig:style}
+        Inhoudsopgave van de demo-presentatie in de style branch.\label{fig:style}
      }
      \centering \includegraphics[width=\textwidth]{Screenshots/style.png}
     \end{figure}
 
     Anderzijds kunnen we volgnummers toevoegen aan elke item om hetzelfde probleem op te lossen.
     Deze oplossing wordt benoemd in \reqref{volgnummers} en ge\-ïmple\-men\-teerd in \PR{23}.
-    
     Een screenshot van de inhoudsopgave met deze stijl wordt in figuur~\ref{fig:numbers} getoond.
     \begin{figure}[!htb]
      \caption{
-        Inhoudsopgave van de test-presentatie in de numbers branch.\label{fig:numbers}
+        Inhoudsopgave van de demo-presentatie in de numbers branch.\label{fig:numbers}
      }
      \centering \includegraphics[width=\textwidth]{Screenshots/numbers.png}
     \end{figure}
@@ -321,7 +322,7 @@ Alle links betreffen zowel Jabberpoint als dit rapport.
     \item Jabberpoint code:
         \repolink{tree/master/Jabberpoint}\\
         De werking ervan wordt uitgelegd in sectie~\ref{sec:ontwerp}.
-    \item \LaTeX ~code:\\
+    \item \LaTeX ~code:
         \repolink{tree/master/Report}
     \item Aanpassingen op Jabberpoint:
         \repolink{compare/v0.0.1...master}.
