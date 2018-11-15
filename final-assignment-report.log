@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.22)  13 NOV 2018 21:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.22)  15 NOV 2018 14:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -52,22 +52,6 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyheadings.sty
-Package: fancyheadings 2008/02/04 1.99 Dummy package to call fancyhdr
-
-
-Package fancyheadings Warning: Please stop using fancyheadings!
-(fancyheadings)                Use fancyhdr instead.
-(fancyheadings)                We will call fancyhdr with the very same
-(fancyheadings)                options you passed to fancyheadings.
-(fancyheadings)                
-(fancyheadings)                fancyhdr is 99 percent compatible with
-(fancyheadings)                fancyheadings. The only incompatibility is
-(fancyheadings)                that \headrulewidth and \footrulewidth and
-(fancyheadings)                their \plain... versions are no longer length
-(fancyheadings)                parameters, but normal macros (to be changed
-(fancyheadings)                with \renewcommand rather than \setlength)..
-
 (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 \fancy@headwidth=\skip43
 \f@ncyO@elh=\skip44
@@ -78,7 +62,7 @@ Package fancyheadings Warning: Please stop using fancyheadings!
 \f@ncyO@erf=\skip49
 \f@ncyO@olf=\skip50
 \f@ncyO@orf=\skip51
-))
+)
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
@@ -565,20 +549,20 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 (../output/final-assignment-report.aux)
 \openout1 = `final-assignment-report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -611,7 +595,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring ON on input line 84.
+Package hyperref Info: Link coloring ON on input line 87.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -621,107 +605,101 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count114
 )
-LaTeX Info: Redefining \ref on input line 84.
-LaTeX Info: Redefining \pageref on input line 84.
-LaTeX Info: Redefining \nameref on input line 84.
+LaTeX Info: Redefining \ref on input line 87.
+LaTeX Info: Redefining \pageref on input line 87.
+LaTeX Info: Redefining \nameref on input line 87.
 
 (../output/final-assignment-report.out) (../output/final-assignment-report.out)
 \@outlinefile=\write3
 \openout3 = `final-assignment-report.out'.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 118.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 124.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 118.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 124.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-Overfull \hbox (22.05617pt too wide) in paragraph at lines 135--138
-\OT1/cmr/m/n/10 Het on-der-w-erp zoals ge^^?^^Pmplementeerd ve-ran-dert weinig 
-van het orig-inele Jabberpoint-
- []
-
-<Diagrams/design.pdf, id=74, 782.925pt x 459.7175pt>
+<Diagrams/design.pdf, id=99, 782.925pt x 459.7175pt>
 File: Diagrams/design.pdf Graphic file (type pdf)
  <use Diagrams/design.pdf>
-Package pdftex.def Info: Diagrams/design.pdf used on input line 152.
+Package pdftex.def Info: Diagrams/design.pdf used on input line 164.
 (pdftex.def)             Requested size: 345.0pt x 202.57796pt.
 
-[2] [3 <./Diagrams/design.pdf>]
-Overfull \hbox (16.78789pt too wide) in paragraph at lines 202--208
-[][][] \OT1/cmr/m/n/10 geen items meer, maar alleen een ti-tel en [][][]. Een e
-x-tra klasse [][][]
- []
+[2] <Screenshots/master.png, id=118, 903.375pt x 602.25pt>
+File: Screenshots/master.png Graphic file (type png)
 
-<Diagrams/design-alternative.pdf, id=109, 869.2475pt x 406.51875pt>
+<use Screenshots/master.png>
+Package pdftex.def Info: Screenshots/master.png used on input line 187.
+(pdftex.def)             Requested size: 345.0pt x 230.00607pt.
+ [3 <./Diagrams/design.pdf>]
+<Diagrams/design-alternative.pdf, id=137, 869.2475pt x 406.51875pt>
 File: Diagrams/design-alternative.pdf Graphic file (type pdf)
 
 <use Diagrams/design-alternative.pdf>
-Package pdftex.def Info: Diagrams/design-alternative.pdf used on input line 215
+Package pdftex.def Info: Diagrams/design-alternative.pdf used on input line 230
 .
 (pdftex.def)             Requested size: 345.0pt x 161.34541pt.
+ [4 <./Screenshots/master.png (PNG copy)>] [5 <./Diagrams/design-alternative.pd
+f>]
+<Screenshots/style.png, id=156, 903.375pt x 602.25pt>
+File: Screenshots/style.png Graphic file (type png)
 
-Overfull \hbox (42.50269pt too wide) in paragraph at lines 224--226
-[]\OT1/cmr/m/n/10 Een al-ter-natief zou zijn om een manier te im-ple-menteren o
-m de [][][]
- []
+<use Screenshots/style.png>
+Package pdftex.def Info: Screenshots/style.png used on input line 305.
+(pdftex.def)             Requested size: 345.0pt x 230.00607pt.
+ [6]
+<Screenshots/numbers.png, id=164, 903.375pt x 602.25pt>
+File: Screenshots/numbers.png Graphic file (type png)
 
-[4 <./Diagrams/design-alternative.pdf>]
-Overfull \hbox (2.44507pt too wide) in paragraph at lines 268--270
-\OT1/cmr/m/n/10 500.000 ge-bruik-ers nu ook in de cloud draaien, maar zon-der d
-e gebruikerinterface-
- []
-
-[5]
-Overfull \hbox (9.49945pt too wide) in paragraph at lines 284--286
-\OT1/cmr/m/n/10 prob-leem op te lossen. Deze oploss-ing wordt be-noemd in [][]\
-OT1/cmr/bx/n/10 Eis 7[][] \OT1/cmr/m/n/10 en ge^^?^^Pmplementeerd
+<use Screenshots/numbers.png>
+Package pdftex.def Info: Screenshots/numbers.png used on input line 315.
+(pdftex.def)             Requested size: 345.0pt x 230.00607pt.
+ [7 <./Screenshots/style.png (PNG copy)>]
+Overfull \hbox (8.88962pt too wide) in paragraph at lines 322--325
+[]\OT1/cmr/m/n/10 Jabberpoint code: [][]github.com-/Daniel-Schiavini-/de-sign--
+pat-terns--as-sign-ment-
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 291.
+(Font)              <7> on input line 325.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 291.
+(Font)              <5> on input line 325.
 
-Overfull \hbox (68.80331pt too wide) in paragraph at lines 291--293
-[]\OT1/cmr/m/n/10 Java en L[]T[]X code: [][]github.com/DanielSchiavini/design-p
-atterns-assignment/tree/master[][] 
+Overfull \hbox (70.22pt too wide) in paragraph at lines 325--327
+[]\OT1/cmr/m/n/10 L[]T[]X code: [][]github.com-/Daniel-Schiavini-/de-sign--pat-
+terns--as-sign-ment-/tree/master/Report[][] 
  []
 
 
-Overfull \hbox (10.27853pt too wide) in paragraph at lines 293--295
-[]\OT1/cmr/m/n/10 Aanpassingen op Jab-ber-point: [][]github.com/DanielSchiavini
-/design-patterns-
+Overfull \hbox (10.27853pt too wide) in paragraph at lines 327--329
+[]\OT1/cmr/m/n/10 Aanpassingen op Jab-ber-point: [][]github.com-/Daniel-Schiavi
+ni-/de-sign--pat-terns-
  []
 
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 339.
+[8 <./Screenshots/numbers.png (PNG copy)>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 339.
 
-Overfull \hbox (76.43134pt too wide) in paragraph at lines 295--297
-[]\OT1/cmr/m/n/10 Gegenereerde be-standen: [][]github.com/DanielSchiavini/desig
-n-patterns-assignment/tree/gh-
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 305.
-[6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 305.
- (../output/final-assignment-report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 305.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 305.
+(../output/final-assignment-report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 339.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 339.
 Package rerunfilecheck Info: File `final-assignment-report.out' has not changed
 .
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 305.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 339.
  ) 
 Here is how much of TeX's memory you used:
- 7822 strings out of 493029
- 109828 string characters out of 6136234
- 223143 words of memory out of 5000000
- 11248 multiletter control sequences out of 15000+600000
+ 7852 strings out of 493029
+ 110359 string characters out of 6136234
+ 223075 words of memory out of 5000000
+ 11271 multiletter control sequences out of 15000+600000
  5803 words of font info for 21 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 29i,11n,45p,265b,1173s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,12n,43p,257b,1173s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{https://github.com/DanielSchiavini/design-pattern
 s-assignment/pull/17} has been referenced but does not exist, replaced by a fix
 ed one
@@ -733,11 +711,11 @@ texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive
 ist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmti10.pfb>
-Output written on ../output/final-assignment-report.pdf (6 pages, 468049 bytes)
+Output written on ../output/final-assignment-report.pdf (8 pages, 510461 bytes)
 .
 PDF statistics:
- 184 PDF objects out of 1000 (max. 8388607)
- 165 compressed objects within 2 object streams
- 47 named destinations out of 1000 (max. 500000)
- 99 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 230 PDF objects out of 1000 (max. 8388607)
+ 205 compressed objects within 3 object streams
+ 52 named destinations out of 1000 (max. 500000)
+ 162 words of extra memory for PDF output out of 10000 (max. 10000000)
 
