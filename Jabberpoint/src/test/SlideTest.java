@@ -7,9 +7,9 @@ import java.util.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
-import jabberPoint.Slide;
-import jabberPoint.SlideItem;
-import jabberPoint.TextItem;
+import jabberPoint.model.Slide;
+import jabberPoint.model.SlideItem;
+import jabberPoint.model.TextItem;
 
 public class SlideTest {
 

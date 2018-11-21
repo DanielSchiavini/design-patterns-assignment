@@ -10,8 +10,8 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 
-import jabberPoint.Style;
-import jabberPoint.TextItem;
+import jabberPoint.model.Style;
+import jabberPoint.model.TextItem;
 
 public class TextItemTest {
 

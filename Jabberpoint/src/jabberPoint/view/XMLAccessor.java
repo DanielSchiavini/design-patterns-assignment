@@ -1,4 +1,4 @@
-package jabberPoint;
+package jabberPoint.view;
 import java.util.Vector;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +10,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
+
+import jabberPoint.model.BitmapItem;
+import jabberPoint.model.Presentation;
+import jabberPoint.model.Slide;
+import jabberPoint.model.SlideItem;
+import jabberPoint.model.TableOfContentsSlide;
+import jabberPoint.model.TextItem;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;

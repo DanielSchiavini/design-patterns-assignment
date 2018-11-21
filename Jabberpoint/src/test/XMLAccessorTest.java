@@ -11,8 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import jabberPoint.Presentation;
-import jabberPoint.XMLAccessor;
+import jabberPoint.model.Presentation;
+import jabberPoint.view.XMLAccessor;
 
 public class XMLAccessorTest {
 
@@ -38,7 +38,7 @@ public class XMLAccessorTest {
 		accessor.loadFile(presentation, "test.xml");
 		assertEquals(7, presentation.getSize());
 		assertEquals("XML-Based Presentation for Jabberpoint", presentation.getTitle());
-		assertEquals("jabberPoint.TableOfContentsSlide",
+		assertEquals("jabberPoint.model.TableOfContentsSlide",
 				presentation.getSlide(0).getClass().getName());
 		assertEquals("Een bijna lege slide", presentation.getSlide(2).getTitle());
 		assertEquals(null, presentation.getCurrentSlide());

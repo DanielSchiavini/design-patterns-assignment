@@ -1,8 +1,12 @@
-package jabberPoint;
+package jabberPoint.view;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
+
+import jabberPoint.controller.KeyController;
+import jabberPoint.controller.MenuController;
+import jabberPoint.model.Presentation;
 
 /**
  * <p>Het applicatiewindow voor een slideviewcomponent</p>

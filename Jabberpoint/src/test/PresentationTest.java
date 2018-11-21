@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import jabberPoint.Accessor;
-import jabberPoint.Presentation;
-import jabberPoint.Slide;
-import jabberPoint.Style;
+import jabberPoint.view.Accessor;
+import jabberPoint.model.Presentation;
+import jabberPoint.model.Slide;
+import jabberPoint.model.Style;
 
 public class PresentationTest {
 

@@ -7,11 +7,11 @@ import java.util.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
-import jabberPoint.TableOfContentsSlide;
-import jabberPoint.SlideItem;
-import jabberPoint.TextItem;
-import jabberPoint.Presentation;
-import jabberPoint.DemoPresentation;
+import jabberPoint.model.TableOfContentsSlide;
+import jabberPoint.model.SlideItem;
+import jabberPoint.model.TextItem;
+import jabberPoint.model.Presentation;
+import jabberPoint.model.DemoPresentation;
 
 public class TableOfContentsSlideTest {
 

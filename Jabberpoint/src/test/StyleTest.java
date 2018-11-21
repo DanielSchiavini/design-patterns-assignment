@@ -6,7 +6,7 @@ import java.awt.Font;
 
 import org.junit.Test;
 
-import jabberPoint.Style;
+import jabberPoint.model.Style;
 
 public class StyleTest {
 

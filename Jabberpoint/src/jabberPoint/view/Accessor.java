@@ -1,5 +1,8 @@
-package jabberPoint;
+package jabberPoint.view;
 import java.io.IOException;
+
+import jabberPoint.model.DemoPresentation;
+import jabberPoint.model.Presentation;
 
 /**
  * <p>Een Accessor maakt het mogelijk om gegevens voor een presentatie

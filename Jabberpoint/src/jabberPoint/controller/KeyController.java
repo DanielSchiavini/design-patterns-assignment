@@ -1,5 +1,8 @@
-package jabberPoint;
+package jabberPoint.controller;
 import java.awt.event.KeyEvent;
+
+import jabberPoint.model.Presentation;
+
 import java.awt.event.KeyAdapter;
 
 /** <p>This is the KeyController (KeyListener)</p>

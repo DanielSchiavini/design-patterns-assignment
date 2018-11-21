@@ -1,4 +1,4 @@
-package jabberPoint;
+package jabberPoint.model;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
