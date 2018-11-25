@@ -1,4 +1,4 @@
-package jabberPoint.view;
+package jabberPoint.model;
 import java.util.Vector;
 import java.io.File;
 import java.io.IOException;

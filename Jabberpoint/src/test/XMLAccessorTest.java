@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jabberPoint.model.Presentation;
-import jabberPoint.view.XMLAccessor;
+import jabberPoint.model.XMLAccessor;
 
 public class XMLAccessorTest {
 

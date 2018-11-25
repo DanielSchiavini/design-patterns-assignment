@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import jabberPoint.view.Accessor;
+import jabberPoint.model.Accessor;
 import jabberPoint.model.Presentation;
 import jabberPoint.model.Slide;
 import jabberPoint.model.Style;

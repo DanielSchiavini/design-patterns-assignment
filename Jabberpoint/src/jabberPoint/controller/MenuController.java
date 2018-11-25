@@ -10,10 +10,10 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import jabberPoint.model.Accessor;
 import jabberPoint.model.Presentation;
+import jabberPoint.model.XMLAccessor;
 import jabberPoint.view.AboutBox;
-import jabberPoint.view.Accessor;
-import jabberPoint.view.XMLAccessor;
 
 /** <p>De controller voor het menu</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman

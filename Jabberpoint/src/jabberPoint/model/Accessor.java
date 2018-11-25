@@ -1,4 +1,4 @@
-package jabberPoint.view;
+package jabberPoint.model;
 import java.io.IOException;
 
 import jabberPoint.model.DemoPresentation;
