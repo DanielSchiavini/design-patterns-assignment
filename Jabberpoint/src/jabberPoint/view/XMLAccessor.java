@@ -55,7 +55,7 @@ public class XMLAccessor extends Accessor {
     
     /** tekst van messages */
     protected static final String PCE = "Parser Configuration Exception";
-    protected static final String UNKNOWNTYPE = "Unknown Element type %s";
+    protected static final String UNKNOWNTYPE = "Unknown Element type";
     protected static final String NFE = "Number Format Exception";
     
     /**
@@ -94,23 +94,15 @@ public class XMLAccessor extends Accessor {
 			}
 		} 
 		catch (IOException iox) {
-			presentation.append(this.errorSlide(iox.toString()));
+			System.err.println(iox.toString());
 		}
 		catch (SAXException sax) {
-			presentation.append(this.errorSlide(sax.getMessage()));
+			System.err.println(sax.getMessage());
 		}
 		catch (ParserConfigurationException pcx) {
-			presentation.append(this.errorSlide(PCE));
+			System.err.println(PCE);
 		}
 		
-	}
-
-	private Slide errorSlide(String errorMessage) {
-		String textValue = String.format("Error: %s", errorMessage);
-		TextItem textItem = new TextItem(1, textValue);
-		Slide slide = new Slide();
-		slide.append(textItem);
-		return slide;
 	}
 
 	/**
@@ -163,11 +155,13 @@ public class XMLAccessor extends Accessor {
 		if (TEXT.equals(type)) {
 			slide.append(new TextItem(level, item.getTextContent()));
 		}
-		else if (IMAGE.equals(type)) {
-			slide.append(new BitmapItem(level, item.getTextContent()));
-		}
 		else {
-			slide.append(new TextItem(level, String.format(UNKNOWNTYPE, type)));
+			if (IMAGE.equals(type)) {
+				slide.append(new BitmapItem(level, item.getTextContent()));
+			}
+			else {
+				System.err.println(UNKNOWNTYPE);
+			}
 		}
 	}
 
@@ -226,7 +220,7 @@ public class XMLAccessor extends Accessor {
 			out.print( ( (BitmapItem) slideItem).getName());
 		}
 		else {
-			System.err.printf("Ignoring item %s\n", slideItem);
+			System.out.println("Ignoring " + slideItem);
 		}
 		out.println("</item>");
 	}
