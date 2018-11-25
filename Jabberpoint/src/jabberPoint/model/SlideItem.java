@@ -1,7 +1,4 @@
 package jabberPoint.model;
-import java.awt.Rectangle;
-import java.awt.Graphics;
-import java.awt.image.ImageObserver;
 
 /** <p>De abstracte klasse voor een item op een Slide<p>
  * <p>Alle SlideItems hebben tekenfunctionaliteit.</p>
@@ -25,16 +22,8 @@ public abstract class SlideItem {
 		this(0);
 	}
 
-// Geef het level
+	// Geef het level
 	public int getLevel() {
 		return level;
 	}
-
-// Geef de bounding box
-	public abstract Rectangle getBoundingBox(Graphics g, 
-			ImageObserver observer, float scale, Style style);
-
-// teken het item
-	public abstract void draw(int x, int y, float scale, 
-			Graphics g, Style style, ImageObserver observer);
 }

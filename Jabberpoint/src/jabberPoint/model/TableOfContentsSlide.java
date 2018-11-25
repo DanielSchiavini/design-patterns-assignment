@@ -1,9 +1,5 @@
 package jabberPoint.model;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.image.ImageObserver;
-
 /**
  * Class responsible for showing a slide with the table of contents.
  */
@@ -54,7 +50,7 @@ public class TableOfContentsSlide extends Slide {
 	/**
 	 * Re-generates the table of contents.
 	 */
-	public void generateItems() {
+	public void prepare() {
 		// delete all slide items
 		clear();
 		// keep track of the last subject so we don't repeat it
@@ -87,12 +83,5 @@ public class TableOfContentsSlide extends Slide {
 				isCurrent = false;
 			}
 		}
-	}
-	
-	public void draw(Graphics g, Rectangle area, ImageObserver view) {
-		// The table of contents must be automatically re-generated whenever slides change.
-		// Since we do not have a mechanism to know when that happens, we re-generate in every draw.
-		this.generateItems();
-		super.draw(g, area, view);
 	}
 }

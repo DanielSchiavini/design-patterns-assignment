@@ -1,7 +1,4 @@
 package jabberPoint.model;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.image.ImageObserver;
 import java.util.Vector;
 
 /** <p>Een slide. Deze klasse heeft tekenfunctionaliteit.</p>
@@ -15,8 +12,6 @@ import java.util.Vector;
  */
 
 public class Slide {
-	public final static int WIDTH = 1200;
-	public final static int HEIGHT = 800;
 	/* Geen String meer maar een TextItem */
 	private TextItem title; // de titel wordt apart bewaard
 	private Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
@@ -45,6 +40,11 @@ public class Slide {
 	public String getTitle() {
 		/* Geef nu de tekst van het TextItem terug */
 		return title.getText();
+	}
+
+	// geef de titel slide item van de slide
+	public TextItem getTitleItem() {
+		return title;
 	}
 
 	// verander de titel van de slide
@@ -78,25 +78,9 @@ public class Slide {
 	public int getSize() {
 		return items.size();
 	}
-
-	public void draw(Graphics g, Rectangle area, ImageObserver view) {
-		float scale = getScale(area);
-	    int y = area.y;
-		/* De titel hoeft niet meer apart behandeld te worden */
-	    SlideItem slideItem = this.title;
-	    Style style = Style.getStyle(slideItem.getLevel());
-	    slideItem.draw(area.x, y, scale, g, style, view);
-	    y += slideItem.getBoundingBox(g, view, scale, style).height;
-	    for (int number=0; number<getSize(); number++) {
-	      slideItem = (SlideItem)getSlideItems().elementAt(number);
-	      style = Style.getStyle(slideItem.getLevel());
-	      slideItem.draw(area.x, y, scale, g, style, view);
-	      y += slideItem.getBoundingBox(g, view, scale, style).height;
-	    }
-	  }
-
-	// geef de schaal om de slide te kunnen tekenen
-	private float getScale(Rectangle area) {
-		return Math.min(((float)area.width) / ((float)WIDTH), ((float)area.height) / ((float)HEIGHT));
+	
+	public void prepare() {
+		// TODO: it's ugly to have this empty method
 	}
+
 }

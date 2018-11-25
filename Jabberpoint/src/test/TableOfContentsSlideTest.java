@@ -30,8 +30,8 @@ public class TableOfContentsSlideTest {
 	}
 
 	@Test
-	public void testGenerateItemsSlide0() {
-		slide.generateItems();
+	public void testPrepareSlide0() {
+		slide.prepare();
 		Vector<SlideItem> slideItems = slide.getSlideItems();
 		assertEquals(3, slideItems.size());
 
@@ -49,9 +49,9 @@ public class TableOfContentsSlideTest {
 	}
 
 	@Test
-	public void testGenerateItemsSlide3() {
+	public void testPrepareSlide3() {
 		slide = (TableOfContentsSlide)presentation.getSlide(3);
-		slide.generateItems();
+		slide.prepare();
 		Vector<SlideItem> slideItems = slide.getSlideItems();
 		assertEquals(3, slideItems.size());
 

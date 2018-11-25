@@ -4,31 +4,25 @@ import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import jabberPoint.model.Presentation;
 import jabberPoint.model.Slide;
+import jabberPoint.view.factories.SlideViewFactory;
+import util.Observer;
 
 
-/** <p>SlideViewerComponent is een grafische component die Slides kan laten zien.</p>
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
- * @version 1.1 2002/12/17 Gert Florijn
- * @version 1.2 2003/11/19 Sylvia Stuurman
- * @version 1.3 2004/08/17 Sylvia Stuurman
- * @version 1.4 2007/07/16 Sylvia Stuurman
- * @version 1.5 2010/03/03 Sylvia Stuurman
- * @version 1.6 2014/05/16 Sylvia Stuurman
- */
+public class PresentationView extends JComponent implements Observer<Slide> {
 
-public class SlideViewerComponent extends JComponent {
-		
-	private Slide slide; // de huidige slide
 	private Font labelFont = null; // het font voor labels
 	private Presentation presentation = null; // de presentatie
 	private JFrame frame = null;
+	private SlideView slideView = null;
 	
 	private static final long serialVersionUID = 227L;
+	private static SlideViewFactory slideViewFactory = SlideViewFactory.getInstance();
 	
 	private static final Color BGCOLOR = Color.white;
 	private static final Color COLOR = Color.black;
@@ -38,33 +32,38 @@ public class SlideViewerComponent extends JComponent {
 	private static final int XPOS = 1100;
 	private static final int YPOS = 20;
 
-	public SlideViewerComponent(Presentation pres, JFrame frame) {
+	private int width;
+	private int height;
+
+	public PresentationView(Presentation pres, JFrame frame, int width, int height) {
 		setBackground(BGCOLOR); 
 		presentation = pres;
 		labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
 		this.frame = frame;
+		this.width = width;
+		this.height = height;
 	}
 
 	public Dimension getPreferredSize() {
-		return new Dimension(Slide.WIDTH, Slide.HEIGHT);
+		return new Dimension(width, height);
 	}
 
-	public void update(Presentation presentation, Slide data) {
-		if (data == null) {
+	@Override
+	public void update(Slide slide) {
+		if (slide == null) {
 			repaint();
 			return;
 		}
-		this.presentation = presentation;
-		this.slide = data;
+		this.slideView  = slideViewFactory.getSlideView(slide);
 		repaint();
 		frame.setTitle(presentation.getTitle());
 	}
 
-// teken de slide
+	// teken de slide
 	public void paintComponent(Graphics g) {
 		g.setColor(BGCOLOR);
 		g.fillRect(0, 0, getSize().width, getSize().height);
-		if (presentation.getSlideNumber() < 0 || slide == null) {
+		if (presentation.getSlideNumber() < 0 || slideView == null) {
 			return;
 		}
 		g.setFont(labelFont);
@@ -72,6 +71,6 @@ public class SlideViewerComponent extends JComponent {
 		g.drawString("Slide " + (1 + presentation.getSlideNumber()) + " of " +
                  presentation.getSize(), XPOS, YPOS);
 		Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
-		slide.draw(g, area, this);
+		slideView.draw(g, area, this);
 	}
 }
