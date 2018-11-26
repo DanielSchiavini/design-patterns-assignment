@@ -33,7 +33,6 @@ public class Presentation extends Observable<Slide> {
 	// verander het huidige-slide-nummer en laat het aan het window weten.
 	public void setSlideNumber(int number) {
 		Slide slide = getSlide(number);
-		slide.prepare();
 		currentSlideNumber = number;
 		notifyObservers(slide);
 	}

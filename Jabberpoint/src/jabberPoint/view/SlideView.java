@@ -26,14 +26,13 @@ public class SlideView {
 		float scale = getScale(area);
 	    int y = area.y;
 		/* De titel hoeft niet meer apart behandeld te worden */
-	    SlideItem item = slide.getTitleItem();
-	    Style style = Style.getStyle(item.getLevel());
-	    SlideItemView itemView = itemFactory.getItemView(item);
+	    SlideItem titleItem = slide.getTitleItem();
+	    Style style = Style.getStyle(titleItem.getLevel());
+	    SlideItemView itemView = itemFactory.getItemView(titleItem);
 	    itemView.draw(area.x, y, scale, g, style, view);
 	    y += itemView.getBoundingBox(g, view, scale, style).height;
-	    for (int number=0; number < slide.getSize(); number++) {
-	    	item = (SlideItem)slide.getSlideItems().elementAt(number);
-		    itemView = itemFactory.getItemView(item);
+	    for (SlideItem item : slide.getSlideItems()) {
+	    	itemView = itemFactory.getItemView(item);
 	    	style = Style.getStyle(item.getLevel());
 	      	itemView.draw(area.x, y, scale, g, style, view);
 	    	y += itemView.getBoundingBox(g, view, scale, style).height;

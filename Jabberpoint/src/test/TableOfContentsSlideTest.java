@@ -31,7 +31,6 @@ public class TableOfContentsSlideTest {
 
 	@Test
 	public void testPrepareSlide0() {
-		slide.prepare();
 		Vector<SlideItem> slideItems = slide.getSlideItems();
 		assertEquals(3, slideItems.size());
 
@@ -51,7 +50,6 @@ public class TableOfContentsSlideTest {
 	@Test
 	public void testPrepareSlide3() {
 		slide = (TableOfContentsSlide)presentation.getSlide(3);
-		slide.prepare();
 		Vector<SlideItem> slideItems = slide.getSlideItems();
 		assertEquals(3, slideItems.size());
 

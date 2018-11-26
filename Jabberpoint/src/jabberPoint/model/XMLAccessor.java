@@ -80,19 +80,20 @@ public class XMLAccessor extends Accessor {
      * @param filename - The name of the file to be read.
      */
 	public void loadFile(Presentation presentation, String filename) throws IOException {
-		int slideNumber, max = 0;
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
 			Document document = builder.parse(new File(filename)); // maak een JDOM document
 			Element doc = document.getDocumentElement();
 			presentation.setTitle(getText(doc, SHOWTITLE));
 
-			NodeList slides = doc.getChildNodes();
-			max = slides.getLength();
-			for (slideNumber = 0; slideNumber < max; slideNumber++) {
-				loadSlide(presentation, slides.item(slideNumber));
+			NodeList nodeList = doc.getChildNodes();
+			for (int i = 0; i < nodeList.getLength(); ++i) {
+				Node node = nodeList.item(i);
+				if (node instanceof Element) {
+					loadSlide(presentation, (Element)node);
+				}
 			}
-		} 
+		}
 		catch (IOException iox) {
 			System.err.println(iox.toString());
 		}
@@ -110,28 +111,27 @@ public class XMLAccessor extends Accessor {
 	 * @param presentation - The presentation where the slide will be added to.
 	 * @param xmlNode - The XML node where the slide information can be found.
 	 */
-    private void loadSlide(Presentation presentation, Node xmlNode) {
+    private void loadSlide(Presentation presentation, Element xmlNode) {
 		String nodeName = xmlNode.getNodeName();
-		Slide slide;
+		String title = getText(xmlNode, SLIDETITLE);
 		if (nodeName == SLIDE) {
-			slide = new Slide();
+			ContentSlide slide = new ContentSlide();
+			slide.setTitle(getText(xmlNode, SLIDETITLE));
+			slide.setSubject(getText(xmlNode, SLIDESUBJECT));
+			presentation.append(slide);
+
+			NodeList slideItems = xmlNode.getElementsByTagName(ITEM);
+			int maxItems = slideItems.getLength();
+			for (int itemNumber = 0; itemNumber < maxItems; itemNumber++) {
+				Element item = (Element) slideItems.item(itemNumber);
+				loadSlideItem(slide, item);
+			}
 		} else if (nodeName == TOC) {
-			slide = new TableOfContentsSlide(presentation);
+			presentation.append(new TableOfContentsSlide(presentation, title));
 		} else {
 			return;
 		}
 
-		Element xmlSlide = (Element)xmlNode;
-		slide.setTitle(getText(xmlSlide, SLIDETITLE));
-		slide.setSubject(getText(xmlSlide, SLIDESUBJECT));
-		presentation.append(slide);
-
-		NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
-		int maxItems = slideItems.getLength();
-		for (int itemNumber = 0; itemNumber < maxItems; itemNumber++) {
-			Element item = (Element) slideItems.item(itemNumber);
-			loadSlideItem(slide, item);
-		}
     }
 
 	/**
@@ -139,7 +139,7 @@ public class XMLAccessor extends Accessor {
 	 * @param presentation - The presentation where the slide will be added to.
 	 * @param element - The XML element where the slide information can be found.
 	 */
-	protected void loadSlideItem(Slide slide, Element item) {
+	protected void loadSlideItem(ContentSlide slide, Element item) {
 		int level = 1; // default
 		NamedNodeMap attributes = item.getAttributes();
 		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
@@ -180,24 +180,29 @@ public class XMLAccessor extends Accessor {
 		out.println("</showtitle>");
 		for (int slideNumber=0; slideNumber<presentation.getSize(); slideNumber++) {
 			Slide slide = presentation.getSlide(slideNumber);
-			String slideType = slide instanceof TableOfContentsSlide ? "toc" : "slide";
-			out.println("<" + slideType + ">");
-			
-			String title = slide.getTitle();
-			if (title != null && !title.isEmpty()) {
-				out.println("<title>" + title + "</title>");
+			if (slide instanceof TableOfContentsSlide) {
+				out.println("<toc>");
+				out.println("<title>" + slide.getTitle() + "</title>");
+				out.println("</toc>");
+				
+			} else if (slide instanceof ContentSlide) {
+				out.println("<slide>");
+				out.println("<title>" + slide.getTitle() + "</title>");
+				
+				String subject = ((ContentSlide)slide).getSubject();
+				if (subject != null && !subject.isEmpty()) {
+					out.println("<subject>" + subject + "</subject>");
+				}
+				
+				Vector<SlideItem> slideItems = slide.getSlideItems();
+				for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
+					SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
+					writeSlideItem(out, slideItem);
+				}
+				out.println("</slide>");
+			} else {
+				
 			}
-			String subject = slide.getSubject();
-			if (subject != null && !subject.isEmpty()) {
-				out.println("<subject>" + subject + "</subject>");
-			}
-			
-			Vector<SlideItem> slideItems = slide.getSlideItems();
-			for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
-				SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
-				writeSlideItem(out, slideItem);
-			}
-			out.println("</" + slideType + ">");
 		}
 		out.println("</presentation>");
 		out.close();

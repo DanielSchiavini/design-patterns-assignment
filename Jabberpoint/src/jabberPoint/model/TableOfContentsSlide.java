@@ -1,5 +1,7 @@
 package jabberPoint.model;
 
+import java.util.Vector;
+
 /**
  * Class responsible for showing a slide with the table of contents.
  */
@@ -50,9 +52,10 @@ public class TableOfContentsSlide extends Slide {
 	/**
 	 * Re-generates the table of contents.
 	 */
-	public void prepare() {
-		// delete all slide items
-		clear();
+	@Override
+	public Vector<SlideItem> getSlideItems() {
+		Vector<SlideItem> items = new Vector<SlideItem>();
+		
 		// keep track of the last subject so we don't repeat it
 		String lastSubject = "";
 		// the current subject gets a special style (i.e. the subject after the table of contents)
@@ -65,23 +68,25 @@ public class TableOfContentsSlide extends Slide {
 			if (slide instanceof TableOfContentsSlide) {
 				// the current section is the one right after this table of contents.
 				isCurrent = slide == this;
-				// ignore any table of contents slide except the current one.
-				continue;
 			}
-			
-			String subject = slide.getSubject();
-			if (subject == null || subject.isEmpty()) {
-				// Use the title of the slide as default if no subject is given.
-				subject = slide.getTitle();
-			}
-
-			if (!subject.equals(lastSubject)) {
-				// the subject changed, let's add it to the slide items.
-				int level = isCurrent ? 1 : 2;
-				append(level, subject);
-				lastSubject = subject;
-				isCurrent = false;
+			else if (slide instanceof ContentSlide) {
+				String subject = ((ContentSlide)slide).getSubject();
+				if (subject == null || subject.isEmpty()) {
+					// Use the title of the slide as default if no subject is given.
+					subject = slide.getTitle();
+				}
+	
+				if (!subject.equals(lastSubject)) {
+					// the subject changed, let's add it to the slide items.
+					int level = isCurrent ? 1 : 2;
+					items.add(new TextItem(level, subject));
+					lastSubject = subject;
+					isCurrent = false;
+				}
+			} else {
+				System.err.printf("Unknown slide type %s", slide);
 			}
 		}
+		return items;
 	}
 }
