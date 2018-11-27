@@ -14,7 +14,7 @@ public class DemoPresentation extends Accessor {
 	public void loadFile(Presentation presentation, String unusedFilename) {
 		presentation.setTitle("Demo Presentation");
 		
-		presentation.append(new TableOfContentsSlide(presentation));
+		presentation.append(new TableOfContentsSlide(presentation, "Inhoudsopgave"));
 		
 		Slide slide;
 		slide = new Slide();
