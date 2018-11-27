@@ -21,7 +21,7 @@ public class TableOfContentsSlideTest {
 	@Before
 	public void setUp() throws Exception {
 		presentation = new Presentation();
-		new DemoPresentation().loadFile(presentation, "unusedFilename");
+		new DemoPresentation().load(presentation);
 		slide = (TableOfContentsSlide)presentation.getSlide(0);
 	}
 

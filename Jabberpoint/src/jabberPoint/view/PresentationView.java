@@ -17,9 +17,11 @@ public class PresentationView extends JComponent implements Observer<Slide> {
 
 	private Presentation presentation = null; // de presentatie
 	private SlideView slideView = null;
+	private int width;
+	private int height;
+	private SlideViewFactory slideViewFactory;
 	
 	private static final long serialVersionUID = 227L;
-	private static SlideViewFactory slideViewFactory = SlideViewFactory.getInstance();
 	
 	private static final Color BGCOLOR = Color.white;
 	private static final Color COLOR = Color.black;
@@ -27,12 +29,11 @@ public class PresentationView extends JComponent implements Observer<Slide> {
 	private static final int YPOS = 20;
 	private Font labelFont = new Font("Dialog", Font.BOLD, 10); // het font voor labels
 
-	private int width;
-	private int height;
 
-	public PresentationView(Presentation presentation, int width, int height) {
+	public PresentationView(Presentation presentation, SlideViewFactory slideViewFactory, int width, int height) {
 		setBackground(BGCOLOR); 
 		this.presentation = presentation;
+		this.slideViewFactory = slideViewFactory;
 		this.width = width;
 		this.height = height;
 	}

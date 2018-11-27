@@ -10,14 +10,14 @@ import jabberPoint.model.Style;
 import jabberPoint.view.factories.SlideItemViewFactory;
 
 public class SlideView {
-	private static SlideItemViewFactory itemFactory = SlideItemViewFactory.getInstance();
-	
 	private Slide slide;
+	private SlideItemViewFactory itemFactory;
 	private int width;
 	private int height;
 
-	public SlideView(Slide slide, int width, int height) {
+	public SlideView(Slide slide, SlideItemViewFactory itemFactory, int width, int height) {
 		this.slide = slide;
+		this.itemFactory = itemFactory;
 		this.width = width;
 		this.height = height;
 	}

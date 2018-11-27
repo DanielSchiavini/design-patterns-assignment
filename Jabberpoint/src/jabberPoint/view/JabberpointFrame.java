@@ -3,33 +3,33 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
 
-import jabberPoint.controller.KeyController;
-import jabberPoint.controller.MenuController;
+import jabberPoint.controller.factories.ControllerFactory;
 import jabberPoint.model.Presentation;
-import jabberPoint.view.factories.PresentationViewFactory;
 
 
 public class JabberpointFrame extends JFrame {
 	private static final long serialVersionUID = 3227L;
-	private static final PresentationViewFactory presentationViewFactory = PresentationViewFactory.getInstance();
+	private PresentationView presentationView;
 	
-	public JabberpointFrame(Presentation presentation) {
+	public JabberpointFrame(Presentation presentation, PresentationView presentationView,
+			ControllerFactory controllerFactory) {
 		super(presentation.getTitle());
+		this.presentationView = presentationView;
 		setupWindow(presentation);
+		addKeyListener(controllerFactory.getKeyController(presentation));
+		setMenuBar(controllerFactory.getMenuController(this, presentation));
 	}
 
-	// De GUI opzetten
 	public void setupWindow(Presentation presentation) {
-		addWindowListener(new WindowAdapter() {
-				public void windowClosing(WindowEvent e) {
-					System.exit(0);
-				}
-			});
-		PresentationView presentationView = presentationViewFactory.getPresentationView(presentation);
+		addWindowListener(windowAdapter);
 		getContentPane().add(presentationView);
-		addKeyListener(new KeyController(presentation)); // een controller toevoegen
-		setMenuBar(new MenuController(this, presentation));	// nog een controller toevoegen
-		setSize(presentationView.getPreferredSize()); // Dezelfde maten als Slide hanteert.
+		setSize(presentationView.getPreferredSize());
 		setVisible(true);
 	}
+
+	private WindowAdapter windowAdapter = new WindowAdapter() {
+		public void windowClosing(WindowEvent e) {
+			System.exit(0);
+		}
+	};
 }

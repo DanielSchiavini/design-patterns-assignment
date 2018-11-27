@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import jabberPoint.model.Accessor;
 import jabberPoint.model.Presentation;
 import jabberPoint.model.Slide;
 import jabberPoint.model.Style;
+import jabberPoint.model.factories.PresentationFactory;
 
 public class PresentationTest {
 
@@ -16,8 +16,7 @@ public class PresentationTest {
 	@Before
 	public void setUp() throws Exception {
 		Style.createStyles();
-		presentation = new Presentation();
-		Accessor.getDemoAccessor().loadFile(presentation, "");
+		presentation = new PresentationFactory().getDemoPresentation();
 		presentation.setSlideNumber(0);
 	}
 

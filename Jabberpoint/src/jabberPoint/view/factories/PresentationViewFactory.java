@@ -4,18 +4,9 @@ import jabberPoint.model.Presentation;
 import jabberPoint.view.PresentationView;
 
 public class PresentationViewFactory {
-
-	private static PresentationViewFactory instance = new PresentationViewFactory();
-
-	private PresentationViewFactory() {
-	}
-	
-	public static PresentationViewFactory getInstance() {
-		return instance;
-	}
-
 	public PresentationView getPresentationView(Presentation presentation) {
-		PresentationView view = new PresentationView(presentation, Constants.WIDTH, Constants.HEIGHT);
+		SlideViewFactory factory = new SlideViewFactory();
+		PresentationView view = new PresentationView(presentation, factory, Constants.WIDTH, Constants.HEIGHT);
 		presentation.addObserver(view);
 		return view;
 	}

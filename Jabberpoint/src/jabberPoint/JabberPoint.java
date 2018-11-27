@@ -2,48 +2,45 @@ package jabberPoint;
 
 import javax.swing.JOptionPane;
 
-import jabberPoint.model.Accessor;
+import jabberPoint.controller.factories.ControllerFactory;
 import jabberPoint.model.Presentation;
 import jabberPoint.model.Style;
-import jabberPoint.model.XMLAccessor;
+import jabberPoint.model.factories.PresentationFactory;
 import jabberPoint.view.JabberpointFrame;
+import jabberPoint.view.PresentationView;
+import jabberPoint.view.factories.PresentationViewFactory;
 
 import java.io.IOException;
 
-/** JabberPoint Main Programma
+/** JabberPoint Main Program
  * <p>This program is distributed under the terms of the accompanying
  * COPYRIGHT.txt file (which is NOT the GNU General Public License).
  * Please read it. Your use of the software constitutes acceptance
  * of the terms in the COPYRIGHT.txt file.</p>
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
- * @version 1.1 2002/12/17 Gert Florijn
- * @version 1.2 2003/11/19 Sylvia Stuurman
- * @version 1.3 2004/08/17 Sylvia Stuurman
- * @version 1.4 2007/07/16 Sylvia Stuurman
- * @version 1.5 2010/03/03 Sylvia Stuurman
- * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
  */
 
 public class JabberPoint {
-	protected static final String IOERR = "IO Error: ";
-	protected static final String JABERR = "Jabberpoint Error ";
-	protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
+	private static final String IOERR = "IO Error: ";
+	private static final String JABERR = "Jabberpoint Error ";
+
+	private static final PresentationFactory presentationFactory = new PresentationFactory();
+	private static final PresentationViewFactory presentationViewFactory = new PresentationViewFactory();
+	private static final ControllerFactory controllerFactory = new ControllerFactory();
 
 	/** Het Main Programma */
 	public static void main(String argv[]) {
 		
 		Style.createStyles();
-		Presentation presentation = new Presentation();
 		try {
-			if (argv.length == 0) { // een demo presentatie
-				Accessor.getDemoAccessor().loadFile(presentation, "");
-			} else {
-				new XMLAccessor().loadFile(presentation, argv[0]);
-			}
+			Presentation presentation = argv.length == 0
+				? presentationFactory.getDemoPresentation()
+				: presentationFactory.readPresentation(argv[0]);
+			PresentationView presentationView = presentationViewFactory.getPresentationView(presentation);
+			new JabberpointFrame(presentation, presentationView, controllerFactory);
+			presentation.setSlideNumber(0);
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(null, IOERR + ex, JABERR, JOptionPane.ERROR_MESSAGE);
 		}
-		new JabberpointFrame(presentation);
-		presentation.setSlideNumber(0);
 	}
 }

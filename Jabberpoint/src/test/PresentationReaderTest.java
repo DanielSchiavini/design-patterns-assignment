@@ -12,16 +12,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jabberPoint.model.Presentation;
-import jabberPoint.model.XMLAccessor;
+import jabberPoint.model.PresentationReader;
+import jabberPoint.model.PresentationWriter;
 
-public class XMLAccessorTest {
+public class PresentationReaderTest {
 
-	XMLAccessor accessor = null;
+	PresentationReader reader;
+	PresentationWriter writer;
 	Presentation presentation = null;
 
 	@Before
 	public void setUp() throws Exception {
-		accessor = new XMLAccessor();
+		reader = new PresentationReader();
+		writer = new PresentationWriter();
 		presentation = new Presentation();
 	}
 
@@ -35,7 +38,7 @@ public class XMLAccessorTest {
 
 	@Test
 	public void testLoadFile() throws IOException {
-		accessor.loadFile(presentation, "test.xml");
+		reader.loadFile(presentation, "test.xml");
 		assertEquals(7, presentation.getSize());
 		assertEquals("XML-Based Presentation for Jabberpoint", presentation.getTitle());
 		assertEquals("jabberPoint.model.TableOfContentsSlide",
@@ -50,8 +53,8 @@ public class XMLAccessorTest {
 
 	@Test
 	public void testSaveFile() throws Exception {
-		accessor.loadFile(presentation, "test.xml");
-		accessor.saveFile(presentation, "test-save-file.xml");
+		reader.loadFile(presentation, "test.xml");
+		writer.saveFile(presentation, "test-save-file.xml");
 
 		BufferedReader expectedReader = new BufferedReader(new FileReader("test.xml"));
 		BufferedReader resultReader = new BufferedReader(new FileReader("test-save-file.xml"));    
