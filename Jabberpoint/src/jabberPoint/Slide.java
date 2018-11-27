@@ -78,18 +78,23 @@ public class Slide {
 	public int getSize() {
 		return items.size();
 	}
+	
+	// geef de stijl van de slide item
+	protected Style getStyle(SlideItem slideItem) {
+	    return Style.getStyle(slideItem.getLevel());
+	}
 
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
 	    int y = area.y;
 		/* De titel hoeft niet meer apart behandeld te worden */
 	    SlideItem slideItem = this.title;
-	    Style style = Style.getStyle(slideItem.getLevel());
+	    Style style = getStyle(slideItem);
 	    slideItem.draw(area.x, y, scale, g, style, view);
 	    y += slideItem.getBoundingBox(g, view, scale, style).height;
 	    for (int number=0; number<getSize(); number++) {
 	      slideItem = (SlideItem)getSlideItems().elementAt(number);
-	      style = Style.getStyle(slideItem.getLevel());
+	      style = getStyle(slideItem);
 	      slideItem.draw(area.x, y, scale, g, style, view);
 	      y += slideItem.getBoundingBox(g, view, scale, style).height;
 	    }

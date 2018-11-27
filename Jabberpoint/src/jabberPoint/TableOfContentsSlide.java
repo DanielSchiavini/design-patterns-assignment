@@ -1,5 +1,6 @@
 package jabberPoint;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
@@ -14,6 +15,9 @@ public class TableOfContentsSlide extends Slide {
 	
 	// A reference to the presentation
 	private Presentation presentation;
+
+	private static Style itemStyle = new Style(50, Color.black, 36, 10);
+	private static Style currentStyle = new Style(50, Color.blue, 36, 10);
 
 	/**
 	 * Creates a new table of contents slide.
@@ -52,6 +56,17 @@ public class TableOfContentsSlide extends Slide {
 	}
 	
 	/**
+	 * Chooses the style of the slide item.
+	 */
+	protected Style getStyle(SlideItem slideItem) {
+		switch (slideItem.getLevel()) {
+			case 1: return currentStyle;
+			case 2: return itemStyle;
+		}
+		return super.getStyle(slideItem);
+	}
+
+	/**
 	 * Re-generates the table of contents.
 	 */
 	public void generateItems() {
@@ -82,7 +97,7 @@ public class TableOfContentsSlide extends Slide {
 			if (!subject.equals(lastSubject)) {
 				// the subject changed, let's add it to the slide items.
 				int level = isCurrent ? 1 : 2;
-				append(level, subject);
+				append(level, "• " + subject);
 				lastSubject = subject;
 				isCurrent = false;
 			}
