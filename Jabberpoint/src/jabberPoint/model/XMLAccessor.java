@@ -7,9 +7,6 @@ import java.io.FileWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 import jabberPoint.model.BitmapItem;
 import jabberPoint.model.Presentation;
@@ -54,9 +51,8 @@ public class XMLAccessor extends Accessor {
     protected static final String IMAGE = "image";
     
     /** tekst van messages */
-    protected static final String PCE = "Parser Configuration Exception";
-    protected static final String UNKNOWNTYPE = "Unknown Element type";
-    protected static final String NFE = "Number Format Exception";
+    protected static final String UNKNOWN_TYPE = "Unknown Element type %s!\n";
+    protected static final String INVALID_NUMBER = "Invalid number string %s!\n";
     
     /**
      * Reads a text element inside a XML node.
@@ -94,16 +90,9 @@ public class XMLAccessor extends Accessor {
 				}
 			}
 		}
-		catch (IOException iox) {
-			System.err.println(iox.toString());
+		catch (Exception ex) {
+			throw new IOException(String.format("Cannot parse the file %s", filename), ex);
 		}
-		catch (SAXException sax) {
-			System.err.println(sax.getMessage());
-		}
-		catch (ParserConfigurationException pcx) {
-			System.err.println(PCE);
-		}
-		
 	}
 
 	/**
@@ -129,9 +118,8 @@ public class XMLAccessor extends Accessor {
 		} else if (nodeName == TOC) {
 			presentation.append(new TableOfContentsSlide(presentation, title));
 		} else {
-			return;
+			System.err.printf(UNKNOWN_TYPE, nodeName);
 		}
-
     }
 
 	/**
@@ -142,26 +130,25 @@ public class XMLAccessor extends Accessor {
 	protected void loadSlideItem(ContentSlide slide, Element item) {
 		int level = 1; // default
 		NamedNodeMap attributes = item.getAttributes();
-		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
-		if (leveltext != null) {
+		String levelText = attributes.getNamedItem(LEVEL).getTextContent();
+		if (levelText != null) {
 			try {
-				level = Integer.parseInt(leveltext);
+				level = Integer.parseInt(levelText);
 			}
 			catch(NumberFormatException x) {
-				System.err.println(NFE);
+				System.err.printf(INVALID_NUMBER, levelText);
 			}
 		}
+		
 		String type = attributes.getNamedItem(KIND).getTextContent();
 		if (TEXT.equals(type)) {
 			slide.append(new TextItem(level, item.getTextContent()));
 		}
+		else if (IMAGE.equals(type)) {
+			slide.append(new BitmapItem(level, item.getTextContent()));
+		}
 		else {
-			if (IMAGE.equals(type)) {
-				slide.append(new BitmapItem(level, item.getTextContent()));
-			}
-			else {
-				System.err.println(UNKNOWNTYPE);
-			}
+			System.err.printf(UNKNOWN_TYPE, type);
 		}
 	}
 
@@ -200,8 +187,8 @@ public class XMLAccessor extends Accessor {
 					writeSlideItem(out, slideItem);
 				}
 				out.println("</slide>");
-			} else {
-				
+			} else if (slide != null) {
+				System.err.printf(UNKNOWN_TYPE, slide.getClass().getName());
 			}
 		}
 		out.println("</presentation>");
@@ -225,7 +212,7 @@ public class XMLAccessor extends Accessor {
 			out.print( ( (BitmapItem) slideItem).getName());
 		}
 		else {
-			System.out.println("Ignoring " + slideItem);
+			System.err.printf(UNKNOWN_TYPE, slideItem.getClass().getName());
 		}
 		out.println("</item>");
 	}
