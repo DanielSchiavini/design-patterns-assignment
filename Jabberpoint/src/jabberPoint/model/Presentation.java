@@ -55,6 +55,7 @@ public class Presentation extends Observable<Slide> {
 	public void clear() {
 		showList = new ArrayList<Slide>();
 		currentSlideNumber = -1;
+		this.notifyObservers(null);
 	}
 
 	// Voeg een slide toe aan de presentatie

@@ -15,8 +15,8 @@ public class ControllerFactory {
 		return new KeyController(presentation);
 	}
 
-	public MenuBar getMenuController(Frame parent, Presentation presentation) {
+	public MenuBar getMenuController(Presentation presentation, ActionListen onAboutRequested) {
 		PresentationFactory factory = new PresentationFactory();
-		return new MenuController(parent, presentation, factory);
+		return new MenuController(presentation, onAboutRequested, factory);
 	}
 }
