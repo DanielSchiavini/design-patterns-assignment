@@ -1,23 +1,19 @@
 package jabberPoint.controller;
 import java.awt.MenuBar;
-import java.awt.Frame;
 import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 import javax.swing.JOptionPane;
 
 import jabberPoint.model.Presentation;
 import jabberPoint.model.factories.PresentationFactory;
-import jabberPoint.view.AboutBox;
 
 /** <p>De controller voor het menu</p>
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
  */
 public class MenuController extends MenuBar {
 	
@@ -31,6 +27,7 @@ public class MenuController extends MenuBar {
 	protected static final String EXIT = "Exit";
 	protected static final String GOTO = "Go to";
 	protected static final String HELP = "Help";
+	protected static final String ABOUT = "About";
 	protected static final String NEW = "New";
 	protected static final String NEXT = "Next";
 	protected static final String OPEN = "Open";

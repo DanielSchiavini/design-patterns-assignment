@@ -1,7 +1,7 @@
 package jabberPoint.view;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.awt.Frame;
+import java.util.function.BiConsumer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -34,7 +34,10 @@ public class JabberpointFrame extends JFrame {
 		this.presentationView = presentationView;
 		setupWindow();
 		addKeyListener(controllerFactory.getKeyController(presentation));
-		setMenuBar(controllerFactory.getMenuController(presentation, this.onAbout, this.onIOException));
+		
+		ActionListener onAboutRequested = e -> this.onAboutRequested(e);
+		BiConsumer<String, IOException> onIOException = (title, exc) -> this.onIOException(title, exc);
+		setMenuBar(controllerFactory.getMenuController(presentation, onAboutRequested, onIOException));
 	}
 
 	public void setupWindow() {
@@ -51,10 +54,10 @@ public class JabberpointFrame extends JFrame {
 	};
 	
 	private void onIOException(String title, IOException exc) {
-		JOptionPane.showMessageDialog(this, String.format(IO, exc.toString()), title, JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this, String.format(IO_EXCEPTION, exc.toString()), title, JOptionPane.ERROR_MESSAGE);
 	}
 
-	public void onAbout(ActionEvent actionEvent) {
+	public void onAboutRequested(ActionEvent actionEvent) {
 		JOptionPane.showMessageDialog(this,
 				"JabberPoint is a primitive slide-show program in Java(tm). It\n" +
 				"is freely copyable as long as you keep this notice and\n" +
