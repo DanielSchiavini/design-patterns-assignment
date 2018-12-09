@@ -45,6 +45,15 @@ public class ContentSlideTest {
 	}
 
 	@Test
+	public void testSetGetTitleItem() {
+		String expected = "Test Title";
+		slide.setTitle(expected);
+		TextItem result = slide.getTitleItem();
+		assertEquals(expected, result.getText());
+		assertEquals(0, result.getLevel());
+	}
+
+	@Test
 	public void testGetSlideItem() {
 		SlideItem expected = new TextItem(0, null);
 		slide.append(expected);

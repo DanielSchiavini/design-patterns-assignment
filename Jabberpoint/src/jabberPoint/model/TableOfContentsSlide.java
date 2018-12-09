@@ -21,13 +21,6 @@ public class TableOfContentsSlide extends Slide {
 	}
 
 	/**
-	 * Gets the subject of this slide. Note that tables of contents can not have a subject.
-	 */
-	public String getSubject() {
-		return null;
-	}
-	
-	/**
 	 * Re-generates the table of contents.
 	 */
 	@Override

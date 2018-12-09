@@ -28,6 +28,18 @@ public class TextItemTest {
 	}
 
 	@Test
+	public void testIsEmpty() {
+		assertFalse(item.isEmpty());
+	}
+
+	@Test
+	public void testEmpty() {
+		assertTrue(new TextItem(0, null).isEmpty());
+		assertTrue(new TextItem(0, "").isEmpty());
+		assertEquals("", new TextItem(0, null).getText());
+	}
+
+	@Test
 	public void testGetAttributedString() {
 		int indent = 0;
 		Color color = Color.BLUE;

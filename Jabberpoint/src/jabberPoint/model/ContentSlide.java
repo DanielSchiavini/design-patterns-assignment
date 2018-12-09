@@ -38,13 +38,6 @@ public class ContentSlide extends Slide {
 	}
 
 	/**
-	 * Removes all the items from the slide.
-	 */
-	protected void clear() {
-		items.clear();
-	}
-
-	/**
 	 * Gets the subject of the slide, to be displayed in the table of contents slides.
 	 * @return The slide subject.
 	 */
