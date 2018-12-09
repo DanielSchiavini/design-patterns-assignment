@@ -5,42 +5,43 @@ import jabberPoint.model.Presentation;
 
 import java.awt.event.KeyAdapter;
 
-/** <p>This is the KeyController (KeyListener)</p>
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
- * @version 1.1 2002/12/17 Gert Florijn
- * @version 1.2 2003/11/19 Sylvia Stuurman
- * @version 1.3 2004/08/17 Sylvia Stuurman
- * @version 1.4 2007/07/16 Sylvia Stuurman
- * @version 1.5 2010/03/03 Sylvia Stuurman
- * @version 1.6 2014/05/16 Sylvia Stuurman
+/**
+ * This is the KeyController (KeyListener), responsible for handling keyboard shortcuts.
+ * @author Ian F. Darwin, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
 */
-
 public class KeyController extends KeyAdapter {
-	private Presentation presentation; // Er worden commando's gegeven aan de presentatie
+	/** A reference to the presentation, so commands can be given **/
+	private Presentation presentation;
 
-	public KeyController(Presentation p) {
-		presentation = p;
+	/**
+	 * Initializes a new key controller.
+	 * @param presentation: The presentation instance.
+	 */
+	public KeyController(Presentation presentation) {
+		this.presentation = presentation;
 	}
 
+	/**
+	 * Handles a key being pressed.
+	 * @param keyEvent: The key press event.
+	 */
 	public void keyPressed(KeyEvent keyEvent) {
 		switch(keyEvent.getKeyCode()) {
 			case KeyEvent.VK_PAGE_DOWN:
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_ENTER:
 			case '+':
-				presentation.nextSlide();
+				presentation.showNextSlide();
 				break;
 			case KeyEvent.VK_PAGE_UP:
 			case KeyEvent.VK_UP:
 			case '-':
-				presentation.prevSlide();
+				presentation.showPreviousSlide();
 				break;
 			case 'q':
 			case 'Q':
 				System.exit(0);
-				break; // wordt nooit bereikt als het goed is
-			default:
-				break;
+				break; // Break should never be reached
 		}
 	}
 }

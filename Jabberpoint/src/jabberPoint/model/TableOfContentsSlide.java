@@ -6,11 +6,7 @@ import java.util.Vector;
  * Class responsible for showing a slide with the table of contents.
  */
 public class TableOfContentsSlide extends Slide {
-
-	// title to be used if no title was given.
-	private static String DEFAULT_TITLE = "Inhoudsopgave";
-	
-	// A reference to the presentation
+	/** A reference to the presentation **/
 	private Presentation presentation;
 
 	/**
@@ -25,25 +21,7 @@ public class TableOfContentsSlide extends Slide {
 	}
 
 	/**
-	 * Creates a new table of contents slide without a title.
-	 * @param presentation - A reference to the presentation.
-	 */
-	public TableOfContentsSlide(Presentation presentation) {
-		this(presentation, DEFAULT_TITLE);
-	}
-
-	/**
-	 * Sets the title of the slide.
-	 */
-	public void setTitle(String newTitle) {
-		if (newTitle == null || newTitle.isEmpty()) {
-			newTitle = DEFAULT_TITLE;
-		}
-		super.setTitle(newTitle);
-	}
-	
-	/**
-	 * Gets the subject of this slide. Note that tables of contents may not have a subject.
+	 * Gets the subject of this slide. Note that tables of contents can not have a subject.
 	 */
 	public String getSubject() {
 		return null;
@@ -66,7 +44,7 @@ public class TableOfContentsSlide extends Slide {
 		for (int i = 0; i < slideCount; ++i) {
 			Slide slide = this.presentation.getSlide(i);
 			if (slide instanceof TableOfContentsSlide) {
-				// the current section is the one right after this table of contents.
+				// the current subject is the one right after this table of contents.
 				isCurrent = slide == this;
 			}
 			else if (slide instanceof ContentSlide) {
@@ -78,7 +56,7 @@ public class TableOfContentsSlide extends Slide {
 	
 				if (!subject.equals(lastSubject)) {
 					// the subject changed, let's add it to the slide items.
-					int level = isCurrent ? 1 : 2;
+					int level = isCurrent ? 1 : 2; // give a higher level to the current subject
 					items.add(new TextItem(level, subject));
 					lastSubject = subject;
 					isCurrent = false;

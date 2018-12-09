@@ -22,7 +22,7 @@ public class ContentSlideTest {
 
 	@Test
 	public void testAppendItem() {
-		SlideItem expected = new TextItem();
+		SlideItem expected = new TextItem(0, null);
 		slide.append(expected);
 		SlideItem result = slide.getSlideItems().elementAt(0);
 		assertSame(expected, result);
@@ -46,7 +46,7 @@ public class ContentSlideTest {
 
 	@Test
 	public void testGetSlideItem() {
-		SlideItem expected = new TextItem();
+		SlideItem expected = new TextItem(0, null);
 		slide.append(expected);
 		SlideItem result = slide.getSlideItems().elementAt(0);
 		assertSame(expected, result);

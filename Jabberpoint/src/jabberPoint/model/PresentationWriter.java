@@ -32,25 +32,9 @@ public class PresentationWriter {
 		for (int slideNumber=0; slideNumber<presentation.getSize(); slideNumber++) {
 			Slide slide = presentation.getSlide(slideNumber);
 			if (slide instanceof TableOfContentsSlide) {
-				out.println("<toc>");
-				out.println("<title>" + slide.getTitle() + "</title>");
-				out.println("</toc>");
-				
+				writeTableOfContents((TableOfContentsSlide) slide, out);
 			} else if (slide instanceof ContentSlide) {
-				out.println("<slide>");
-				out.println("<title>" + slide.getTitle() + "</title>");
-				
-				String subject = ((ContentSlide)slide).getSubject();
-				if (subject != null && !subject.isEmpty()) {
-					out.println("<subject>" + subject + "</subject>");
-				}
-				
-				Vector<SlideItem> slideItems = slide.getSlideItems();
-				for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
-					SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
-					writeSlideItem(out, slideItem);
-				}
-				out.println("</slide>");
+				writeContentSlide((ContentSlide) slide, out);
 			} else if (slide != null) {
 				System.err.printf(UNKNOWN_TYPE, slide.getClass().getName());
 			}
@@ -60,12 +44,45 @@ public class PresentationWriter {
 	}
 
 	/**
-	 * Writes the slide item.
-	 * Note: Only text and bitmap slide items that are written; any other types are ignored.  
-	 * @param out - The print writer.
-	 * @param slideItem - The slide item to be written.
+	 * Writes a table of contents slide to the output.
+	 * @param slide: The slide to write.
+	 * @param out: The printer writer.
 	 */
-	private void writeSlideItem(PrintWriter out, SlideItem slideItem) {
+	private void writeTableOfContents(TableOfContentsSlide slide, PrintWriter out) {
+		out.println("<toc>");
+		out.println("<title>" + slide.getTitle() + "</title>");
+		out.println("</toc>");
+	}
+
+	/**
+	 * Writes a content slide to the output.
+	 * @param slide: The slide to write.
+	 * @param out: The printer writer.
+	 */
+	private void writeContentSlide(ContentSlide slide, PrintWriter out) {
+		out.println("<slide>");
+		out.println("<title>" + slide.getTitle() + "</title>");
+		
+		String subject = slide.getSubject();
+		if (subject != null && !subject.isEmpty()) {
+			out.println("<subject>" + subject + "</subject>");
+		}
+		
+		Vector<SlideItem> slideItems = slide.getSlideItems();
+		for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
+			SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
+			writeSlideItem(slideItem, out);
+		}
+		out.println("</slide>");
+	}
+
+	/**
+	 * Writes the slide item to the output.
+	 * Note: Only text and bitmap slide items that are written; any other types are ignored.
+	 * @param slideItem - The slide item to be written.
+	 * @param out - The print writer.
+	 */
+	private void writeSlideItem(SlideItem slideItem, PrintWriter out) {
 		out.print("<item kind="); 
 		if (slideItem instanceof TextItem) {
 			out.print("\"text\" level=\"" + slideItem.getLevel() + "\">");

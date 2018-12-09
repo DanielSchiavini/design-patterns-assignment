@@ -1,25 +1,41 @@
 package jabberPoint.model;
 import java.util.Vector;
 
+/**
+ * The abstract class from which the different slide types should inherit.
+ * @author Daniel Schiavini
+ */
 public abstract class Slide {
+	/** The title of the slide **/
 	private TextItem title;
 
-	// geef de titel van de slide
+	/**
+	 * Gets the title of the slide.
+	 * @return The title.
+	 */
 	public String getTitle() {
 		return title.getText();
 	}
 
-	// geef de titel slide item van de slide
+	/**
+	 * Gets the text item for the title of the slide.
+	 * @return The title text item.
+	 */
 	public TextItem getTitleItem() {
 		return title;
 	}
 
-	// verander de titel van de slide
+	/**
+	 * Sets the title of the slide.
+	 * @param newTitle: The new title.
+	 */
 	public void setTitle(String newTitle) {
-		/* Creëer nu een TextItem op basis van de nieuwe titel */
 		title = new TextItem(0, newTitle);
 	}
 
-	// geef alle SlideItems in een Vector
+	/**
+	 * Abstract method that should return all the slide items.
+	 * @return The items in the slide.
+	 */
 	public abstract Vector<SlideItem> getSlideItems();
 }

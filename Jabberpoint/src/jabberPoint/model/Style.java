@@ -2,57 +2,82 @@ package jabberPoint.model;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+ * The style class, which is responsible for defining how the text should look like.
+ * @author Ian F. Darwin, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
+*/
 public class Style {
-	private static Style[] styles; // de styles
+	private static final String FONT_NAME = "Helvetica";
+
+	/** The text color. **/
+	private Color color;
 	
-	private static final String FONTNAME = "Helvetica";
-	int indent;
-	Color color;
-	Font font;
-	int fontSize;
-	int leading;
+	/** The text font **/
+	private Font font;
+	
+	/** The font size in points. **/
+	private int fontSize;
+	
+	/** The size of the left margin (i.e. the indentation level). **/
+	private int leftMargin;
+	
+	/** The size of the top margin (i.e. the leading space). **/
+	private int topMargin;
 
-	public static void createStyles() {
-		styles = new Style[5];    
-		// De styles zijn vast ingecodeerd.
-		styles[0] = new Style(0, Color.red,   48, 20);	// style voor item-level 0
-		styles[1] = new Style(20, Color.blue,  40, 10);	// style voor item-level 1
-		styles[2] = new Style(50, Color.black, 36, 10);	// style voor item-level 2
-		styles[3] = new Style(70, Color.black, 30, 10);	// style voor item-level 3
-		styles[4] = new Style(90, Color.black, 24, 10);	// style voor item-level 4
-	}
-
-	public static Style getStyle(int level) {
-		if (level >= styles.length) {
-			level = styles.length - 1;
-		}
-		return styles[level];
-	}
-
-	public Style(int indent, Color color, int points, int leading) {
-		this.indent = indent;
+	/**
+	 * Creates a new style instance.
+	 * @param color: The text color.
+	 * @param fontSize: The font size in points.
+	 * @param leftMargin: The size of the left margin (i.e. the indentation level).
+	 * @param topMargin: The size of the top margin (i.e. the leading space).
+	 */
+	public Style(Color color, int fontSize, int leftMargin, int topMargin) {
 		this.color = color;
-		font = new Font(FONTNAME, Font.BOLD, fontSize=points);
-		this.leading = leading;
+		font = new Font(FONT_NAME, Font.BOLD, fontSize);
+		this.fontSize = fontSize;
+		this.leftMargin = leftMargin;
+		this.topMargin = topMargin;
 	}
 
-	public String toString() {
-		return "["+ indent + "," + color + "; " + fontSize + " on " + leading +"]";
-	}
-
+	/**
+	 * Gets the font for this style.
+	 * @param scale: The scale to apply (depending on the amount of space available).
+	 * @return The font.
+	 */
 	public Font getFont(float scale) {
 		return font.deriveFont(fontSize * scale);
 	}
 
-	public int getIndent(float scale) {
-		return (int) (this.indent * scale);
+	/**
+	 * Gets the left margin for this style.
+	 * @param scale: The scale to apply (depending on the amount of space available).
+	 * @return The margin.
+	 */
+	public int getLeftMargin(float scale) {
+		return (int) (this.leftMargin * scale);
 	}
 
-	public int getLeading(float scale) {
-		return (int) (this.leading * scale);
+	/**
+	 * Gets the top margin for this style.
+	 * @param scale: The scale to apply (depending on the amount of space available).
+	 * @return The margin.
+	 */
+	public int getTopMargin(float scale) {
+		return (int) (this.topMargin * scale);
 	}
 
+	/**
+	 * Gets the color for this style.
+	 * @return The color.
+	 */
 	public Color getColor() {
 		return color;
+	}
+
+	/**
+	 * Converts the style into a string.
+	 */
+	public String toString() {
+		return "["+ leftMargin + "," + color + "; " + fontSize + " on " + topMargin +"]";
 	}
 }

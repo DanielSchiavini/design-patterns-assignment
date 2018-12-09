@@ -17,12 +17,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
+/**
+ * Class responsible for reading a presentation from a XML file.
+ * @author Daniel Schiavini
+ */
 public class PresentationReader {
-	
-    /** Default API to use. */
-    protected static final String DEFAULT_API_TO_USE = "dom";
-    
-    /** namen van xml tags of attributen */
+	// names of XML tags
     protected static final String SHOWTITLE = "showtitle";
     protected static final String SLIDETITLE = "title";
     protected static final String SLIDESUBJECT = "subject";
@@ -34,7 +34,7 @@ public class PresentationReader {
     protected static final String TEXT = "text";
     protected static final String IMAGE = "image";
     
-    /** tekst van messages */
+    // text for the error messages
     protected static final String UNKNOWN_TYPE = "Unknown Element type %s!\n";
     protected static final String INVALID_NUMBER = "Invalid number string %s!\n";
     
@@ -101,7 +101,7 @@ public class PresentationReader {
 			}
 		} else if (nodeName == TOC) {
 			presentation.append(new TableOfContentsSlide(presentation, title));
-		} else {
+		} else if (nodeName != SHOWTITLE) {
 			System.err.printf(UNKNOWN_TYPE, nodeName);
 		}
     }

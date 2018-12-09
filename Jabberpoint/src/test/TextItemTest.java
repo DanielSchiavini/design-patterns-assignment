@@ -34,7 +34,7 @@ public class TextItemTest {
 		int points = 5;
 		int leading = 2;
 		float scale = (float)3.0;
-		Style style = new Style(indent, color, points, leading);
+		Style style = new Style(color, points, indent, leading);
 		AttributedString result = item.getAttributedString(style, scale);
 		Font font = (Font)result.getIterator().getAttribute(TextAttribute.FONT);
 		assertEquals("Helvetica", font.getName());

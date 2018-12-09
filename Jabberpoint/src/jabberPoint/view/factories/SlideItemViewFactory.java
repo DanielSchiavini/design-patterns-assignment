@@ -7,10 +7,19 @@ import jabberPoint.view.BitmapItemView;
 import jabberPoint.view.SlideItemView;
 import jabberPoint.view.TextItemView;
 
+/**
+ * The slide item view factory is responsible for creating the slide item views. 
+ * @author Daniel Schiavini
+ */
 public class SlideItemViewFactory {
+	/**
+	 * Gets the slide item view.
+	 * @param item: The slide item.
+	 * @return The slide item view.
+	 */
 	public SlideItemView getItemView(SlideItem item) {
 		if (item instanceof TextItem) {
-			return new TextItemView((TextItem) item, Constants.WIDTH);
+			return new TextItemView((TextItem) item, Constants.PREFERRED_WIDTH);
 		}
 		if (item instanceof BitmapItem) {
 			return new BitmapItemView((BitmapItem) item);

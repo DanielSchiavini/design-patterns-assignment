@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import jabberPoint.model.Presentation;
 import jabberPoint.model.Slide;
-import jabberPoint.model.Style;
 import jabberPoint.model.factories.PresentationFactory;
 
 public class PresentationTest {
@@ -15,7 +14,6 @@ public class PresentationTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		Style.createStyles();
 		presentation = new PresentationFactory().getDemoPresentation();
 		presentation.setSlideNumber(0);
 	}
@@ -61,7 +59,7 @@ public class PresentationTest {
 	public void testPrevSlide() {
 		presentation.setSlideNumber(2);
 		int expected = 1;
-		presentation.prevSlide();
+		presentation.showPreviousSlide();
 		int result = presentation.getSlideNumber();
 		assertEquals(expected, result);
 	}
@@ -69,7 +67,7 @@ public class PresentationTest {
 	@Test
 	public void testNextSlide() {
 		int expected = 1;
-		presentation.nextSlide();
+		presentation.showNextSlide();
 		int result = presentation.getSlideNumber();
 		assertEquals(expected, result);
 	}

@@ -4,11 +4,13 @@ import javax.swing.JOptionPane;
 
 import jabberPoint.controller.factories.ControllerFactory;
 import jabberPoint.model.Presentation;
-import jabberPoint.model.Style;
 import jabberPoint.model.factories.PresentationFactory;
+import jabberPoint.model.factories.StyleFactory;
 import jabberPoint.view.JabberpointFrame;
 import jabberPoint.view.PresentationView;
 import jabberPoint.view.factories.PresentationViewFactory;
+import jabberPoint.view.factories.SlideItemViewFactory;
+import jabberPoint.view.factories.SlideViewFactory;
 
 import java.io.IOException;
 
@@ -17,21 +19,26 @@ import java.io.IOException;
  * COPYRIGHT.txt file (which is NOT the GNU General Public License).
  * Please read it. Your use of the software constitutes acceptance
  * of the terms in the COPYRIGHT.txt file.</p>
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
+ * @author Ian F. Darwin, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
  */
-
 public class JabberPoint {
-	private static final String IOERR = "IO Error: ";
-	private static final String JABERR = "Jabberpoint Error ";
+	// Text constants for errors
+	private static final String IO_ERROR = "IO Error: %s";
+	private static final String ERROR_TITLE = "Jabberpoint Error";
 
+	// Dependencies setup
 	private static final PresentationFactory presentationFactory = new PresentationFactory();
-	private static final PresentationViewFactory presentationViewFactory = new PresentationViewFactory();
-	private static final ControllerFactory controllerFactory = new ControllerFactory();
+	private static final SlideItemViewFactory itemViewFactory = new SlideItemViewFactory();
+	private static final StyleFactory styleFactory = new StyleFactory();
+	private static final SlideViewFactory slideViewFactory = new SlideViewFactory(itemViewFactory, styleFactory);
+	private static final PresentationViewFactory presentationViewFactory = new PresentationViewFactory(slideViewFactory);
+	private static final ControllerFactory controllerFactory = new ControllerFactory(presentationFactory);
 
-	/** Het Main Programma */
+	/**
+	 * The main method that starts up Jabberpoint.
+	 * @param argv: Parameters given in the command line.
+	 */
 	public static void main(String argv[]) {
-		
-		Style.createStyles();
 		try {
 			Presentation presentation = argv.length == 0
 				? presentationFactory.getDemoPresentation()
@@ -40,7 +47,7 @@ public class JabberPoint {
 			new JabberpointFrame(presentation, presentationView, controllerFactory);
 			presentation.setSlideNumber(0);
 		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(null, IOERR + ex, JABERR, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, String.format(IO_ERROR, ex), ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

@@ -1,39 +1,62 @@
 package jabberPoint.model;
 import java.util.Vector;
 
+/**
+ * Class responsible for displaying a regular content slide.
+ * @author Ian F. Darwin, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
+ */
 public class ContentSlide extends Slide {
 
+	/** The items in the slide **/
 	private Vector<SlideItem> items = new Vector<SlideItem>();
+
+	/** The subject of the slide (which is displayed in the table of contents slides) **/ 
 	private String subject = null;
 
-	// Voeg een SlideItem toe
-	public void append(SlideItem anItem) {
-		items.addElement(anItem);
+	/**
+	 * Gets all the items in this slide.
+	 */
+	public Vector<SlideItem> getSlideItems() {
+		return items;
 	}
 
-	// Maak een TextItem van String, en voeg het TextItem toe
-	public void append(int level, String message) {
-		append(new TextItem(level, message));
+	/**
+	 * Appends an slide item to the slide.
+	 * @param item: The item to be added.
+	 */
+	public void append(SlideItem item) {
+		items.addElement(item);
 	}
 
-	// Verwijder alle slide items
+	/**
+	 * Creates a new text item based on the given string and adds it to the slide.
+	 * @param level: The style level of the item (0 for the highest level).
+	 * @param text: The text of the item.
+	 */
+	public void append(int level, String text) {
+		append(new TextItem(level, text));
+	}
+
+	/**
+	 * Removes all the items from the slide.
+	 */
 	protected void clear() {
 		items.clear();
 	}
 
-	// geef het onderwerp van de slide
+	/**
+	 * Gets the subject of the slide, to be displayed in the table of contents slides.
+	 * @return The slide subject.
+	 */
 	public String getSubject() {
 		return subject;
 	}
 
-	// verander het onderwerp van de slide
+	/**
+	 * Sets the subject of the slide.
+	 * @param subject: The new slide subject.
+	 */
 	public void setSubject(String subject) {
-		/* Creëer nu een TextItem op basis van de nieuwe titel */
 		this.subject  = subject;
-	}
-
-	// geef alle SlideItems in een Vector
-	public Vector<SlideItem> getSlideItems() {
-		return items;
 	}
 }

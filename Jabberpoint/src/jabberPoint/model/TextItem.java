@@ -2,39 +2,56 @@ package jabberPoint.model;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 
+/**
+ * A slide item that is able to display text.
+ * @author Ian F. Darwin, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
+ */
 public class TextItem extends SlideItem {
+	/** The text in this slide item **/
 	private String text;
-	
-	private static final String EMPTYTEXT = "No Text Given";
 
-	// een textitem van level level, met als tekst string
-	public TextItem(int level, String string) {
+	/**
+	 * Creates a text slide item.
+	 * @param level: The style level of the item (0 for the highest level).
+	 * @param text: The text of the item.
+	 */
+	public TextItem(int level, String text) {
 		super(level);
-		text = string;
+		this.text = text;
 	}
 
-	// een leeg textitem
-	public TextItem() {
-		this(0, EMPTYTEXT);
-	}
-
-	// Geef de tekst
+	/**
+	 * Gets the text of this text item.
+	 * @return The text.
+	 */
 	public String getText() {
 		return text == null ? "" : text;
 	}
 
-	// geef de AttributedString voor het item
+	/**
+	 * Returns a boolean indicating whether the text of this item is null or empty.
+	 * @return True if the text is empty, False otherwise.
+	 */
+	public boolean isEmpty() {
+		return text == null || text.length() == 0;
+	}
+
+	/**
+	 * Gets the attributed string for this item.
+	 * @param style: The style to apply.
+	 * @param scale: The scale to apply (depending on the amount of space available).
+	 * @return The attributed string.
+	 */
 	public AttributedString getAttributedString(Style style, float scale) {
 		AttributedString attrStr = new AttributedString(getText());
 		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
 		return attrStr;
 	}
 
+	/**
+	 * Converts the text item into a string.
+	 */
 	public String toString() {
 		return "TextItem[" + getLevel()+","+getText()+"]";
-	}
-
-	public boolean isEmpty() {
-		return text == null || text.length() == 0;
 	}
 }
