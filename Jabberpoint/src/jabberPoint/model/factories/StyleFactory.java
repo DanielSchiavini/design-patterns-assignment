@@ -1,7 +1,12 @@
 package jabberPoint.model.factories;
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
 
+import jabberPoint.model.ContentSlide;
+import jabberPoint.model.Slide;
+import jabberPoint.model.TableOfContentsSlide;
 import jabberPoint.model.Style;
 
 /**
@@ -10,18 +15,15 @@ import jabberPoint.model.Style;
  */
 public class StyleFactory {
 	/** The styles **/
-	private Style[] styles;
+	private Map<Class<? extends Slide>, Style[]> styles;
 	
 	/**
 	 * Creates a new style factory.
 	 */
 	public StyleFactory() {
-		styles = new Style[5];
-		styles[0] = new Style(Color.red, 48,   0, 20);	// style for item-level 0
-		styles[1] = new Style(Color.blue, 40,  20, 10);	// style for item-level 1
-		styles[2] = new Style(Color.black, 36, 50, 10);	// style for item-level 2
-		styles[3] = new Style(Color.black, 30, 70, 10);	// style for item-level 3
-		styles[4] = new Style(Color.black, 24, 90, 10);	// style for item-level 4
+		styles = new HashMap<Class<? extends Slide>, Style[]>();
+		styles.put(TableOfContentsSlide.class, this.createTableOfContentStyles());
+		styles.put(ContentSlide.class, this.createContentStyles());
 	}
 
 	/**
@@ -29,10 +31,37 @@ public class StyleFactory {
 	 * @param level: The style level (0 for the highest level).
 	 * @return The style.
 	 */
-	public Style getStyle(int level) {
-		if (level >= styles.length) {
-			level = styles.length - 1;
+	public Style getStyle(Slide slide, int level) {
+		Style[] classStyles = this.styles.get(slide.getClass());
+		if (level >= classStyles.length) {
+			level = classStyles.length - 1;
 		}
-		return styles[level];
+		return classStyles[level];
+	}
+
+	/**
+	 * Creates an array with the styles for the content slides.
+	 * @return: An array of styles.
+	 */
+	private Style[] createContentStyles() {
+		Style[] styles = new Style[5];
+		styles[0] = new Style(Color.red, 48,   0, 20);	// style for item-level 0
+		styles[1] = new Style(Color.blue, 40,  20, 10);	// style for item-level 1
+		styles[2] = new Style(Color.black, 36, 50, 10);	// style for item-level 2
+		styles[3] = new Style(Color.black, 30, 70, 10);	// style for item-level 3
+		styles[4] = new Style(Color.black, 24, 90, 10);	// style for item-level 4
+		return styles;
+	}
+
+	/**
+	 * Creates an array with the styles for the table of content slides.
+	 * @return: An array of styles.
+	 */
+	private Style[] createTableOfContentStyles() {
+		Style[] styles = new Style[3];
+		styles[0] = new Style(Color.red, 48,   0, 20);	// style for item-level 0
+		styles[1] = new Style(Color.blue, 36, 50, 10);
+		styles[2] = new Style(Color.black, 36, 50, 10);
+		return styles;
 	}
 }
