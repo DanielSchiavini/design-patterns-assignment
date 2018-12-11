@@ -35,7 +35,7 @@ public class TableOfContentsSlideTest {
 		assertEquals(3, slideItems.size());
 
 		TextItem item = (TextItem)slideItems.elementAt(0);
-		assertEquals("JabberPoint", item.getText());
+		assertEquals("• JabberPoint", item.getText());
 		assertEquals(1, item.getLevel());
 
 		item = (TextItem)slideItems.elementAt(1);

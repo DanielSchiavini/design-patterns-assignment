@@ -41,12 +41,7 @@ public class TableOfContentsSlide extends Slide {
 				isCurrent = slide == this;
 			}
 			else if (slide instanceof ContentSlide) {
-				String subject = ((ContentSlide)slide).getSubject();
-				if (subject == null || subject.isEmpty()) {
-					// Use the title of the slide as default if no subject is given.
-					subject = slide.getTitle();
-				}
-	
+				String subject = getSubject((ContentSlide) slide);
 				if (!subject.equals(lastSubject)) {
 					// the subject changed, let's add it to the slide items.
 					int level = isCurrent ? 1 : 2; // give a higher level to the current subject
@@ -59,5 +54,19 @@ public class TableOfContentsSlide extends Slide {
 			}
 		}
 		return items;
+	}
+
+	/**
+	 * Gets the subject of the given slide.
+	 * @param slide: The slide.
+	 * @return: The subject, or the title if the subject is empty.
+	 */
+	private String getSubject(ContentSlide slide) {
+		String subject = ((ContentSlide)slide).getSubject();
+		if (subject == null || subject.isEmpty()) {
+			// Use the title of the slide as default if no subject is given.
+			subject = slide.getTitle();
+		}
+		return subject;
 	}
 }
