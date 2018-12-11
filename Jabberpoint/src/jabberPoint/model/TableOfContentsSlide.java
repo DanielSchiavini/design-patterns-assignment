@@ -50,7 +50,7 @@ public class TableOfContentsSlide extends Slide {
 				if (!subject.equals(lastSubject)) {
 					// the subject changed, let's add it to the slide items.
 					int level = isCurrent ? 1 : 2; // give a higher level to the current subject
-					items.add(new TextItem(level, subject));
+					items.add(new TextItem(level, "• " + subject));
 					lastSubject = subject;
 					isCurrent = false;
 				}
