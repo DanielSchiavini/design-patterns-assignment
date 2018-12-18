@@ -16,6 +16,7 @@ import jabberPoint.model.Style;
 public class StyleFactory {
 	/** The styles **/
 	private Map<Class<? extends Slide>, Style[]> styles;
+	private static final String FONT_NAME = "Helvetica";
 	
 	/**
 	 * Creates a new style factory.
@@ -45,11 +46,11 @@ public class StyleFactory {
 	 */
 	private Style[] createContentStyles() {
 		Style[] styles = new Style[5];
-		styles[0] = new Style(Color.red, 48,   0, 20);	// style for item-level 0
-		styles[1] = new Style(Color.blue, 40,  20, 10);	// style for item-level 1
-		styles[2] = new Style(Color.black, 36, 50, 10);	// style for item-level 2
-		styles[3] = new Style(Color.black, 30, 70, 10);	// style for item-level 3
-		styles[4] = new Style(Color.black, 24, 90, 10);	// style for item-level 4
+		styles[0] = new Style(FONT_NAME, Color.red, 48,   0, 20);	// style for item-level 0
+		styles[1] = new Style(FONT_NAME, Color.blue, 40,  20, 10);	// style for item-level 1
+		styles[2] = new Style(FONT_NAME, Color.black, 36, 50, 10);	// style for item-level 2
+		styles[3] = new Style(FONT_NAME, Color.black, 30, 70, 10);	// style for item-level 3
+		styles[4] = new Style(FONT_NAME, Color.black, 24, 90, 10);	// style for item-level 4
 		return styles;
 	}
 
@@ -59,9 +60,9 @@ public class StyleFactory {
 	 */
 	private Style[] createTableOfContentStyles() {
 		Style[] styles = new Style[3];
-		styles[0] = new Style(Color.red, 48,   0, 20);	// style for item-level 0
-		styles[1] = new Style(Color.blue, 36, 50, 10);
-		styles[2] = new Style(Color.black, 36, 50, 10);
+		styles[0] = new Style(FONT_NAME, Color.red, 48,   0, 20);	// style for item-level 0
+		styles[1] = new Style(FONT_NAME, Color.blue, 36, 50, 10);
+		styles[2] = new Style(FONT_NAME, Color.black, 36, 50, 10);
 		return styles;
 	}
 }

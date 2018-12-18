@@ -7,8 +7,6 @@ import java.awt.Font;
  * @author Ian F. Darwin, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
 */
 public class Style {
-	private static final String FONT_NAME = "Helvetica";
-
 	/** The text color. **/
 	private Color color;
 	
@@ -26,14 +24,15 @@ public class Style {
 
 	/**
 	 * Creates a new style instance.
+	 * @param fontName: The name of the font.
 	 * @param color: The text color.
 	 * @param fontSize: The font size in points.
 	 * @param leftMargin: The size of the left margin (i.e. the indentation level).
 	 * @param topMargin: The size of the top margin (i.e. the leading space).
 	 */
-	public Style(Color color, int fontSize, int leftMargin, int topMargin) {
+	public Style(String fontName, Color color, int fontSize, int leftMargin, int topMargin) {
 		this.color = color;
-		font = new Font(FONT_NAME, Font.BOLD, fontSize);
+		font = new Font(fontName, Font.BOLD, fontSize);
 		this.fontSize = fontSize;
 		this.leftMargin = leftMargin;
 		this.topMargin = topMargin;

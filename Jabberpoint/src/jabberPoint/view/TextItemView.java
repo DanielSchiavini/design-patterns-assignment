@@ -102,14 +102,14 @@ public class TextItemView implements SlideItemView {
 	private List<TextLayout> getLayouts(Graphics g, Style style, float scale) {
 		List<TextLayout> layouts = new ArrayList<TextLayout>();
 		AttributedString attrStr = item.getAttributedString(style, scale);
-    	Graphics2D g2d = (Graphics2D) g;
-    	FontRenderContext frc = g2d.getFontRenderContext();
-    	LineBreakMeasurer measurer = new LineBreakMeasurer(attrStr.getIterator(), frc);
-    	float wrappingWidth = (preferredWidth - style.getLeftMargin(1)) * scale;
-    	while (measurer.getPosition() < item.getText().length()) {
-    		TextLayout layout = measurer.nextLayout(wrappingWidth);
-    		layouts.add(layout);
-    	}
-    	return layouts;
+		Graphics2D g2d = (Graphics2D) g;
+		FontRenderContext frc = g2d.getFontRenderContext();
+		LineBreakMeasurer measurer = new LineBreakMeasurer(attrStr.getIterator(), frc);
+		float wrappingWidth = (preferredWidth - style.getLeftMargin(1)) * scale;
+		while (measurer.getPosition() < item.getText().length()) {
+			TextLayout layout = measurer.nextLayout(wrappingWidth);
+			layouts.add(layout);
+		}
+		return layouts;
 	}
 }

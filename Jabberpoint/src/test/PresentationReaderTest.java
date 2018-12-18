@@ -30,10 +30,10 @@ public class PresentationReaderTest {
 
 	@After
 	public void tearDown() throws Exception {
-	    File testFile = new File("test-save-file.xml");
-	    if (testFile.exists()) {
-	       testFile.delete();     
-	    }
+		File testFile = new File("test-save-file.xml");
+		if (testFile.exists()) {
+			testFile.delete();
+		}
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class PresentationReaderTest {
 		writer.saveFile(presentation, "test-save-file.xml");
 
 		BufferedReader expectedReader = new BufferedReader(new FileReader("test.xml"));
-		BufferedReader resultReader = new BufferedReader(new FileReader("test-save-file.xml"));    
+		BufferedReader resultReader = new BufferedReader(new FileReader("test-save-file.xml"));
 		try {
 			String expectedLine = expectedReader.readLine();
 			while (expectedLine != null) {

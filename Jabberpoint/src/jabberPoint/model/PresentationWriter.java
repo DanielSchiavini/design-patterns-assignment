@@ -14,8 +14,8 @@ import jabberPoint.model.TextItem;
 
 public class PresentationWriter {
 	
-    protected static final String UNKNOWN_TYPE = "Unknown Element type %s!\n";
-    
+	protected static final String UNKNOWN_TYPE = "Unknown Element type %s!\n";
+	
 	/**
 	 * Saves a presentation into a XML file.
 	 * @param presentation - The presentation to be saved.

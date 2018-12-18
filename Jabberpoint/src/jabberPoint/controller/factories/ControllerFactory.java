@@ -40,7 +40,7 @@ public class ControllerFactory {
 	 * Creates the menu controller.
 	 * @param presentation: The presentation to create a controller for.
 	 * @param onAboutRequested: Handler to show the about box.
-	 * @param onIOException: Handler to show an IO exception.
+	 * @param onIOException: Handler to show an IO exception. Receives a title and the exception.
 	 * @return: The created controller.
 	 */
 	public MenuBar getMenuController(Presentation presentation, ActionListener onAboutRequested,

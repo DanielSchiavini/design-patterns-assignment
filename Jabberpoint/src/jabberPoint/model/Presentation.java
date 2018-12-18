@@ -73,7 +73,7 @@ public class Presentation extends Observable<Slide> {
 	public void showPreviousSlide() {
 		if (currentSlideNumber > 0) {
 			setSlideNumber(currentSlideNumber - 1);
-	    }
+		}
 	}
 
 	/**
@@ -110,10 +110,10 @@ public class Presentation extends Observable<Slide> {
 	 * @return: The slide, if found, or null otherwise.
 	 */
 	public Slide getSlide(int number) {
-		if (number < 0 || number >= getSize()){
+		if (number < 0 || number >= getSize()) {
 			return null;
-	    }
-		return (Slide)showList.get(number);
+		}
+		return showList.get(number);
 	}
 
 	/**

@@ -14,11 +14,14 @@ import jabberPoint.view.factories.SlideViewFactory;
 
 import java.io.IOException;
 
-/** JabberPoint Main Program
- * <p>This program is distributed under the terms of the accompanying
+/**
+ * JabberPoint Main Program.
+ * 
+ * This program is distributed under the terms of the accompanying
  * COPYRIGHT.txt file (which is NOT the GNU General Public License).
  * Please read it. Your use of the software constitutes acceptance
- * of the terms in the COPYRIGHT.txt file.</p>
+ * of the terms in the COPYRIGHT.txt file.
+ * 
  * @author Ian F. Darwin, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
  */
 public class JabberPoint {
@@ -37,6 +40,8 @@ public class JabberPoint {
 	/**
 	 * The main method that starts up Jabberpoint.
 	 * @param argv: Parameters given in the command line.
+	 * 		If an argument was given, the file with the given name will be opened.
+	 * 		If no argument was given, the demonstration presentation is displayed.
 	 */
 	public static void main(String argv[]) {
 		try {

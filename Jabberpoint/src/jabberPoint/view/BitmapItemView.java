@@ -60,6 +60,6 @@ public class BitmapItemView implements SlideItemView {
 		int width = x + (int) (myStyle.getLeftMargin(scale));
 		int height = y + (int) (myStyle.getTopMargin(scale));
 		g.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(view)*scale),
-                (int) (bufferedImage.getHeight(view)*scale), view);
+				(int) (bufferedImage.getHeight(view)*scale), view);
 	}
 }

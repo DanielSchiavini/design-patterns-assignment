@@ -55,19 +55,19 @@ public class SlideView {
 	 */
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
-	    int y = area.y;
+		int y = area.y;
 		/* De titel hoeft niet meer apart behandeld te worden */
-	    SlideItem titleItem = slide.getTitleItem();
-	    Style style = styleFactory.getStyle(slide, titleItem.getLevel());
-	    SlideItemView itemView = itemFactory.getItemView(titleItem);
-	    itemView.draw(g, view, scale, style, area.x, y);
-	    y += itemView.getBoundingBox(g, view, scale, style).height;
-	    for (SlideItem item : slide.getSlideItems()) {
-	    	itemView = itemFactory.getItemView(item);
-	    	style = styleFactory.getStyle(slide, item.getLevel());
-	      	itemView.draw(g, view, scale, style, area.x, y);
-	    	y += itemView.getBoundingBox(g, view, scale, style).height;
-	    }
+		SlideItem titleItem = slide.getTitleItem();
+		Style style = styleFactory.getStyle(slide, titleItem.getLevel());
+		SlideItemView itemView = itemFactory.getItemView(titleItem);
+		itemView.draw(g, view, scale, style, area.x, y);
+		y += itemView.getBoundingBox(g, view, scale, style).height;
+		for (SlideItem item : slide.getSlideItems()) {
+			itemView = itemFactory.getItemView(item);
+			style = styleFactory.getStyle(slide, item.getLevel());
+		  	itemView.draw(g, view, scale, style, area.x, y);
+			y += itemView.getBoundingBox(g, view, scale, style).height;
+		}
 	}
 	
 	/**

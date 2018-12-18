@@ -23,45 +23,45 @@ import org.w3c.dom.NodeList;
  */
 public class PresentationReader {
 	// names of XML tags
-    protected static final String SHOWTITLE = "showtitle";
-    protected static final String SLIDETITLE = "title";
-    protected static final String SLIDESUBJECT = "subject";
-    protected static final String SLIDE = "slide";
-    protected static final String TOC = "toc";
-    protected static final String ITEM = "item";
-    protected static final String LEVEL = "level";
-    protected static final String KIND = "kind";
-    protected static final String TEXT = "text";
-    protected static final String IMAGE = "image";
-    
-    // text for the error messages
-    protected static final String UNKNOWN_TYPE = "Unknown Element type %s!\n";
-    protected static final String INVALID_NUMBER = "Invalid number string %s!\n";
-    
-    /**
-     * Reads a text element inside a XML node.
-     * Note the first one will be returned if more than one element with this tag is found.
-     * @param element - The XML element.
-     * @param tagName - The tag to be read.
-     * @return The text, if found, or null otherwise.
-     */
-    private String getText(Element element, String tagName) {
-    	NodeList titles = element.getElementsByTagName(tagName);
-    	if (titles.getLength() >= 1) {
-    		return titles.item(0).getTextContent();
-    	}
-    	return null;
-    }
+	protected static final String SHOWTITLE = "showtitle";
+	protected static final String SLIDETITLE = "title";
+	protected static final String SLIDESUBJECT = "subject";
+	protected static final String SLIDE = "slide";
+	protected static final String TOC = "toc";
+	protected static final String ITEM = "item";
+	protected static final String LEVEL = "level";
+	protected static final String KIND = "kind";
+	protected static final String TEXT = "text";
+	protected static final String IMAGE = "image";
+	
+	// text for the error messages
+	protected static final String UNKNOWN_TYPE = "Unknown Element type %s!\n";
+	protected static final String INVALID_NUMBER = "Invalid number string %s!\n";
+	
+	/**
+	 * Reads a text element inside a XML node.
+	 * Note the first one will be returned if more than one element with this tag is found.
+	 * @param element - The XML element.
+	 * @param tagName - The tag to be read.
+	 * @return The text, if found, or null otherwise.
+	 */
+	private String getText(Element element, String tagName) {
+		NodeList titles = element.getElementsByTagName(tagName);
+		if (titles.getLength() >= 1) {
+			return titles.item(0).getTextContent();
+		}
+		return null;
+	}
 
-    /**
-     * Opens a XML file and loads the presentation data found in it.
-     * Parsing errors are printed to the output but ignored otherwise.
-     * @param presentation - The presentation where the data will be added to.
-     * @param filename - The name of the file to be read.
-     */
+	/**
+	 * Opens a XML file and loads the presentation data found in it.
+	 * Parsing errors are printed to the output but ignored otherwise.
+	 * @param presentation - The presentation where the data will be added to.
+	 * @param filename - The name of the file to be read.
+	 */
 	public void loadFile(Presentation presentation, String filename) throws IOException {
 		try {
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
 			Document document = builder.parse(new File(filename)); // maak een JDOM document
 			Element doc = document.getDocumentElement();
 			presentation.setTitle(getText(doc, SHOWTITLE));
@@ -84,7 +84,7 @@ public class PresentationReader {
 	 * @param presentation - The presentation where the slide will be added to.
 	 * @param xmlNode - The XML node where the slide information can be found.
 	 */
-    private void loadSlide(Presentation presentation, Element xmlNode) {
+	private void loadSlide(Presentation presentation, Element xmlNode) {
 		String nodeName = xmlNode.getNodeName();
 		String title = getText(xmlNode, SLIDETITLE);
 		if (nodeName == SLIDE) {
@@ -104,7 +104,7 @@ public class PresentationReader {
 		} else if (nodeName != SHOWTITLE) {
 			System.err.printf(UNKNOWN_TYPE, nodeName);
 		}
-    }
+	}
 
 	/**
 	 * Loads a slide item and adds it to the slide.
