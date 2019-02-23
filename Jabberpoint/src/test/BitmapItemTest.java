@@ -9,7 +9,7 @@ import jabberPoint.model.BitmapItem;
 
 public class BitmapItemTest {
 
-	BitmapItem item = null;
+	private BitmapItem item = null;
 	
 	@Before
 	public void setUp() throws Exception {

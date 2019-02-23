@@ -1,9 +1,8 @@
 package jabberPoint.model.factories;
 
-import java.io.IOException;
-
-import jabberPoint.model.DemoPresentation;
+import jabberPoint.model.DemoPresentationReader;
 import jabberPoint.model.Presentation;
+import jabberPoint.model.PresentationFileReader;
 import jabberPoint.model.PresentationReader;
 import jabberPoint.model.PresentationWriter;
 
@@ -15,43 +14,38 @@ public class PresentationFactory {
 	/** We currently use a single presentation instance through the lifetime of the application **/
 	private Presentation presentation;
 
+	// The class responsible for creating slides.
+	private SlideFactory slideFactory;
+
 	/**
 	 * Creates a new presentation factory.
+	 * @param slideFactory: The class responsible for creating slides.
 	 */
-	public PresentationFactory() {
+	public PresentationFactory(SlideFactory slideFactory) {
 		this.presentation = new Presentation();
-	}
-	
-	/**
-	 * Gets the demonstration presentation.
-	 * @return The presentation.
-	 */
-	public Presentation getDemoPresentation() {
-		presentation.clear();
-		new DemoPresentation().load(presentation);
-		return presentation;
+		this.slideFactory = slideFactory;
 	}
 
 	/**
-	 * Reads a presentation from a file.
+	 * Gets a presentation reader for a file.
 	 * @param fileName: The name of the file to read.
-	 * @return The presentation.
-	 * @throws IOException: If something went wrong reading the file.
+	 * @return The presentation reader.
 	 */
-	public Presentation readPresentation(String fileName) throws IOException {
+	public PresentationReader getPresentationReader(String fileName) {
 		presentation.clear();
-		new PresentationReader().loadFile(presentation, fileName);
-		return presentation;
+		if (fileName == null) {
+			return new DemoPresentationReader(presentation, slideFactory);
+		}
+		return new PresentationFileReader(presentation, fileName, slideFactory);
 	}
 
 	/**
-	 * Writes the presentation to a file.
+	 * Creates a class responsible for writing presentations.
 	 * @param presentation: The presentation to write.
-	 * @param fileName: The name of the file where the presentation should be written to.
-	 * @throws IOException: If something went wrong writing the file.
+	 * @param fileName: The name of the file to write.
+	 * @return The presentation writer.
 	 */
-	public void writePresentation(Presentation presentation, String fileName) throws IOException {
-		PresentationWriter presentationWriter = new PresentationWriter();
-		presentationWriter.saveFile(presentation, fileName);
+	public PresentationWriter getPresentationWriter(Presentation presentation, String fileName) {
+		return new PresentationWriter(presentation, fileName, slideFactory);
 	}
 }

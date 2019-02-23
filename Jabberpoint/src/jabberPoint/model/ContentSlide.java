@@ -29,15 +29,6 @@ public class ContentSlide extends Slide {
 	}
 
 	/**
-	 * Creates a new text item based on the given string and adds it to the slide.
-	 * @param level: The style level of the item (0 for the highest level).
-	 * @param text: The text of the item.
-	 */
-	public void append(int level, String text) {
-		append(new TextItem(level, text));
-	}
-
-	/**
 	 * Gets the subject of the slide, to be displayed in the table of contents slides.
 	 * @return The slide subject.
 	 */

@@ -10,18 +10,22 @@ import org.junit.Test;
 import jabberPoint.model.TableOfContentsSlide;
 import jabberPoint.model.SlideItem;
 import jabberPoint.model.TextItem;
+import jabberPoint.model.factories.SlideFactory;
 import jabberPoint.model.Presentation;
-import jabberPoint.model.DemoPresentation;
+import jabberPoint.model.PresentationReader;
+import jabberPoint.model.DemoPresentationReader;
 
 public class TableOfContentsSlideTest {
 
 	TableOfContentsSlide slide = null;
 	Presentation presentation = null;
+	SlideFactory slideFactory = new SlideFactory();
 	
 	@Before
 	public void setUp() throws Exception {
 		presentation = new Presentation();
-		new DemoPresentation().load(presentation);
+		PresentationReader reader = new DemoPresentationReader(presentation, slideFactory);
+		reader.read();
 		slide = (TableOfContentsSlide)presentation.getSlide(0);
 	}
 

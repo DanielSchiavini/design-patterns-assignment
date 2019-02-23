@@ -4,17 +4,19 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import jabberPoint.model.DemoPresentationReader;
 import jabberPoint.model.Presentation;
 import jabberPoint.model.Slide;
-import jabberPoint.model.factories.PresentationFactory;
+import jabberPoint.model.factories.SlideFactory;
 
 public class PresentationTest {
 
-	private Presentation presentation = null;
+	private final Presentation presentation = new Presentation();
+	private final SlideFactory slideFactory = new SlideFactory();
 	
 	@Before
 	public void setUp() throws Exception {
-		presentation = new PresentationFactory().getDemoPresentation();
+		new DemoPresentationReader(presentation, slideFactory).read();
 		presentation.setSlideNumber(0);
 	}
 
@@ -74,8 +76,8 @@ public class PresentationTest {
 
 	@Test
 	public void testClear() {
+		presentation.clear();
 		int expected = 0;
-		presentation = new Presentation();
 		int result = presentation.getSize();
 		assertEquals(expected, result);
 	}

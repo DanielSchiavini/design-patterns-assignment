@@ -10,6 +10,8 @@ import java.util.function.BiConsumer;
 import javax.swing.JOptionPane;
 
 import jabberPoint.model.Presentation;
+import jabberPoint.model.PresentationReader;
+import jabberPoint.model.PresentationWriter;
 import jabberPoint.model.factories.PresentationFactory;
 
 /** 
@@ -118,7 +120,8 @@ public class MenuController extends MenuBar {
 	 */
 	public void openPresentation() {
 		try {
-			presentation = presentationFactory.readPresentation(TEST_FILE);
+			PresentationReader reader = presentationFactory.getPresentationReader(TEST_FILE);
+			presentation = reader.read();
 		} catch (IOException exc) {
 			onIOException.accept(LOAD_ERROR, exc);
 		}
@@ -129,7 +132,8 @@ public class MenuController extends MenuBar {
 	 */
 	private void savePresentation() {
 		try {
-			presentationFactory.writePresentation(presentation, SAVE_FILE);
+			PresentationWriter writer = presentationFactory.getPresentationWriter(presentation, SAVE_FILE);
+			writer.write();
 		} catch (IOException exc) {
 			onIOException.accept(SAVE_ERROR, exc);
 		}

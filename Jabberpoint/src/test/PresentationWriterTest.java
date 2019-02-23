@@ -7,25 +7,18 @@ import java.io.File;
 import java.io.FileReader;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import jabberPoint.model.Presentation;
+import jabberPoint.model.PresentationFileReader;
 import jabberPoint.model.PresentationReader;
 import jabberPoint.model.PresentationWriter;
+import jabberPoint.model.factories.SlideFactory;
 
 public class PresentationWriterTest {
 
-	PresentationReader reader;
-	PresentationWriter writer;
-	Presentation presentation = null;
-
-	@Before
-	public void setUp() throws Exception {
-		reader = new PresentationReader();
-		writer = new PresentationWriter();
-		presentation = new Presentation();
-	}
+	Presentation presentation = new Presentation();
+	SlideFactory slideFactory = new SlideFactory();
 
 	@After
 	public void tearDown() throws Exception {
@@ -37,8 +30,11 @@ public class PresentationWriterTest {
 
 	@Test
 	public void testSaveFile() throws Exception {
-		reader.loadFile(presentation, "test.xml");
-		writer.saveFile(presentation, "test-save-file.xml");
+		PresentationReader reader = new PresentationFileReader(presentation, "test.xml", slideFactory);
+		reader.read();
+
+		PresentationWriter writer = new PresentationWriter(presentation, "test-save-file.xml", slideFactory);
+		writer.write();
 
 		BufferedReader expectedReader = new BufferedReader(new FileReader("test.xml"));
 		BufferedReader resultReader = new BufferedReader(new FileReader("test-save-file.xml"));

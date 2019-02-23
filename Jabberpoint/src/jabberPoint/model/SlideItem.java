@@ -20,4 +20,10 @@ public abstract class SlideItem {
 	public int getLevel() {
 		return level;
 	}
+
+	/** Gets the name of the slide type **/
+	public abstract String getSlideType();
+
+	/** Gets the slide item as a String **/
+	public abstract String getStringContents();
 }

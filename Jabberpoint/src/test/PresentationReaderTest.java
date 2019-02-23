@@ -2,31 +2,21 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import jabberPoint.model.Presentation;
+import jabberPoint.model.PresentationFileReader;
 import jabberPoint.model.PresentationReader;
-import jabberPoint.model.PresentationWriter;
+import jabberPoint.model.factories.SlideFactory;
 
 public class PresentationReaderTest {
 
-	PresentationReader reader;
-	PresentationWriter writer;
-	Presentation presentation = null;
-
-	@Before
-	public void setUp() throws Exception {
-		reader = new PresentationReader();
-		writer = new PresentationWriter();
-		presentation = new Presentation();
-	}
+	private final Presentation presentation = new Presentation();
+	private final SlideFactory slideFactory = new SlideFactory();
 
 	@After
 	public void tearDown() throws Exception {
@@ -38,7 +28,8 @@ public class PresentationReaderTest {
 
 	@Test
 	public void testLoadFile() throws IOException {
-		reader.loadFile(presentation, "test.xml");
+		PresentationReader reader = new PresentationFileReader(presentation, "test.xml", slideFactory);
+		reader.read();
 		assertEquals(7, presentation.getSize());
 		assertEquals("XML-Based Presentation for Jabberpoint", presentation.getTitle());
 		assertEquals("jabberPoint.model.TableOfContentsSlide",
@@ -49,27 +40,5 @@ public class PresentationReaderTest {
 				presentation.getSlide(1).getSlideItems().elementAt(2).toString());
 		assertEquals("BitmapItem[1,JabberPoint.jpg]",
 				presentation.getSlide(6).getSlideItems().elementAt(4).toString());
-	}
-
-	@Test
-	public void testSaveFile() throws Exception {
-		reader.loadFile(presentation, "test.xml");
-		writer.saveFile(presentation, "test-save-file.xml");
-
-		BufferedReader expectedReader = new BufferedReader(new FileReader("test.xml"));
-		BufferedReader resultReader = new BufferedReader(new FileReader("test-save-file.xml"));
-		try {
-			String expectedLine = expectedReader.readLine();
-			while (expectedLine != null) {
-				String resultLine = resultReader.readLine();
-				assertEquals(expectedLine.replaceAll("\\s+"," ").trim(),
-						resultLine.replaceAll("\\s+"," ").trim());
-				expectedLine = expectedReader.readLine();
-			}
-		}
-		finally {
-			expectedReader.close();
-			resultReader.close();
-		}
 	}
 }

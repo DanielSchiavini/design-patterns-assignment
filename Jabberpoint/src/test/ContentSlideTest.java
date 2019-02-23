@@ -13,7 +13,7 @@ import jabberPoint.model.TextItem;
 
 public class ContentSlideTest {
 
-	ContentSlide slide = null;
+	private ContentSlide slide = null;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -26,14 +26,6 @@ public class ContentSlideTest {
 		slide.append(expected);
 		SlideItem result = slide.getSlideItems().elementAt(0);
 		assertSame(expected, result);
-	}
-
-	@Test
-	public void testAppendText() {
-		slide.append(1, "Some text");
-		TextItem result = (TextItem)slide.getSlideItems().elementAt(0);
-		assertEquals(1, result.getLevel());
-		assertEquals("Some text", result.getText());
 	}
 
 	@Test
@@ -72,8 +64,8 @@ public class ContentSlideTest {
 	public void testGetSlideItemsAfterAppend() {
 		String expectedText = "Some text";
 		int expectedSize = 1;
-		
-		slide.append(1, expectedText);
+
+		slide.append(new TextItem(1, expectedText));
 		Vector<SlideItem> result = slide.getSlideItems();
 		TextItem item = (TextItem)result.get(0);
 		
@@ -91,7 +83,7 @@ public class ContentSlideTest {
 	@Test
 	public void testGetSizeAfterAppend() {
 		int expected = 1;
-		slide.append(1, "Some text");
+		slide.append(new TextItem(1, "Some text"));
 		int result = slide.getSlideItems().size();
 		assertEquals(expected, result);
 	}

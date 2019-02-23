@@ -54,4 +54,14 @@ public class TextItem extends SlideItem {
 	public String toString() {
 		return "TextItem[" + getLevel()+","+getText()+"]";
 	}
+
+	@Override
+	public String getStringContents() {
+		return text;
+	}
+
+	@Override
+	public String getSlideType() {
+		return "text";
+	}
 }

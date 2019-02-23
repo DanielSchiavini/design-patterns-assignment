@@ -45,4 +45,14 @@ public class BitmapItem extends SlideItem {
 	public String toString() {
 		return "BitmapItem[" + getLevel() + "," + imageName + "]";
 	}
+
+	@Override
+	public String getStringContents() {
+		return imageName;
+	}
+
+	@Override
+	public String getSlideType() {
+		return "image";
+	}
 }
