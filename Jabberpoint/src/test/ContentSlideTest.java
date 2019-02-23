@@ -17,7 +17,7 @@ public class ContentSlideTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		slide = new ContentSlide();
+		slide = new ContentSlide(new TextItem(0, "Test Title"));
 	}
 
 	@Test
@@ -29,19 +29,15 @@ public class ContentSlideTest {
 	}
 
 	@Test
-	public void testSetGetTitle() {
-		String expected = "Test Title";
-		slide.setTitle(expected);
+	public void testGetTitle() {
 		String result = slide.getTitle();
-		assertEquals(expected, result);
+		assertEquals("Test Title", result);
 	}
 
 	@Test
-	public void testSetGetTitleItem() {
-		String expected = "Test Title";
-		slide.setTitle(expected);
+	public void testGetTitleItem() {
 		TextItem result = slide.getTitleItem();
-		assertEquals(expected, result.getText());
+		assertEquals("Test Title", result.getText());
 		assertEquals(0, result.getLevel());
 	}
 

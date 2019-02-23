@@ -7,6 +7,14 @@ import java.util.Vector;
  */
 public class ContentSlide extends Slide {
 
+	/**
+	 * Creates a content slide.
+	 * @param title: The slide title item.
+	 */
+	public ContentSlide(TextItem title) {
+		super(title);
+	}
+
 	/** The items in the slide **/
 	private Vector<SlideItem> items = new Vector<SlideItem>();
 

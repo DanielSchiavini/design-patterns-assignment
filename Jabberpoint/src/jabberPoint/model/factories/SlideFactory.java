@@ -29,7 +29,7 @@ public class SlideFactory {
 	 * @return The table of contents slide.
 	 */
 	public TableOfContentsSlide createTableOfContents(Presentation presentation, String title) {
-		return new TableOfContentsSlide(presentation, title);
+		return new TableOfContentsSlide(presentation, createTitleItem(title));
 	}
 
 	/**
@@ -39,12 +39,20 @@ public class SlideFactory {
 	 * @return The table of contents slide.
 	 */
 	public ContentSlide createContentSlide(String title, String subject) {
-		ContentSlide slide = new ContentSlide();
-		slide.setTitle(title);
+		ContentSlide slide = new ContentSlide(createTitleItem(title));
 		if (subject != null) {
 			slide.setSubject(subject);
 		}
 		return slide;
+	}
+
+	/**
+	 * Creates the text item for the title of a slide.
+	 * @param title: The title of the slide.
+	 * @return: The title item.
+	 */
+	private TextItem createTitleItem(String title) {
+		return new TextItem(0, title);
 	}
 
 	/**

@@ -7,7 +7,15 @@ import java.util.Vector;
  */
 public abstract class Slide {
 	/** The title of the slide **/
-	private TextItem title;
+	private final TextItem title;
+	
+	/**
+	 * Creates a slide.
+	 * @param title: The slide title item.
+	 */
+	public Slide(TextItem title) {
+		this.title = title;
+	}
 
 	/**
 	 * Gets the title of the slide.
@@ -23,14 +31,6 @@ public abstract class Slide {
 	 */
 	public TextItem getTitleItem() {
 		return title;
-	}
-
-	/**
-	 * Sets the title of the slide.
-	 * @param newTitle: The new title.
-	 */
-	public void setTitle(String newTitle) {
-		title = new TextItem(0, newTitle);
 	}
 
 	/**

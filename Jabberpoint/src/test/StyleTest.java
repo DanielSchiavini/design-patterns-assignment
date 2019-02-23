@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 import java.awt.Font;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import jabberPoint.model.ContentSlide;
@@ -13,20 +12,17 @@ import jabberPoint.model.Presentation;
 import jabberPoint.model.Slide;
 import jabberPoint.model.Style;
 import jabberPoint.model.TableOfContentsSlide;
+import jabberPoint.model.TextItem;
 import jabberPoint.model.factories.StyleFactory;
 
 public class StyleTest {
 
-	StyleFactory styleFactory;
-	
-	@Before
-	public void beforeEach() {
-		styleFactory = new StyleFactory();
-	}
+	private final StyleFactory styleFactory = new StyleFactory();
+	private final TextItem title = new TextItem(0, "Title");
 	
 	@Test
 	public void testContentStyles() {
-		Slide slide = new ContentSlide();
+		Slide slide = new ContentSlide(title);
 		assertEquals("[0,java.awt.Color[r=255,g=0,b=0]; 48 on 20]", styleFactory.getStyle(slide, 0).toString());
 		assertEquals("[20,java.awt.Color[r=0,g=0,b=255]; 40 on 10]", styleFactory.getStyle(slide, 1).toString());
 		assertEquals("[50,java.awt.Color[r=0,g=0,b=0]; 36 on 10]", styleFactory.getStyle(slide, 2).toString());
@@ -37,7 +33,7 @@ public class StyleTest {
 	
 	@Test
 	public void testTableOfContentStyles() {
-		Slide slide = new TableOfContentsSlide(new Presentation(), "");
+		Slide slide = new TableOfContentsSlide(new Presentation(), title);
 		assertEquals("[0,java.awt.Color[r=255,g=0,b=0]; 48 on 20]", styleFactory.getStyle(slide, 0).toString());
 		assertEquals("[50,java.awt.Color[r=0,g=0,b=255]; 36 on 10]", styleFactory.getStyle(slide, 1).toString());
 		assertEquals("[50,java.awt.Color[r=0,g=0,b=0]; 36 on 10]", styleFactory.getStyle(slide, 2).toString());
@@ -45,7 +41,7 @@ public class StyleTest {
 
 	@Test
 	public void testFields() {
-		Slide slide = new ContentSlide();
+		Slide slide = new ContentSlide(title);
 		int[] expectedSizes = {48, 40, 36, 30, 24, 24};
 		int[] expectedLeftMargins = {0, 20, 50, 70, 90, 90};
 		int[] expectedTopMargins = {20, 10, 10, 10, 10, 10};

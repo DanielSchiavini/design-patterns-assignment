@@ -14,9 +14,8 @@ public class TableOfContentsSlide extends Slide {
 	 * @param presentation - A reference to the presentation.
 	 * @param title - The title of the slide.
 	 */
-	public TableOfContentsSlide(Presentation presentation, String title) {
-		super();
-		setTitle(title);
+	public TableOfContentsSlide(Presentation presentation, TextItem title) {
+		super(title);
 		this.presentation = presentation;
 	}
 
