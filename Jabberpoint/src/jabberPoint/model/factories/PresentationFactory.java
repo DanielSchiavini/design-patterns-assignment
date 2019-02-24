@@ -31,7 +31,7 @@ public class PresentationFactory {
 	 * @param fileName: The name of the file to read.
 	 * @return The presentation reader.
 	 */
-	public PresentationReader getPresentationReader(String fileName) {
+	public PresentationReader createReader(String fileName) {
 		presentation.clear();
 		if (fileName == null) {
 			return new DemoPresentationReader(presentation, slideFactory);
@@ -45,7 +45,7 @@ public class PresentationFactory {
 	 * @param fileName: The name of the file to write.
 	 * @return The presentation writer.
 	 */
-	public PresentationWriter getPresentationWriter(Presentation presentation, String fileName) {
-		return new PresentationWriter(presentation, fileName, slideFactory);
+	public PresentationWriter createWriter(Presentation presentation, String fileName) {
+		return new PresentationWriter(presentation, fileName);
 	}
 }

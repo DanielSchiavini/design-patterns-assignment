@@ -128,7 +128,7 @@ public class PresentationFileReader implements PresentationReader {
 	 * @param presentation: The presentation where the slide will be added to.
 	 * @param element: The XML element where the slide information can be found.
 	 */
-	protected void loadSlideItem(ContentSlide slide, Element item) {
+	private void loadSlideItem(ContentSlide slide, Element item) {
 		NamedNodeMap attributes = item.getAttributes();
 		int level = parseIntAttribute(attributes.getNamedItem(LEVEL), 1);
 		String type = attributes.getNamedItem(KIND).getTextContent();

@@ -1,4 +1,5 @@
 package jabberPoint.model;
+import java.io.PrintWriter;
 import java.util.Vector;
 
 /**
@@ -38,4 +39,10 @@ public abstract class Slide {
 	 * @return The items in the slide.
 	 */
 	public abstract Vector<SlideItem> getSlideItems();
+
+	/**
+	 * Writes the slide to the output as XML.
+	 * @param out: The printer writer.
+	 */
+	public abstract void writeXML(PrintWriter out);
 }

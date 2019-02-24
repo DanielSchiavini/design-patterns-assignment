@@ -1,5 +1,7 @@
 package jabberPoint.model;
 
+import java.io.PrintWriter;
+
 /**
  * The abstract class from which the different slide item types should inherit.
  * @author Ian F. Darwin, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
@@ -21,9 +23,9 @@ public abstract class SlideItem {
 		return level;
 	}
 
-	/** Gets the name of the slide type **/
-	public abstract String getSlideType();
-
-	/** Gets the slide item as a String **/
-	public abstract String getStringContents();
+	/**
+	 * Writes the slide item to the output.
+	 * @param out - The print writer.
+	 */
+	public abstract void writeXML(PrintWriter out);
 }

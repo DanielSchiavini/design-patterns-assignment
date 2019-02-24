@@ -1,4 +1,5 @@
 package jabberPoint.model;
+import java.io.PrintWriter;
 import java.util.Vector;
 
 /**
@@ -50,5 +51,24 @@ public class ContentSlide extends Slide {
 	 */
 	public void setSubject(String subject) {
 		this.subject  = subject;
+	}
+
+	/**
+	 * Writes a content slide to the output.
+	 * @param out: The printer writer.
+	 */
+	public void writeXML(PrintWriter out) {
+		out.println("<slide>");
+		out.println("<title>" + getTitle() + "</title>");
+		
+		if (subject != null && !subject.isEmpty()) {
+			out.println("<subject>" + subject + "</subject>");
+		}
+
+		for (int itemNumber = 0; itemNumber<items.size(); itemNumber++) {
+			SlideItem slideItem = items.elementAt(itemNumber);
+			slideItem.writeXML(out);
+		}
+		out.println("</slide>");
 	}
 }

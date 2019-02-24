@@ -1,6 +1,6 @@
 package jabberPoint.model;
-import java.awt.font.TextAttribute;
-import java.text.AttributedString;
+
+import java.io.PrintWriter;
 
 /**
  * A slide item that is able to display text.
@@ -37,31 +37,21 @@ public class TextItem extends SlideItem {
 	}
 
 	/**
-	 * Gets the attributed string for this item.
-	 * @param style: The style to apply.
-	 * @param scale: The scale to apply (depending on the amount of space available).
-	 * @return The attributed string.
-	 */
-	public AttributedString getAttributedString(Style style, float scale) {
-		AttributedString attrStr = new AttributedString(getText());
-		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
-		return attrStr;
-	}
-
-	/**
 	 * Converts the text item into a string.
 	 */
 	public String toString() {
 		return "TextItem[" + getLevel()+","+getText()+"]";
 	}
 
+	/**
+	 * Writes the slide item to the output.
+	 * @param out - The print writer.
+	 */
 	@Override
-	public String getStringContents() {
-		return text;
-	}
-
-	@Override
-	public String getSlideType() {
-		return "text";
+	public void writeXML(PrintWriter out)
+	{
+		out.print("<item kind=\"text\" level=\"" + getLevel() + "\">");
+		out.print(text);
+		out.println("</item>");
 	}
 }

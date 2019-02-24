@@ -2,13 +2,9 @@ package jabberPoint.model.factories;
 
 import jabberPoint.model.BitmapItem;
 import jabberPoint.model.ContentSlide;
-import jabberPoint.model.ContentSlideWriter;
 import jabberPoint.model.Presentation;
-import jabberPoint.model.Slide;
 import jabberPoint.model.SlideItem;
-import jabberPoint.model.SlideWriter;
 import jabberPoint.model.TableOfContentsSlide;
-import jabberPoint.model.TableOfContentsSlideWriter;
 import jabberPoint.model.TextItem;
 
 /**
@@ -72,27 +68,6 @@ public class SlideFactory {
 		}
 		
 		System.err.printf(UNKNOWN_TYPE, type);
-		return null;
-	}
-
-	/**
-	 * Creates a slide writer
-	 * @param slide: The slide that will be written.
-	 * @return: The slide writer object.
-	 */
-	public SlideWriter createWriter(Slide slide) {
-		if (slide instanceof TableOfContentsSlide) {
-			return new TableOfContentsSlideWriter((TableOfContentsSlide) slide);
-		}
-		
-		if (slide instanceof ContentSlide) {
-			return new ContentSlideWriter((ContentSlide)slide);
-		}
-		
-		if (slide != null) {
-			System.err.printf(UNKNOWN_TYPE, slide.getClass().getName());
-		}
-		
 		return null;
 	}
 }

@@ -1,5 +1,6 @@
 package jabberPoint.model;
 
+import java.io.PrintWriter;
 import java.util.Vector;
 
 /**
@@ -40,7 +41,7 @@ public class TableOfContentsSlide extends Slide {
 				isCurrent = slide == this;
 			}
 			else if (slide instanceof ContentSlide) {
-				String subject = getSubject((ContentSlide) slide);
+				String subject = getSlideSubject((ContentSlide) slide);
 				if (!subject.equals(lastSubject)) {
 					// the subject changed, let's add it to the slide items.
 					int level = isCurrent ? 1 : 2; // give a higher level to the current subject
@@ -60,12 +61,23 @@ public class TableOfContentsSlide extends Slide {
 	 * @param slide: The slide.
 	 * @return: The subject, or the title if the subject is empty.
 	 */
-	private String getSubject(ContentSlide slide) {
+	private String getSlideSubject(ContentSlide slide) {
 		String subject = ((ContentSlide)slide).getSubject();
 		if (subject == null || subject.isEmpty()) {
 			// Use the title of the slide as default if no subject is given.
 			subject = slide.getTitle();
 		}
 		return subject;
+	}
+
+	/**
+	 * Writes the table of contents slide to the output.
+	 * @param out: The printer writer.
+	 */
+	@Override
+	public void writeXML(PrintWriter out) {
+		out.println("<toc>");
+		out.println("<title>" + getTitle() + "</title>");
+		out.println("</toc>");
 	}
 }

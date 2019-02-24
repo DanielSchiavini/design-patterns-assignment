@@ -1,5 +1,8 @@
 package jabberPoint.model;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import util.Observable;
 
@@ -13,7 +16,7 @@ public class Presentation extends Observable<Slide> {
 	private String showTitle;
 	
 	/** A list of the slides in the presentation **/
-	private ArrayList<Slide> showList = null;
+	private List<Slide> showList = null;
 	
 	/** The number of the current slide **/
 	private int currentSlideNumber = 0;
@@ -122,5 +125,21 @@ public class Presentation extends Observable<Slide> {
 	 */
 	public Slide getCurrentSlide() {
 		return getSlide(currentSlideNumber);
+	}
+
+	/**
+	 * Saves a presentation into a XML file.
+	 * @param out - The path to the file.
+	 */
+	public void writeXML(PrintWriter out) throws IOException {
+		out.println("<presentation>");
+		out.print("<showtitle>");
+		out.print(getTitle());
+		out.println("</showtitle>");
+		for (int slideNumber=0; slideNumber < getSize(); slideNumber++) {
+			getSlide(slideNumber).writeXML(out);
+		}
+		out.println("</presentation>");
+		out.close();
 	}
 }

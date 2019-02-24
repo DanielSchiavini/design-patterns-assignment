@@ -33,7 +33,7 @@ public class PresentationWriterTest {
 		PresentationReader reader = new PresentationFileReader(presentation, "test.xml", slideFactory);
 		reader.read();
 
-		PresentationWriter writer = new PresentationWriter(presentation, "test-save-file.xml", slideFactory);
+		PresentationWriter writer = new PresentationWriter(presentation, "test-save-file.xml");
 		writer.write();
 
 		BufferedReader expectedReader = new BufferedReader(new FileReader("test.xml"));

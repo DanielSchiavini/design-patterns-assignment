@@ -5,12 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.text.AttributedString;
-
-import jabberPoint.model.Style;
 import jabberPoint.model.TextItem;
 
 public class TextItemTest {
@@ -37,21 +31,6 @@ public class TextItemTest {
 		assertTrue(new TextItem(0, null).isEmpty());
 		assertTrue(new TextItem(0, "").isEmpty());
 		assertEquals("", new TextItem(0, null).getText());
-	}
-
-	@Test
-	public void testGetAttributedString() {
-		int indent = 0;
-		Color color = Color.BLUE;
-		int points = 5;
-		int leading = 2;
-		float scale = (float)3.0;
-		Style style = new Style("Helvetica", color, points, indent, leading);
-		AttributedString result = item.getAttributedString(style, scale);
-		Font font = (Font)result.getIterator().getAttribute(TextAttribute.FONT);
-		assertEquals("Helvetica", font.getName());
-		assertTrue(font.isBold());
-		assertEquals(15, font.getSize());
 	}
 
 	@Test

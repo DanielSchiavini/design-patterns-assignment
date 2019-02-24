@@ -120,7 +120,7 @@ public class MenuController extends MenuBar {
 	 */
 	public void openPresentation() {
 		try {
-			PresentationReader reader = presentationFactory.getPresentationReader(TEST_FILE);
+			PresentationReader reader = presentationFactory.createReader(TEST_FILE);
 			presentation = reader.read();
 		} catch (IOException exc) {
 			onIOException.accept(LOAD_ERROR, exc);
@@ -132,7 +132,7 @@ public class MenuController extends MenuBar {
 	 */
 	private void savePresentation() {
 		try {
-			PresentationWriter writer = presentationFactory.getPresentationWriter(presentation, SAVE_FILE);
+			PresentationWriter writer = presentationFactory.createWriter(presentation, SAVE_FILE);
 			writer.write();
 		} catch (IOException exc) {
 			onIOException.accept(SAVE_ERROR, exc);

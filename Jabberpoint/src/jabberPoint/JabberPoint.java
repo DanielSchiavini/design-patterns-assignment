@@ -49,7 +49,7 @@ public class JabberPoint {
 	public static void main(String argv[]) {
 		try {
 			String fileName = argv.length == 0 ? null : argv[0];
-			PresentationReader reader = presentationFactory.getPresentationReader(fileName);
+			PresentationReader reader = presentationFactory.createReader(fileName);
 			Presentation presentation = reader.read();
 			PresentationView presentationView = presentationViewFactory.getPresentationView(presentation);
 			new JabberpointFrame(presentation, presentationView, controllerFactory);

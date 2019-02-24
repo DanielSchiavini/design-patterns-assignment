@@ -1,5 +1,6 @@
 package jabberPoint.model;
 import java.io.File;
+import java.io.PrintWriter;
 
 /**
  * Class responsible for displaying images.
@@ -46,13 +47,15 @@ public class BitmapItem extends SlideItem {
 		return "BitmapItem[" + getLevel() + "," + imageName + "]";
 	}
 
+	/**
+	 * Writes the slide item to the output.
+	 * @param out - The print writer.
+	 */
 	@Override
-	public String getStringContents() {
-		return imageName;
-	}
-
-	@Override
-	public String getSlideType() {
-		return "image";
+	public void writeXML(PrintWriter out)
+	{
+		out.print("<item kind=\"image\" level=\"" + getLevel() + "\">");
+		out.print(imageName);
+		out.println("</item>");
 	}
 }

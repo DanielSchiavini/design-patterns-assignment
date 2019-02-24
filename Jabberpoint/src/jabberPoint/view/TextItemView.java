@@ -1,10 +1,12 @@
 package jabberPoint.view;
 import java.awt.Rectangle;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.font.TextLayout;
 import java.awt.font.LineBreakMeasurer;
+import java.awt.font.TextAttribute;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
@@ -101,7 +103,7 @@ public class TextItemView implements SlideItemView {
 	 */
 	private List<TextLayout> getLayouts(Graphics g, Style style, float scale) {
 		List<TextLayout> layouts = new ArrayList<TextLayout>();
-		AttributedString attrStr = item.getAttributedString(style, scale);
+		AttributedString attrStr = getAttributedString(item.getText(), style.getFont(scale));
 		Graphics2D g2d = (Graphics2D) g;
 		FontRenderContext frc = g2d.getFontRenderContext();
 		LineBreakMeasurer measurer = new LineBreakMeasurer(attrStr.getIterator(), frc);
@@ -111,5 +113,17 @@ public class TextItemView implements SlideItemView {
 			layouts.add(layout);
 		}
 		return layouts;
+	}
+
+	/**
+	 * Gets the attributed string for the given text and font.
+	 * @param text: The text contents.
+	 * @param font: The font to use.
+	 * @return The attributed string.
+	 */
+	private AttributedString getAttributedString(String text, Font font) {
+		AttributedString attrStr = new AttributedString(text);
+		attrStr.addAttribute(TextAttribute.FONT, font, 0, text.length());
+		return attrStr;
 	}
 }

@@ -4,8 +4,6 @@ import java.io.PrintWriter;
 import java.io.FileWriter;
 
 import jabberPoint.model.Presentation;
-import jabberPoint.model.Slide;
-import jabberPoint.model.factories.SlideFactory;
 
 
 /**
@@ -16,9 +14,6 @@ public class PresentationWriter {
 	// The presentation being written.
 	private Presentation presentation;
 
-	// The object responsible for creating slide writers.
-	private SlideFactory slideFactory;
-
 	// The name of the file that will be written.
 	private String fileName;
 
@@ -26,11 +21,9 @@ public class PresentationWriter {
 	 * Creates a new presentation writer.
 	 * @param presentation - The presentation to be saved.
 	 * @param fileName: The name of the file to be read.
-	 * @param slideFactory: The object responsible for creating slide writers.
 	 */
-	public PresentationWriter(Presentation presentation, String fileName, SlideFactory slideFactory) {
+	public PresentationWriter(Presentation presentation, String fileName) {
 		this.presentation = presentation;
-		this.slideFactory = slideFactory;
 		this.fileName = fileName;
 	}
 
@@ -42,27 +35,7 @@ public class PresentationWriter {
 		PrintWriter out = new PrintWriter(new FileWriter(fileName));
 		out.println("<?xml version=\"1.0\"?>");
 		out.println("<!DOCTYPE presentation SYSTEM \"jabberpoint.dtd\">");
-		out.println("<presentation>");
-		out.print("<showtitle>");
-		out.print(presentation.getTitle());
-		out.println("</showtitle>");
-		writeSlides(presentation, out);
-		out.println("</presentation>");
+		presentation.writeXML(out);
 		out.close();
-	}
-
-	/**
-	 * Writes all the slides to the output.
-	 * @param presentation: The presentation.
-	 * @param out: The printer writer.
-	 */
-	private void writeSlides(Presentation presentation, PrintWriter out) {
-		for (int slideNumber=0; slideNumber < presentation.getSize(); slideNumber++) {
-			Slide slide = presentation.getSlide(slideNumber);
-			SlideWriter writer = slideFactory.createWriter(slide);
-			if (writer != null) {
-				writer.write(out);
-			}
-		}
 	}
 }
