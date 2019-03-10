@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.22)  27 NOV 2018 22:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.22)  10 MAR 2019 16:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -623,81 +623,127 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-<Diagrams/design.pdf, id=75, 782.925pt x 459.7175pt>
-File: Diagrams/design.pdf Graphic file (type pdf)
- <use Diagrams/design.pdf>
-Package pdftex.def Info: Diagrams/design.pdf used on input line 163.
-(pdftex.def)             Requested size: 345.0pt x 202.57796pt.
 
-[2] <Screenshots/master.png, id=94, 903.375pt x 602.25pt>
+LaTeX Warning: File `Diagrams/design.pdf' not found on input line 163.
+
+
+! Package pdftex.def Error: File `Diagrams/design.pdf' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.163 ...cs[width=\textwidth]{Diagrams/design.pdf}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[2] <Screenshots/master.png, id=93, 903.375pt x 602.25pt>
 File: Screenshots/master.png Graphic file (type png)
 
 <use Screenshots/master.png>
 Package pdftex.def Info: Screenshots/master.png used on input line 186.
 (pdftex.def)             Requested size: 345.0pt x 230.00607pt.
- [3 <./Diagrams/design.pdf>]
-<Diagrams/design-alternative.pdf, id=113, 869.2475pt x 406.51875pt>
-File: Diagrams/design-alternative.pdf Graphic file (type pdf)
+ [3] [4 <./Screenshots/master.png (PNG copy)>]
 
-<use Diagrams/design-alternative.pdf>
-Package pdftex.def Info: Diagrams/design-alternative.pdf used on input line 229
-.
-(pdftex.def)             Requested size: 345.0pt x 161.34541pt.
- [4 <./Screenshots/master.png (PNG copy)>] [5 <./Diagrams/design-alternative.pd
-f>]
-<Screenshots/style.png, id=131, 903.375pt x 602.25pt>
+LaTeX Warning: File `Diagrams/design-alternative.pdf' not found on input line 2
+29.
+
+
+! Package pdftex.def Error: File `Diagrams/design-alternative.pdf' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.229 ...xtwidth]{Diagrams/design-alternative.pdf}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[5] [6] <Screenshots/style.png, id=132, 903.375pt x 602.25pt>
 File: Screenshots/style.png Graphic file (type png)
 
 <use Screenshots/style.png>
 Package pdftex.def Info: Screenshots/style.png used on input line 304.
 (pdftex.def)             Requested size: 310.4979pt x 207.00455pt.
- [6]
-<Screenshots/numbers.png, id=140, 903.375pt x 602.25pt>
+
+<Screenshots/numbers.png, id=136, 903.375pt x 602.25pt>
 File: Screenshots/numbers.png Graphic file (type png)
 
 <use Screenshots/numbers.png>
 Package pdftex.def Info: Screenshots/numbers.png used on input line 314.
 (pdftex.def)             Requested size: 310.4979pt x 207.00455pt.
- [7 <./Screenshots/style.png (PNG copy)> <./Screenshots/numbers.png (PNG copy)>
-]
-Overfull \hbox (8.88962pt too wide) in paragraph at lines 321--324
+
+! Undefined control sequence.
+l.317     \TODO
+               {removed versions}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.318     \TODO
+               {javadoc}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.319     \TODO
+               {lambdas in controllers}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[7 <./Screenshots/style.png (PNG copy)>]
+Overfull \hbox (8.88962pt too wide) in paragraph at lines 325--328
 []\OT1/cmr/m/n/10 Jabberpoint code: [][]github.com-/Daniel-Schiavini-/de-sign--
 pat-terns--as-sign-ment-
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 324.
+(Font)              <7> on input line 328.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 324.
+(Font)              <5> on input line 328.
 
-Overfull \hbox (3.58096pt too wide) in paragraph at lines 324--326
+Overfull \hbox (3.58096pt too wide) in paragraph at lines 328--330
 []\OT1/cmr/m/n/10 L[]T[]X code: [][]github.com/DanielSchiavini/design-patterns-
 assignment/tree-
  []
 
 
-Overfull \hbox (10.27853pt too wide) in paragraph at lines 326--328
+Overfull \hbox (10.27853pt too wide) in paragraph at lines 330--332
 []\OT1/cmr/m/n/10 Aanpassingen op Jab-ber-point: [][]github.com-/Daniel-Schiavi
 ni-/de-sign--pat-terns-
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 338.
-[8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 338.
- (../output/final-assignment-report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 338.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 338.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 342.
+[8 <./Screenshots/numbers.png (PNG copy)>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 342.
+
+(../output/final-assignment-report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 342.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 342.
 Package rerunfilecheck Info: File `final-assignment-report.out' has not changed
 .
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 338.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 342.
  ) 
 Here is how much of TeX's memory you used:
- 7840 strings out of 493029
- 109559 string characters out of 6136234
+ 7834 strings out of 493029
+ 109334 string characters out of 6136234
  223075 words of memory out of 5000000
- 11265 multiletter control sequences out of 15000+600000
- 5803 words of font info for 21 fonts, out of 8000000 for 9000
+ 11258 multiletter control sequences out of 15000+600000
+ 5971 words of font info for 22 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  29i,12n,43p,239b,1173s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{https://github.com/DanielSchiavini/design-pattern
@@ -710,12 +756,13 @@ texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmti10.pfb>
-Output written on ../output/final-assignment-report.pdf (8 pages, 509516 bytes)
+1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmtt10.pfb>
+Output written on ../output/final-assignment-report.pdf (8 pages, 161770 bytes)
 .
 PDF statistics:
  205 PDF objects out of 1000 (max. 8388607)
- 181 compressed objects within 2 object streams
+ 182 compressed objects within 2 object streams
  46 named destinations out of 1000 (max. 500000)
- 114 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 104 words of extra memory for PDF output out of 10000 (max. 10000000)
 
