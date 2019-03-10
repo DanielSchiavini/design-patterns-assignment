@@ -4,29 +4,22 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.Observable;
+import util.BaseObservable;
 
 
 /**
  * Class responsible for handling the presentation.
  * @author Ian F. Darwin, Gert Florijn, Sylvia Stuurman, Daniel Schiavini
  */
-public class Presentation extends Observable<Slide> {
+public class Presentation extends BaseObservable<Slide> {
 	/** The title of the presentation **/
-	private String showTitle;
-	
-	/** A list of the slides in the presentation **/
-	private List<Slide> showList = null;
-	
-	/** The number of the current slide **/
-	private int currentSlideNumber = 0;
+	private String showTitle = "";
 
-	/**
-	 * Creates a new presentation.
-	 */
-	public Presentation() {
-		clear();
-	}
+	/** A list of the slides in the presentation **/
+	private final List<Slide> showList =  new ArrayList<Slide>();
+
+	/** The number of the current slide **/
+	private int currentSlideNumber = -1;
 
 	/**
 	 * Gets the amount of items in the presentation.
@@ -93,7 +86,7 @@ public class Presentation extends Observable<Slide> {
 	 * Also notifies the observers that no slide should be displayed.
 	 */
 	public void clear() {
-		showList = new ArrayList<Slide>();
+		showList.clear();
 		currentSlideNumber = -1;
 		setTitle("");
 		this.notifyObservers(null);
