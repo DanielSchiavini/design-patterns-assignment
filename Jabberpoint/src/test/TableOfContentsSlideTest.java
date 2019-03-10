@@ -7,21 +7,25 @@ import java.util.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
-import jabberPoint.TableOfContentsSlide;
-import jabberPoint.SlideItem;
-import jabberPoint.TextItem;
-import jabberPoint.Presentation;
-import jabberPoint.DemoPresentation;
+import jabberPoint.model.TableOfContentsSlide;
+import jabberPoint.model.SlideItem;
+import jabberPoint.model.TextItem;
+import jabberPoint.model.factories.SlideFactory;
+import jabberPoint.model.Presentation;
+import jabberPoint.model.PresentationReader;
+import jabberPoint.model.DemoPresentationReader;
 
 public class TableOfContentsSlideTest {
 
 	TableOfContentsSlide slide = null;
 	Presentation presentation = null;
+	SlideFactory slideFactory = new SlideFactory();
 	
 	@Before
 	public void setUp() throws Exception {
 		presentation = new Presentation();
-		new DemoPresentation().loadFile(presentation, "unusedFilename");
+		PresentationReader reader = new DemoPresentationReader(presentation, slideFactory);
+		reader.read();
 		slide = (TableOfContentsSlide)presentation.getSlide(0);
 	}
 
@@ -30,8 +34,7 @@ public class TableOfContentsSlideTest {
 	}
 
 	@Test
-	public void testGenerateItemsSlide0() {
-		slide.generateItems();
+	public void testPrepareSlide0() {
 		Vector<SlideItem> slideItems = slide.getSlideItems();
 		assertEquals(3, slideItems.size());
 
@@ -49,9 +52,8 @@ public class TableOfContentsSlideTest {
 	}
 
 	@Test
-	public void testGenerateItemsSlide3() {
+	public void testPrepareSlide3() {
 		slide = (TableOfContentsSlide)presentation.getSlide(3);
-		slide.generateItems();
 		Vector<SlideItem> slideItems = slide.getSlideItems();
 		assertEquals(3, slideItems.size());
 
@@ -67,5 +69,4 @@ public class TableOfContentsSlideTest {
 		assertEquals("• De derde slide", item.getText());
 		assertEquals(1, item.getLevel());
 	}
-
 }
