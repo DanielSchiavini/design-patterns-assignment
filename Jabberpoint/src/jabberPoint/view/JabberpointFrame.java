@@ -36,7 +36,6 @@ public class JabberpointFrame extends JFrame {
 		addWindowListener(windowAdapter);
 		getContentPane().add(presentationView);
 		setSize(presentationView.getPreferredSize());
-		setVisible(true);
 
 		// setup controllers
 		addKeyListener(controllerFactory.getKeyController(presentation));

@@ -9,7 +9,6 @@ import jabberPoint.model.factories.PresentationFactory;
 import jabberPoint.model.factories.SlideFactory;
 import jabberPoint.model.factories.StyleFactory;
 import jabberPoint.view.JabberpointFrame;
-import jabberPoint.view.PresentationView;
 import jabberPoint.view.factories.PresentationViewFactory;
 import jabberPoint.view.factories.SlideItemViewFactory;
 import jabberPoint.view.factories.SlideViewFactory;
@@ -51,9 +50,9 @@ public class JabberPoint {
 			String fileName = argv.length == 0 ? null : argv[0];
 			PresentationReader reader = presentationFactory.createReader(fileName);
 			Presentation presentation = reader.read();
-			PresentationView presentationView = presentationViewFactory.getPresentationView(presentation);
-			new JabberpointFrame(presentation, presentationView, controllerFactory);
+			JabberpointFrame frame = presentationViewFactory.createFrame(presentation, controllerFactory);
 			presentation.setSlideNumber(0);
+			frame.setVisible(true);
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(null, String.format(IO_ERROR, ex), ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
 		}

@@ -59,11 +59,11 @@ public class SlideView {
 		/* De titel hoeft niet meer apart behandeld te worden */
 		SlideItem titleItem = slide.getTitleItem();
 		Style style = styleFactory.getStyle(slide, titleItem.getLevel());
-		SlideItemView itemView = itemFactory.getItemView(titleItem);
+		SlideItemView itemView = itemFactory.createItemView(titleItem);
 		itemView.draw(g, view, scale, style, area.x, y);
 		y += itemView.getBoundingBox(g, view, scale, style).height;
 		for (SlideItem item : slide.getSlideItems()) {
-			itemView = itemFactory.getItemView(item);
+			itemView = itemFactory.createItemView(item);
 			style = styleFactory.getStyle(slide, item.getLevel());
 		  	itemView.draw(g, view, scale, style, area.x, y);
 			y += itemView.getBoundingBox(g, view, scale, style).height;

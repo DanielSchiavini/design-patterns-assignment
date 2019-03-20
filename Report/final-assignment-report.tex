@@ -96,11 +96,16 @@
 
 \section*{Aanpak}
     \label{sec:aanpak}
+	De eerste versie van deze opdracht is afgekeurd doordat de opdracht niet goed begrepen was.
+	De refactoring was niet compleet doorgevoerd, maar alleen in de onderdelen die nodig waren om de inhoudsopgave toe te voegen.
+	Deze sectie is daarom verdeeld tussen de eerste versie en de volledige refactoring.
+
+	\subsection{Eerste versie}
     De oorspronkelijke bedoeling was om deze opdracht uit te voeren in een team met een andere student.
     Echter, er was geen andere student beschikbaar met een vergelijkbare tempo.
     Daardoor heb ik deze opdracht alleen uitgevoerd.
 
-    Voordat ik wist dat ik de opdracht alleen mag uitvoeren, had ik al een Git repository gemaakt.
+    Voordat ik wist dat ik de opdracht alleen mocht uitvoeren, had ik al een Git repository gemaakt.
     Ik heb de repository zo geconfigureerd dat dit document automatisch wordt gebouwd door het gebruik van TravisCI.
     Zodra een nieuwe versie van het rapport naar GitHub wordt gepushed, draait een script dat het PDF-bestand maakt.
     Het script bouwt ook Jabberpoint, draait unit tests, en als alles gelukt is wordt ook een JAR-bestand gemaakt.
@@ -115,9 +120,21 @@
 
     Het schrijven van de tests was een goede hulpmiddel om Jabberpoint te leren kennen en om het probleemanalyse van de volgende sectie beter uit te voeren.
 
+	\subsection{Volledige refactoring}
+	In de nieuwe versie van Jabberpoint heb ik de applicatie opnieuw gestructureerd.
+	Ten eerste is de applicatie verdeeld tussen model, view en controller (MVC patroon).
+	Vervolgens heb ik alle onderdelen doorgenomen en steeds verbeteringen doorgevoerd.
+
+	De tests zijn hierbij erg waardevol geweest.
+	In vrijwel alle gevallen, als de tests sloegen werkte de applicatie via de gebruikersinterface ook.
+
+	De details over de refactoring worden belicht in de volgende secties.
+
 \section{Probleemanalyse}
     \label{sec:probleemanalyse}
-    Om het probleem te analyseren kunnen we het beste de opdracht in eisen omschrijven:
+
+	\subsection{Inhoudsopgave}
+    Om de inhoudsopgave te analyseren kunnen we het beste de opdracht in eisen omschrijven:
 
     \begin{itemize}
         \requirement{toevoegen}{De gebruiker moet één of meer slides met inhoudsopgaven kunnen toevoegen aan een presentatie.}
@@ -136,32 +153,56 @@
     Een verandering in elke slide kan invloed hebben op alle inhoudsopgaven.
     Deze circulaire afhankelijkheid maakt de opdracht uitdagend.
 
+	\subsection{Refactoring}
+	In de eerste fase van de opdracht zijn een aantal problemen geconstateerd:
+	\begin{itemize}
+		\item De applicatie had geen duidelijke scheiding tussen gebruikersinterface en business-logica.
+			Om dit op te lossen is de MVC-patroon gebruikt.
+		\item AWT-afhankelijkheden waren verspreid door de code.
+			Hierdoor was het moeilijk om nieuwe gebruikersinterfaces te maken en om de applicatie te testen.
+		\item \TODO{}
+	\end{itemize}
+
 \section{Ontwerp}
     \label{sec:ontwerp}
-    Het onderwerp zoals geïmplementeerd verandert weinig van het originele Jabber\-point-ontwerp.
-    Er is een nieuwe klasse toegevoegd voor de inhoudsopgaven, namelijk \code{TableOfContentsSlide}.
-    Deze nieuwe klasse is een sub-klasse van \code{Slide}.
-    
-    Klasse \code{TableOfContentsSlide} is uiteraard verantwoordelijk voor het genereren van de inhoudsopgave.
-    Daarbij hebben we de optie om de slide-items die al geïmplementeerd zijn te hergebruiken.
-    Het is logisch om de software zo optimaal mogelijk te hergebruiken, en niet alleen de slide-items maar ook het tekenen van deze items.
-    De inhoudsopgave is in feite een slide die zijn eigen content genereert.
-    
-    Het grootste verschil tussen de klassen is dat de inhoudsopgave kennis moet hebben van de hele presentatie.
+	De applicatie is nu gesplitst in meerdere Java-packages die volgen het MVC-patroon.
+	In de onderstaande secties worden de verschillende packages belicht.
+
+	\subsection{Jabberpoint}
+	In de package \code{jabberPoint} vinden we de \code{Jabberpoint} klasse, die verantwoordelijk is om alle afhankelijkheden aan elkaar te verbinden.
+	Hierdoor kan de hele applicatie werken zonder dat instanties buiten factories worden gemaakt (\textit{Depedency Injection} patroon).
+	Deze klasse heeft een \code{main} methode die een presentatie opent door middel van de gemaakte factories.
+
+    \subsection{Model}
+	Het model package bevat alle business-logica en is nu helemaal onafhankelijk van de gebruikersinterface.
+	De klassendiagram wordt in figuur~\ref{fig:models} getoond.
+    \begin{figure}[!htb]
+     \caption{
+        Klassendiagram voor de model-objecten.\label{fig:model}
+     }
+     \centering \includegraphics[width=\textwidth]{Diagrams/model.pdf}
+    \end{figure}
+	
+	
+    \subsubsection{Inhoudsopgave}
+    De oude klasse \code{Slide} is nu gesplitst in een abstracte klasse \code{Slide} en de subklasse \code{ContentSlide}.
+    De nieuwe klasse \code{TableOfContentsSlide} genereert de inhoudsopgaven.
+
+	Het grootste verschillen tussen de subklassen is dat de inhoudsopgave kennis moet hebben van de hele presentatie en zijn eigen inhoud genereren.
     Daardoor krijgt een \code{TableOfContentsSlide} een referentie naar de presentatie in de constructor.
 
     Zodra de inhoudsopgave getekend gaat worden, worden de presentatie-onder\-werpen gelezen en wordt een nieuwe lijst van slide-items gemaakt.
     Daartoe kunnen wij de bestaande methoden van de \code{Slide} klasse gebruiken.
     Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
 
-    De aangepaste klassendiagram wordt in figuur~\ref{fig:design} getoond.
-    \begin{figure}[!htb]
-     \caption{
-        Klassendiagram voor de domein-objecten.\label{fig:design}
-        Sterren geven de nieuwe klasse en methoden aan.
-     }
-     \centering \includegraphics[width=\textwidth]{Diagrams/design.pdf}
-    \end{figure}
+    %De aangepaste klassendiagram wordt in figuur~\ref{fig:design} getoond.
+    %\begin{figure}[!htb]
+    % \caption{
+    %    Klassendiagram voor de domein-objecten.\label{fig:design}
+    %    Sterren geven de nieuwe klasse en methoden aan.
+    % }
+    % \centering \includegraphics[width=\textwidth]{Diagrams/design.pdf}
+    %\end{figure}
 
     Het voordeel van dit onderwerp is dat er vrij weinig hoeft te veranderen.
     De Accessor-klassen krijgen de extra verantwoordelijkheid om de inhoudsopgaven te maken en te schrijven.

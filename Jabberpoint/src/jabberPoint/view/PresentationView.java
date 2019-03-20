@@ -73,7 +73,7 @@ public class PresentationView extends JComponent implements Observer<Slide> {
 	 */
 	@Override
 	public void update(Slide slide) {
-		this.slideView = slideViewFactory.getSlideView(slide);
+		this.slideView = slideViewFactory.createSlideView(slide);
 		repaint();
 	}
 

@@ -23,11 +23,11 @@ public class SlideViewFactory {
 	}
 	
 	/**
-	 * Gets the view for the given slide.
+	 * Creates the view for the given slide.
 	 * @param slide: The slide.
 	 * @return The slide view.
 	 */
-	public SlideView getSlideView(Slide slide) {
+	public SlideView createSlideView(Slide slide) {
 		return new SlideView(slide, itemViewFactory, styleFactory, Constants.PREFERRED_WIDTH, Constants.PREFERRED_HEIGHT);
 	}
 }

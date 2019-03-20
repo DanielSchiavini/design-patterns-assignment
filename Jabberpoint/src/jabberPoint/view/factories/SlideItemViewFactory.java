@@ -13,11 +13,11 @@ import jabberPoint.view.TextItemView;
  */
 public class SlideItemViewFactory {
 	/**
-	 * Gets the slide item view.
+	 * Creates the slide item view.
 	 * @param item: The slide item.
 	 * @return The slide item view.
 	 */
-	public SlideItemView getItemView(SlideItem item) {
+	public SlideItemView createItemView(SlideItem item) {
 		if (item instanceof TextItem) {
 			return new TextItemView((TextItem) item, Constants.PREFERRED_WIDTH);
 		}
