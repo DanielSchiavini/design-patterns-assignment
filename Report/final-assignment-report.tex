@@ -42,14 +42,6 @@
 % TODO command
 \newcommand{\todo}[1]{\textcolor{red}{[#1]}\\}
 
-% Diagram command
-\newcommand{\diagram}[2]{
-	\begin{figure}[!htb]
-	 \caption{\label{fig:#1}#2}
-	 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/#1.pdf}}%
-	\end{figure}
-}
-
 % PR command, based on https://tex.stackexchange.com/a/35314/59718
 \makeatletter
 \newcommand*{\repo}{\begingroup\@makeother\#\@repo}
@@ -63,6 +55,7 @@
 \newcommand{\cilink}[1]{\href{https://travis-ci.com/DanielSchiavini/design-patterns-assignment/#1}{travis-ci.com/DanielSchiavini/design-patterns-assignment/#1}}
 
 % New custom label command used for requirements, based on https://tex.stackexchange.com/a/18192/59718
+% Usage: \customlabel{label}{text}
 \makeatletter
 \newcommand{\customlabel}[2]{%
    \protected@write \@auxout {}{\string \newlabel {#1}{{#2}{\thepage}{#2}{#1}{}} }%
@@ -70,21 +63,31 @@
 }
 \makeatother
 
-% requirements
+% new command \requirement{label}{text}
 \newcounter{reqcount}
 \newcommand{\requirement}[2]{%
   \item \refstepcounter{reqcount}\customlabel{req:#1}{\textbf{Eis \thereqcount}}: #2
 }
 
+% New command \reqref{label}
 \newcommand{\reqref}[1]{\ref{req:#1}}
 
-% questions
+% New command \question{text}
 \newcommand{\question}[1]{
   \subsection{#1}
 }
 
-% code in text
+% New command \code{text}
 \newcommand{\code}[1]{\lstinline[columns=fixed]{#1}}
+
+% New command \diagram[width=1.3]{label}{caption}
+\newcommand{\diagram}[3][1.3]{
+	\begin{figure}[!htb]
+	 \caption{#3}
+	 \label{diagram:#2}
+	 \makebox[\textwidth][c]{\includegraphics[width=#1\textwidth]{Diagrams/#2.pdf}}%
+	\end{figure}
+}
 
 % heading
 \lhead{Open Universiteit}
@@ -190,7 +193,7 @@
 
 	\subsection{Model}
 		Het \code{jabberPoint.model} package bevat alle business-logica en is nu helemaal onafhankelijk van de gebruikersinterface.
-		Het klassendiagram wordt in figuur~\ref{fig:models} getoond.
+		Het klassendiagram wordt in figuur~\ref{diagram:model} getoond.
 
 		\diagram{model}{
 			Klassendiagram voor de model-klassen.
@@ -201,7 +204,7 @@
 		\subsubsection{Factories}
 			Alle klassen mogen alleen door factories worden gemaakt.
 			Deze factories worden gegroepeerd in het package \code{jabberPoint.model.factories}.
-			Een klassendiagram van dit package wordt in figuur~\ref{fig:model-factories} getoond.
+			Een klassendiagram van dit package wordt in figuur~\ref{diagram:model-factories} getoond.
 
 			\diagram{model-factories}{
 				Klassendiagram voor de model-factories.
@@ -220,13 +223,10 @@
 		Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
 
 		%De aangepaste klassendiagram wordt in figuur~\ref{fig:design} getoond.
-		%\begin{figure}[!htb]
-		% \caption{
-		%    Klassendiagram voor de domein-objecten.\label{fig:design}
+		%\diagram{design}{
+		%    Klassendiagram voor de domein-objecten.
 		%    Sterren geven de nieuwe klasse en methoden aan.
 		% }
-		% \centering \includegraphics[width=\textwidth]{Diagrams/design.pdf}
-		%\end{figure}
 
 		Het voordeel van dit onderwerp is dat er vrij weinig hoeft te veranderen.
 		De Accessor-klassen krijgen de extra verantwoordelijkheid om de inhoudsopgaven te maken en te schrijven.
@@ -264,9 +264,9 @@
 
 	\subsection{View}
 		Het \code{jabberPoint.view} package bevat alle nodige code voor de gebruikersinterface.
-		Het klassendiagram wordt in figuur~\ref{fig:view} getoond.
+		Het klassendiagram wordt in figuur~\ref{diagram:view} getoond.
 
-		\diagram{view}{
+		\diagram[1]{view}{
 			Klassendiagram voor de view-klassen.
 			Factories zijn weggelaten.
 			Referenties naar controller en model zijn beperkt gehouden voor de duidelijkheid.
@@ -275,11 +275,11 @@
 		\subsubsection{Factories}
 			Alle klassen mogen alleen door factories worden gemaakt.
 			Deze factories worden gegroepeerd in het package \code{jabberPoint.view.factories}.
-			Een klassendiagram van dit package wordt in figuur~\ref{fig:view-factories} getoond.
+			Een klassendiagram van dit package wordt in figuur~\ref{diagram:view-factories} getoond.
 
 			\begin{figure}[!htb]
 			 \caption{
-				Klassendiagram voor de view-factories.\label{fig:view-factories}
+				Klassendiagram voor de view-factories.\label{diagram:view-factories}
 				Details zijn weggelaten voor de duide\-lijk\-heid.
 			 }
 			 \todo{factory diagram} % \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/view-factories.pdf}}%
@@ -287,11 +287,11 @@
 
 	\subsection{Controller}
 		Het \code{jabberPoint.controller} package bevat alle nodige code voor de gebruikersinterface.
-		Het klassendiagram wordt in figuur~\ref{fig:controller} getoond.
+		Het klassendiagram wordt in figuur~\ref{diagram:controller} getoond.
 
 		\begin{figure}[!htb]
 		 \caption{
-			Klassendiagram voor de controller-klassen.\label{fig:controller}
+			Klassendiagram voor de controller-klassen.\label{diagram:controller}
 			Factories zijn weggelaten.
 			Referenties naar view en model zijn beperkt gehouden voor de duidelijkheid.
 		 }
@@ -301,11 +301,11 @@
 		\subsubsection{Factories}
 			Alle klassen mogen alleen door factories worden gemaakt.
 			Deze factories worden gegroepeerd in het package \code{jabberPoint.controller.factories}.
-			Een klassendiagram van dit package wordt in figuur~\ref{fig:controller-factories} getoond.
+			Een klassendiagram van dit package wordt in figuur~\ref{diagram:controller-factories} getoond.
 
 			\begin{figure}[!htb]
 			 \caption{
-				Klassendiagram voor de controller-factories.\label{fig:controller-factories}
+				Klassendiagram voor de controller-factories.\label{diagram:controller-factories}
 				Details zijn weggelaten voor de duide\-lijk\-heid.
 			 }
 			 \todo{factory diagram} % \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/controller-factories.pdf}}%
