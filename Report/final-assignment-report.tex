@@ -42,6 +42,14 @@
 % TODO command
 \newcommand{\todo}[1]{\textcolor{red}{[#1]}\\}
 
+% Diagram command
+\newcommand{\diagram}[2]{
+	\begin{figure}[!htb]
+	 \caption{\label{fig:#1}#2}
+	 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/#1.pdf}}%
+	\end{figure}
+}
+
 % PR command, based on https://tex.stackexchange.com/a/35314/59718
 \makeatletter
 \newcommand*{\repo}{\begingroup\@makeother\#\@repo}
@@ -184,27 +192,21 @@
 		Het \code{jabberPoint.model} package bevat alle business-logica en is nu helemaal onafhankelijk van de gebruikersinterface.
 		Het klassendiagram wordt in figuur~\ref{fig:models} getoond.
 
-		\begin{figure}[!htb]
-		 \caption{
-			Klassendiagram voor de model-klassen.\label{fig:model}
+		\diagram{model}{
+			Klassendiagram voor de model-klassen.
 			Factories zijn weggelaten.
 			Referenties naar controller en view zijn beperkt gehouden voor de duidelijkheid.
-		 }
-		 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/model.pdf}}%
-		\end{figure}
+		}
 
 		\subsubsection{Factories}
 			Alle klassen mogen alleen door factories worden gemaakt.
 			Deze factories worden gegroepeerd in het package \code{jabberPoint.model.factories}.
 			Een klassendiagram van dit package wordt in figuur~\ref{fig:model-factories} getoond.
 
-			\begin{figure}[!htb]
-			 \caption{
-				Klassendiagram voor de model-factories.\label{fig:model-factories}
+			\diagram{model-factories}{
+				Klassendiagram voor de model-factories.
 				Details zijn weggelaten voor de duidelijkheid.
-			 }
-			 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/model-factories.pdf}}%
-			\end{figure}
+			}
 
     \subsubsection{Inhoudsopgave}
 		De oude klasse \code{Slide} is nu gesplitst in een abstracte klasse \code{Slide} en de subklasse \code{ContentSlide}.
@@ -264,14 +266,11 @@
 		Het \code{jabberPoint.view} package bevat alle nodige code voor de gebruikersinterface.
 		Het klassendiagram wordt in figuur~\ref{fig:view} getoond.
 
-		\begin{figure}[!htb]
-		 \caption{
-			Klassendiagram voor de view-klassen.\label{fig:view}
+		\diagram{view}{
+			Klassendiagram voor de view-klassen.
 			Factories zijn weggelaten.
 			Referenties naar controller en model zijn beperkt gehouden voor de duidelijkheid.
-		 }
-		 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/view.pdf}}%
-		\end{figure}
+		}
 
 		\subsubsection{Factories}
 			Alle klassen mogen alleen door factories worden gemaakt.
