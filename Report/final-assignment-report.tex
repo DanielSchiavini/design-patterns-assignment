@@ -100,7 +100,7 @@
 	De refactoring was niet compleet doorgevoerd, maar alleen in de onderdelen die nodig waren om de inhoudsopgave toe te voegen.
 	Deze sectie is daarom verdeeld tussen de eerste versie en de volledige refactoring.
 
-	\subsection{Eerste versie}
+	\subsection*{Eerste versie}
     De oorspronkelijke bedoeling was om deze opdracht uit te voeren in een team met een andere student.
     Echter, er was geen andere student beschikbaar met een vergelijkbare tempo.
     Daardoor heb ik deze opdracht alleen uitgevoerd.
@@ -119,16 +119,23 @@
     Het probleem van UI-domein vermenging wordt verder besproken in sectie~\ref{q:ui-domein-vermenging}.
 
     Het schrijven van de tests was een goede hulpmiddel om Jabberpoint te leren kennen en om het probleemanalyse van de volgende sectie beter uit te voeren.
-
-	\subsection{Volledige refactoring}
-	In de nieuwe versie van Jabberpoint heb ik de applicatie opnieuw gestructureerd.
-	Ten eerste is de applicatie verdeeld tussen model, view en controller (MVC patroon).
-	Vervolgens heb ik alle onderdelen doorgenomen en steeds verbeteringen doorgevoerd.
-
-	De tests zijn hierbij erg waardevol geweest.
+	De tests zijn hierbij erg waardevol geweest tijdens de refactoring.
 	In vrijwel alle gevallen, als de tests sloegen werkte de applicatie via de gebruikersinterface ook.
 
-	De details over de refactoring worden belicht in de volgende secties.
+	\subsection*{Volledige refactoring}
+	In de nieuwe versie van Jabberpoint heb ik de applicatie opnieuw gestructureerd.
+	Ten eerste is de applicatie verdeeld tussen model, view en controller (MVC patroon).
+	Vervolgens heb ik alle onderdelen doorgenomen en steeds verbeteringen doorgevoerd, met de volgende regels in gedachte:
+	\begin{itemize}
+		\item Elk klasse moet precies één verantwoordelijkheid hebben.
+		\item Elke methode moet precies één verantwoordelijkheid hebben.
+		\item Delegatie boven...
+		\item Geen creatie...
+		\item State altijd correct...
+		\item Overerving mag alleen worden toegepast indien het conceptueel correct is.
+	\end{itemize}
+
+	De details over het resultaat van de refactoring worden belicht in de volgende secties.
 
 \section{Probleemanalyse}
     \label{sec:probleemanalyse}
@@ -160,7 +167,7 @@
 			Om dit op te lossen is de MVC-patroon gebruikt.
 		\item AWT-afhankelijkheden waren verspreid door de code.
 			Hierdoor was het moeilijk om nieuwe gebruikersinterfaces te maken en om de applicatie te testen.
-		\item \TODO{}
+		\item \todo{...}
 	\end{itemize}
 
 \section{Ontwerp}
@@ -169,65 +176,80 @@
 	In de onderstaande secties worden de verschillende packages belicht.
 
 	\subsection{Jabberpoint}
-	In de package \code{jabberPoint} vinden we de \code{Jabberpoint} klasse, die verantwoordelijk is om alle afhankelijkheden aan elkaar te verbinden.
-	Hierdoor kan de hele applicatie werken zonder dat instanties buiten factories worden gemaakt (\textit{Depedency Injection} patroon).
-	Deze klasse heeft een \code{main} methode die een presentatie opent door middel van de gemaakte factories.
+		In de package \code{jabberPoint} vinden we de \code{Jabberpoint} klasse, die verantwoordelijk is om alle afhankelijkheden aan elkaar te verbinden.
+		Hierdoor kan de hele applicatie werken zonder dat instanties buiten factories worden gemaakt (\textit{Depedency Injection} patroon).
+		Deze klasse heeft een \code{main} methode die een presentatie opent door middel van de gemaakte factories.
 
-    \subsection{Model}
-	Het model package bevat alle business-logica en is nu helemaal onafhankelijk van de gebruikersinterface.
-	De klassendiagram wordt in figuur~\ref{fig:models} getoond.
-    \begin{figure}[!htb]
-     \caption{
-        Klassendiagram voor de model-objecten.\label{fig:model}
-     }
-     \centering \includegraphics[width=\textwidth]{Diagrams/model.pdf}
-    \end{figure}
-	
-	
+	\subsection{Model}
+		Het \code{jabberPoint.model} package bevat alle business-logica en is nu helemaal onafhankelijk van de gebruikersinterface.
+		Het klassendiagram wordt in figuur~\ref{fig:models} getoond.
+
+		\begin{figure}[!htb]
+		 \caption{
+			Klassendiagram voor de model-klassen.\label{fig:model}
+			Factories zijn weggelaten.
+			Referenties naar controller en view zijn beperkt gehouden voor de duidelijkheid.
+		 }
+		 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/model.pdf}}%
+		\end{figure}
+
+		\subsubsection{Factories}
+			Alle klassen mogen alleen door factories worden gemaakt.
+			Deze factories worden gegroepeerd in het package \code{jabberPoint.model.factories}.
+			Een klassendiagram van dit package wordt in figuur~\ref{fig:model-factories} getoond.
+
+			\begin{figure}[!htb]
+			 \caption{
+				Klassendiagram voor de model-factories.\label{fig:model-factories}
+				Details zijn weggelaten voor de duidelijkheid.
+			 }
+			 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/model-factories.pdf}}%
+			\end{figure}
+
     \subsubsection{Inhoudsopgave}
-    De oude klasse \code{Slide} is nu gesplitst in een abstracte klasse \code{Slide} en de subklasse \code{ContentSlide}.
-    De nieuwe klasse \code{TableOfContentsSlide} genereert de inhoudsopgaven.
+		De oude klasse \code{Slide} is nu gesplitst in een abstracte klasse \code{Slide} en de subklasse \code{ContentSlide}.
+		De nieuwe klasse \code{TableOfContentsSlide} genereert de inhoudsopgaven.
 
-	Het grootste verschillen tussen de subklassen is dat de inhoudsopgave kennis moet hebben van de hele presentatie en zijn eigen inhoud genereren.
-    Daardoor krijgt een \code{TableOfContentsSlide} een referentie naar de presentatie in de constructor.
+		Het grootste verschillen tussen de subklassen is dat de inhoudsopgave kennis moet hebben van de hele presentatie en zijn eigen inhoud genereren.
+		Daardoor krijgt een \code{TableOfContentsSlide} een referentie naar de presentatie in de constructor.
 
-    Zodra de inhoudsopgave getekend gaat worden, worden de presentatie-onder\-werpen gelezen en wordt een nieuwe lijst van slide-items gemaakt.
-    Daartoe kunnen wij de bestaande methoden van de \code{Slide} klasse gebruiken.
-    Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
+		Zodra de inhoudsopgave getekend gaat worden, worden de presentatie-onder\-werpen gelezen en wordt een nieuwe lijst van slide-items gemaakt.
+		Daartoe kunnen wij de bestaande methoden van de \code{Slide} klasse gebruiken.
+		Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
 
-    %De aangepaste klassendiagram wordt in figuur~\ref{fig:design} getoond.
-    %\begin{figure}[!htb]
-    % \caption{
-    %    Klassendiagram voor de domein-objecten.\label{fig:design}
-    %    Sterren geven de nieuwe klasse en methoden aan.
-    % }
-    % \centering \includegraphics[width=\textwidth]{Diagrams/design.pdf}
-    %\end{figure}
+		%De aangepaste klassendiagram wordt in figuur~\ref{fig:design} getoond.
+		%\begin{figure}[!htb]
+		% \caption{
+		%    Klassendiagram voor de domein-objecten.\label{fig:design}
+		%    Sterren geven de nieuwe klasse en methoden aan.
+		% }
+		% \centering \includegraphics[width=\textwidth]{Diagrams/design.pdf}
+		%\end{figure}
 
-    Het voordeel van dit onderwerp is dat er vrij weinig hoeft te veranderen.
-    De Accessor-klassen krijgen de extra verantwoordelijkheid om de inhoudsopgaven te maken en te schrijven.
-    Voor de rest van de code is een inhoudsopgave een normale slide die zijn eigen content genereert.
-    Accessor-klassen mogen zelf bepalen of er een referentie wordt opslagen naar een inhoudsopgave, of een lijst van de inhoud van de slides.
+		Het voordeel van dit onderwerp is dat er vrij weinig hoeft te veranderen.
+		De Accessor-klassen krijgen de extra verantwoordelijkheid om de inhoudsopgaven te maken en te schrijven.
+		Voor de rest van de code is een inhoudsopgave een normale slide die zijn eigen content genereert.
+		Accessor-klassen mogen zelf bepalen of er een referentie wordt opslagen naar een inhoudsopgave, of een lijst van de inhoud van de slides.
 
-    Voor de implementatie van de \code{draw} methode was een manier nodig om alle eerdere slide-items te verwijderen.
-    Het is natuurlijk ook mogelijk om de \code{items} attribuut rechtstreeks te veranderen;
-    maar het is in Java nooit verstandig om attributen van andere klassen te veranderen (zelfs van een super-klasse).
-    Daartoe komt een nieuwe \textbf{protected} methode \code{clear} in de slide.
-    De attributen van \code{Slide} zijn \textbf{private} geworden.
+		Voor de implementatie van de \code{draw} methode was een manier nodig om alle eerdere slide-items te verwijderen.
+		Het is natuurlijk ook mogelijk om de \code{items} attribuut rechtstreeks te veranderen;
+		maar het is in Java nooit verstandig om attributen van andere klassen te veranderen (zelfs van een super-klasse).
+		Daartoe komt een nieuwe \textbf{protected} methode \code{clear} in de slide.
+		De attributen van \code{Slide} zijn \textbf{private} geworden.
 
-    Het is verstandig om software te implementeren in de meest simpele manier, en dan itereren om deze te verbeteren.
-    Daarom vind ik dat het bij de opdracht past om een aantal verbeteringen ook door te voeren.
-    Dit wordt verder uitgelegd in sectie~\ref{sec:keuzen}.
+		Het is verstandig om software te implementeren in de meest simpele manier, en dan itereren om deze te verbeteren.
+		Daarom vind ik dat het bij de opdracht past om een aantal verbeteringen ook door te voeren.
+		Dit wordt verder uitgelegd in sectie~\ref{sec:keuzen}.
 
-    Een screenshot van de inhoudsopgave van de demo-presentatie wordt in figuur~\ref{fig:master} getoond.
-    \begin{figure}[!htb]
-     \caption{
-        Inhoudsopgave van de demo-presentatie in de master branch.\label{fig:master}
-     }
-     \centering \includegraphics[width=\textwidth]{Screenshots/master.png}
-    \end{figure}
+		Een screenshot van de inhoudsopgave van de demo-presentatie wordt in figuur~\ref{fig:master} getoond.
+		\begin{figure}[!htb]
+		 \caption{
+			Inhoudsopgave van de demo-presentatie.\label{fig:master}
+		 }
+		 \centering \includegraphics[width=\textwidth]{Screenshots/master.png}
+		\end{figure}
 
-    \subsection{Traceerbaarheid van eisen}
+    \subsubsection{Traceerbaarheid van eisen}
         In deze sectie geef ik onderdelen van het ontwerp aan die verantwoordelijk zijn om de eisen (zie sectie~\ref{sec:probleemanalyse}) te realiseren.
         Dit geeft dus de relatie tussen probleemanalyse en ontwerp.
 
@@ -237,6 +259,58 @@
                 \reqref{updaten}, \reqref{titel}, \reqref{volgnummers}, \reqref{aanduiding} en \reqref{stijl}.
             \item De \code{Slide} klasse is verantwoordelijk voor \reqref{onderwerpen}.
         \end{itemize}
+
+	\subsection{View}
+		Het \code{jabberPoint.view} package bevat alle nodige code voor de gebruikersinterface.
+		Het klassendiagram wordt in figuur~\ref{fig:view} getoond.
+
+		\begin{figure}[!htb]
+		 \caption{
+			Klassendiagram voor de view-klassen.\label{fig:view}
+			Factories zijn weggelaten.
+			Referenties naar controller en model zijn beperkt gehouden voor de duidelijkheid.
+		 }
+		 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/view.pdf}}%
+		\end{figure}
+
+		\subsubsection{Factories}
+			Alle klassen mogen alleen door factories worden gemaakt.
+			Deze factories worden gegroepeerd in het package \code{jabberPoint.view.factories}.
+			Een klassendiagram van dit package wordt in figuur~\ref{fig:view-factories} getoond.
+
+			\begin{figure}[!htb]
+			 \caption{
+				Klassendiagram voor de view-factories.\label{fig:view-factories}
+				Details zijn weggelaten voor de duide\-lijk\-heid.
+			 }
+			 \todo{factory diagram} % \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/view-factories.pdf}}%
+			\end{figure}
+
+	\subsection{Controller}
+		Het \code{jabberPoint.controller} package bevat alle nodige code voor de gebruikersinterface.
+		Het klassendiagram wordt in figuur~\ref{fig:controller} getoond.
+
+		\begin{figure}[!htb]
+		 \caption{
+			Klassendiagram voor de controller-klassen.\label{fig:controller}
+			Factories zijn weggelaten.
+			Referenties naar view en model zijn beperkt gehouden voor de duidelijkheid.
+		 }
+		 \todo{diagram} % \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/controller.pdf}}%
+		\end{figure}
+
+		\subsubsection{Factories}
+			Alle klassen mogen alleen door factories worden gemaakt.
+			Deze factories worden gegroepeerd in het package \code{jabberPoint.controller.factories}.
+			Een klassendiagram van dit package wordt in figuur~\ref{fig:controller-factories} getoond.
+
+			\begin{figure}[!htb]
+			 \caption{
+				Klassendiagram voor de controller-factories.\label{fig:controller-factories}
+				Details zijn weggelaten voor de duide\-lijk\-heid.
+			 }
+			 \todo{factory diagram} % \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/controller-factories.pdf}}%
+			\end{figure}
 
 
 \section{Keuzen}\label{sec:keuzen}
@@ -261,14 +335,14 @@
     Dit ontwerp is een geldig alternatief maar er staan niet veel voordelen tegenover de toegenomen complexiteit.
     De software wordt immers ingewikkelder en er moeten extra \textit{ifs} en \textit{casts} worden uitgevoerd (\textit{code smells}).
 
-    Het alternatieve klassendiagram wordt in figuur~\ref{fig:design-alternative} getoond.
-    \begin{figure}[!htb]
-     \caption{
-        Alternatief klassendiagram voor de domein-objecten.\label{fig:design-alternative}
-        Sterren geven de nieuwe klasse en methoden aan.
-     }
-     \centering \includegraphics[width=\textwidth]{Diagrams/design-alternative.pdf}
-    \end{figure}
+    %Het alternatieve klassendiagram wordt in figuur~\ref{fig:design-alternative} getoond.
+    %\begin{figure}[!htb]
+    % \caption{
+    %    Alternatief klassendiagram voor de domein-objecten.\label{fig:design-alternative}
+    %    Sterren geven de nieuwe klasse en methoden aan.
+    % }
+    % \centering \includegraphics[width=\textwidth]{Diagrams/design-alternative.pdf}
+    %\end{figure}
 
 
     \question{Wanneer moeten items worden gegenereerd?}
@@ -355,9 +429,9 @@
      \centering \includegraphics[width=0.9\textwidth]{Screenshots/numbers.png}
     \end{figure}
     
-    \TODO{removed versions}
-    \TODO{javadoc}
-    \TODO{lambdas in controllers}
+    \todo{removed versions}
+    \todo{javadoc}
+    \todo{lambdas in controllers}
     
 \section{Sourcecode}
 In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
