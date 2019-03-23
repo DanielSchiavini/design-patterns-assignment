@@ -140,13 +140,13 @@
 	\begin{itemize}
 		\item Elk klasse moet precies één verantwoordelijkheid hebben.
 		\item Elke methode moet precies één verantwoordelijkheid hebben.
-		\item Delegatie boven...
-		\item Geen creatie...
-		\item State altijd correct...
-		\item Overerving mag alleen worden toegepast indien het conceptueel correct is.
+		\item Delegatie liever dan overerving.
+		\item Geen constructor-aanroepen buiten factories.
+		\item Alles wat een klasse nodig heeft om te functioneren wordt in de constructor meegegeven.
 	\end{itemize}
 
 	De details over het resultaat van de refactoring worden belicht in de volgende secties.
+	\todo{MVC Diagram}
 
 \section{Probleemanalyse}
     \label{sec:probleemanalyse}
@@ -178,7 +178,9 @@
 			Om dit op te lossen is de MVC-patroon gebruikt.
 		\item AWT-afhankelijkheden waren verspreid door de code.
 			Hierdoor was het moeilijk om nieuwe gebruikersinterfaces te maken en om de applicatie te testen.
-		\item \todo{...}
+		\item Instanties werden in verschillende locaties gemaakt en vaak werd de klasse pas bruikbaar na andere methode-aanroepen.
+			Het was bijvoorbeeld mogelijk om een \code{TextItem} te maken zonder tekst.
+		\item De Java-versie was verouderd geworden.
 	\end{itemize}
 
 \section{Ontwerp}
@@ -199,7 +201,29 @@
 			Klassendiagram voor de model-klassen.
 			Factories zijn weggelaten.
 			Referenties naar controller en view zijn beperkt gehouden voor de duidelijkheid.
+			Het \code{utils} package wordt in grijs getoond.
 		}
+
+		De \code{Presentation}-klasse is duidelijk centraal in het systeem.
+		Een presentatie heeft meerdere slides, en slides kunnen inhoud of inhoudsopgave bevatten.
+		Slides kunnen meerdere slide-items bevatten, welke plaatjes of tekst mogen zijn.
+		Samen met de stylen is de presentatie-datastructuur compleet.
+
+		Deze data-klassen mogen niets weten van de gebruikersinterface waarin ze worden getoond.
+		Wel zijn deze klassen verantwoordelijk om de gegevens op een generieke manieren te converteren.
+		In dit geval was het vanzelfsprekend om een XML-formaat te gebruiken, maar dit had ook JSON kunnen zijn.
+
+		Naast de data-klassen hebben we de I/O klassen voor het lezen en schrijven van presentaties.
+		Het lezen van presentaties kan op twee manieren gebeuren: vanuit een file of vanuit een demo-presentatie.
+		De presentatie kan ook naar een bestand worden geschreven.
+		De klasse verantwoordelijk daarvoor is veel simpeler geworden doordat deze geen kennis hoeft te hebben van de datastructuur.
+
+		Om te voorkomen dat de presentatie iets weet van de gebruikersinterface maar toch deze kan updaten, heb ik ervoor gekozen om het \textit{Observable-patroon te implementeren.
+		De Java-klassen hiervoor hebben geen typing, waardoor casts nodig zijn.
+		Door de toepassing van generics kan dit verbeterd worden.
+		Daarom heb ik het patroon geïmplementeerd door middel van twee interfaces en één abstracte klasse.
+		Op deze manier kan de presentatie een \code{BaseObservable<Slide>} uitbreiden en \textit{observers} laten weten als een nieuwe slide moet worden getoond.
+		De \textit{observable}-klassen zijn gegroepeerd in het package \code{utils} omdat ze niet specifiek voor Jabberpoint zijn.
 
 		\subsubsection{Factories}
 			Alle klassen mogen alleen door factories worden gemaakt.
@@ -211,45 +235,25 @@
 				Details zijn weggelaten voor de duidelijkheid.
 			}
 
-    \subsubsection{Inhoudsopgave}
-		De oude klasse \code{Slide} is nu gesplitst in een abstracte klasse \code{Slide} en de subklasse \code{ContentSlide}.
-		De nieuwe klasse \code{TableOfContentsSlide} genereert de inhoudsopgaven.
+		\subsubsection{Inhoudsopgave}
+			De oude klasse \code{Slide} is nu gesplitst in een abstracte klasse \code{Slide} en de sub-klasse \code{ContentSlide}.
+			De nieuwe klasse \code{TableOfContentsSlide} genereert de inhoudsopgaven.
 
-		Het grootste verschillen tussen de subklassen is dat de inhoudsopgave kennis moet hebben van de hele presentatie en zijn eigen inhoud genereren.
-		Daardoor krijgt een \code{TableOfContentsSlide} een referentie naar de presentatie in de constructor.
+			De grootste verschillen tussen de subklassen zijn dat de inhoudsopgave kennis moet hebben van de hele presentatie en zijn eigen inhoud moet genereren.
+			Daardoor krijgt een \code{TableOfContentsSlide} een referentie naar de presentatie in de constructor.
 
-		Zodra de inhoudsopgave getekend gaat worden, worden de presentatie-onder\-werpen gelezen en wordt een nieuwe lijst van slide-items gemaakt.
-		Daartoe kunnen wij de bestaande methoden van de \code{Slide} klasse gebruiken.
-		Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
+			De \code{Slide} klasse heeft nu een \code{getSlideItems} abstracte methode.
+			Voor de normale slides zijn de slide items aanpasbaar, voor de inhoudsopgave worden de items gegenereerd.
+			Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
+			De views hoeven dus ook niet te weten wat voor soort slide getoond wordt.
 
-		%De aangepaste klassendiagram wordt in figuur~\ref{fig:design} getoond.
-		%\diagram{design}{
-		%    Klassendiagram voor de domein-objecten.
-		%    Sterren geven de nieuwe klasse en methoden aan.
-		% }
-
-		Het voordeel van dit onderwerp is dat er vrij weinig hoeft te veranderen.
-		De Accessor-klassen krijgen de extra verantwoordelijkheid om de inhoudsopgaven te maken en te schrijven.
-		Voor de rest van de code is een inhoudsopgave een normale slide die zijn eigen content genereert.
-		Accessor-klassen mogen zelf bepalen of er een referentie wordt opslagen naar een inhoudsopgave, of een lijst van de inhoud van de slides.
-
-		Voor de implementatie van de \code{draw} methode was een manier nodig om alle eerdere slide-items te verwijderen.
-		Het is natuurlijk ook mogelijk om de \code{items} attribuut rechtstreeks te veranderen;
-		maar het is in Java nooit verstandig om attributen van andere klassen te veranderen (zelfs van een super-klasse).
-		Daartoe komt een nieuwe \textbf{protected} methode \code{clear} in de slide.
-		De attributen van \code{Slide} zijn \textbf{private} geworden.
-
-		Het is verstandig om software te implementeren in de meest simpele manier, en dan itereren om deze te verbeteren.
-		Daarom vind ik dat het bij de opdracht past om een aantal verbeteringen ook door te voeren.
-		Dit wordt verder uitgelegd in sectie~\ref{sec:keuzen}.
-
-		Een screenshot van de inhoudsopgave van de demo-presentatie wordt in figuur~\ref{fig:master} getoond.
-		\begin{figure}[!htb]
-		 \caption{
-			Inhoudsopgave van de demo-presentatie.\label{fig:master}
-		 }
-		 \centering \includegraphics[width=\textwidth]{Screenshots/master.png}
-		\end{figure}
+			Een screenshot van de inhoudsopgave van de demo-presentatie wordt in figuur~\ref{fig:master} getoond.
+			\begin{figure}[!htb]
+			 \caption{
+				Inhoudsopgave van de demo-presentatie.\label{fig:master}
+			 }
+			 \centering \includegraphics[width=\textwidth]{Screenshots/master.png}
+			\end{figure}
 
     \subsubsection{Traceerbaarheid van eisen}
         In deze sectie geef ik onderdelen van het ontwerp aan die verantwoordelijk zijn om de eisen (zie sectie~\ref{sec:probleemanalyse}) te realiseren.
