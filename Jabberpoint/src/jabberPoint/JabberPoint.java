@@ -7,11 +7,11 @@ import jabberPoint.model.Presentation;
 import jabberPoint.model.PresentationReader;
 import jabberPoint.model.factories.PresentationFactory;
 import jabberPoint.model.factories.SlideFactory;
-import jabberPoint.model.factories.StyleFactory;
 import jabberPoint.view.JabberpointFrame;
 import jabberPoint.view.factories.PresentationViewFactory;
 import jabberPoint.view.factories.SlideItemViewFactory;
 import jabberPoint.view.factories.SlideViewFactory;
+import jabberPoint.view.factories.StyleFactory;
 
 import java.io.IOException;
 
@@ -31,11 +31,8 @@ public class JabberPoint {
 	private static final String ERROR_TITLE = "Jabberpoint Error";
 
 	// Dependencies setup
-	private static final SlideFactory slideFactory = new SlideFactory();
-	private static final PresentationFactory presentationFactory = new PresentationFactory(slideFactory);
-	private static final SlideItemViewFactory itemViewFactory = new SlideItemViewFactory();
-	private static final StyleFactory styleFactory = new StyleFactory();
-	private static final SlideViewFactory slideViewFactory = new SlideViewFactory(itemViewFactory, styleFactory);
+	private static final PresentationFactory presentationFactory = new PresentationFactory(new SlideFactory());
+	private static final SlideViewFactory slideViewFactory = new SlideViewFactory(new SlideItemViewFactory(new StyleFactory()));
 	private static final PresentationViewFactory presentationViewFactory = new PresentationViewFactory(slideViewFactory);
 	private static final ControllerFactory controllerFactory = new ControllerFactory(presentationFactory);
 

@@ -8,7 +8,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import jabberPoint.model.BitmapItem;
-import jabberPoint.model.Style;
 
 
 /**
@@ -20,13 +19,18 @@ public class BitmapItemView implements SlideItemView {
 	/** The image being displayed **/
 	private BufferedImage bufferedImage;
 
+	/** The style of the item. **/
+	private Style style;
+	
 	/**
 	 * Creates a new bitmap item view instance.
 	 * @param item: The bitmap item.
+	 * @param style: The style of the item.
 	 */
-	public BitmapItemView(BitmapItem item) {
+	public BitmapItemView(BitmapItem item, Style style) {
 		try {
 			bufferedImage = ImageIO.read(item.getFile());
+			this.style = style;
 		} catch (IOException e) {
 			System.err.printf("Cannot find image file %s\n", item.getName()) ;
 		}
@@ -37,13 +41,12 @@ public class BitmapItemView implements SlideItemView {
 	 * @param g: The graphics instance.
 	 * @param observer: The image observer.
 	 * @param scale: The scale to apply (depending on the amount of space available).
-	 * @param style: The style of the slide item.
 	 * @return The rectangle representing the bounding box.
 	 */
-	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
-		return new Rectangle((int) (myStyle.getLeftMargin(scale)), 0,
+	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale) {
+		return new Rectangle((int) (style.getLeftMargin(scale)), 0,
 				(int) (bufferedImage.getWidth(observer) * scale),
-				((int) (myStyle.getTopMargin(scale))) + 
+				((int) (style.getTopMargin(scale))) + 
 				(int) (bufferedImage.getHeight(observer) * scale));
 	}
 
@@ -52,13 +55,12 @@ public class BitmapItemView implements SlideItemView {
 	 * @param g: The graphics instance.
 	 * @param view: The image observer.
 	 * @param scale: The scale to apply (depending on the amount of space available).
-	 * @param style: The style of the slide item.
 	 * @param x: The x-axis location where to write the item.
 	 * @param y: The y-axis location where to write the item.
 	 */
-	public void draw(Graphics g, ImageObserver view, float scale, Style myStyle, int x, int y) {
-		int width = x + (int) (myStyle.getLeftMargin(scale));
-		int height = y + (int) (myStyle.getTopMargin(scale));
+	public void draw(Graphics g, ImageObserver view, float scale, int x, int y) {
+		int width = x + (int) (style.getLeftMargin(scale));
+		int height = y + (int) (style.getTopMargin(scale));
 		g.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(view)*scale),
 				(int) (bufferedImage.getHeight(view)*scale), view);
 	}

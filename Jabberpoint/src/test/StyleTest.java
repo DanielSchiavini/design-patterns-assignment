@@ -10,10 +10,10 @@ import org.junit.Test;
 import jabberPoint.model.ContentSlide;
 import jabberPoint.model.Presentation;
 import jabberPoint.model.Slide;
-import jabberPoint.model.Style;
 import jabberPoint.model.TableOfContentsSlide;
 import jabberPoint.model.TextItem;
-import jabberPoint.model.factories.StyleFactory;
+import jabberPoint.view.Style;
+import jabberPoint.view.factories.StyleFactory;
 
 public class StyleTest {
 

@@ -13,7 +13,6 @@ import java.awt.image.ImageObserver;
 import java.text.AttributedString;
 import java.util.List;
 
-import jabberPoint.model.Style;
 import jabberPoint.model.TextItem;
 
 import java.util.Iterator;
@@ -32,13 +31,18 @@ public class TextItemView implements SlideItemView {
 	/** The base width of the presentation, excluding scaling **/
 	private float preferredWidth;
 
+	/** The style of the item. **/
+	private Style style;
+
 	/**
 	 * Creates a new text item view.
 	 * @param item: The text item.
+	 * @param style: The style of the item.
 	 * @param preferredWidth: The base width of the presentation, excluding scaling.
 	 */
-	public TextItemView(TextItem item, float preferredWidth) {
+	public TextItemView(TextItem item, Style style, float preferredWidth) {
 		this.item = item;
+		this.style = style;
 		this.preferredWidth = preferredWidth;
 	}
 
@@ -50,9 +54,9 @@ public class TextItemView implements SlideItemView {
 	 * @param style: The style of the slide item.
 	 * @return The rectangle representing the bounding box.
 	 */
-	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
-		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
-		int xsize = 0, ysize = myStyle.getTopMargin(scale);
+	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale) {
+		List<TextLayout> layouts = getLayouts(g, style, scale);
+		int xsize = 0, ysize = style.getTopMargin(scale);
 		Iterator<TextLayout> iterator = layouts.iterator();
 		while (iterator.hasNext()) {
 			TextLayout layout = iterator.next();
@@ -65,7 +69,7 @@ public class TextItemView implements SlideItemView {
 			}
 			ysize += layout.getLeading() + layout.getDescent();
 		}
-		return new Rectangle(myStyle.getLeftMargin(scale), 0, xsize, ysize );
+		return new Rectangle(style.getLeftMargin(scale), 0, xsize, ysize );
 	}
 
 	/**
@@ -73,18 +77,17 @@ public class TextItemView implements SlideItemView {
 	 * @param g: The graphics instance.
 	 * @param view: The image observer.
 	 * @param scale: The scale to apply (depending on the amount of space available).
-	 * @param style: The style of the slide item.
 	 * @param x: The x-axis location where to write the item.
 	 * @param y: The y-axis location where to write the item.
 	 */
-	public void draw(Graphics g, ImageObserver o, float scale, Style myStyle, int x, int y) {
+	public void draw(Graphics g, ImageObserver o, float scale, int x, int y) {
 		if (item.isEmpty()) {
 			return;
 		}
-		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
-		Point pen = new Point(x + myStyle.getLeftMargin(scale), y + myStyle.getTopMargin(scale));
+		List<TextLayout> layouts = getLayouts(g, style, scale);
+		Point pen = new Point(x + style.getLeftMargin(scale), y + style.getTopMargin(scale));
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setColor(myStyle.getColor());
+		g2d.setColor(style.getColor());
 		Iterator<TextLayout> it = layouts.iterator();
 		while (it.hasNext()) {
 			TextLayout layout = it.next();
