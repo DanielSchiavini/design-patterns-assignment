@@ -135,43 +135,6 @@
 
 	\subsection*{Volledige refactoring}
 	In de nieuwe versie van Jabberpoint heb ik de applicatie opnieuw gestructureerd.
-	Ten eerste is de applicatie verdeeld tussen model, view en controller (MVC patroon).
-	Vervolgens heb ik alle onderdelen doorgenomen en steeds verbeteringen doorgevoerd, met de volgende regels in gedachte:
-	\begin{itemize}
-		\item Elk klasse moet precies één verantwoordelijkheid hebben.
-		\item Elke methode moet precies één verantwoordelijkheid hebben.
-		\item Delegatie liever dan overerving.
-		\item Geen constructor-aanroepen buiten factories.
-		\item Alles wat een klasse nodig heeft om te functioneren wordt in de constructor meegegeven.
-	\end{itemize}
-
-	De details over het resultaat van de refactoring worden belicht in de volgende secties.
-	\todo{MVC Diagram}
-
-\section{Probleemanalyse}
-    \label{sec:probleemanalyse}
-
-	\subsection{Inhoudsopgave}
-    Om de inhoudsopgave te analyseren kunnen we het beste de opdracht in eisen omschrijven:
-
-    \begin{itemize}
-        \requirement{toevoegen}{De gebruiker moet één of meer slides met inhoudsopgaven kunnen toevoegen aan een presentatie.}
-        \requirement{tonen}{Een inhoudsopgave-slide moet alle onderwerpen van de presentatie tonen.}
-        \requirement{samenvoegen}{Het onderwerp moet slechts eenmaal worden getoond wanneer meerdere slides achter elkaar hetzelfde onderwerp hebben.}
-        \requirement{updaten}{De inhoudsopgave moet automatisch worden geüpdatet wanneer slides worden toegevoegd of verwijderd.}
-        \requirement{titel}{De titel moet als onderwerp worden gebruikt wanneer een slide geen onderwerp heeft (\textbf{aanname}).}
-        \requirement{onderwerpen}{Het onderwerp mag op slides worden getoond, behalve in de inhoudsopgave (optioneel).}
-        \requirement{volgnummers}{De onderwerpen in de inhoudsopgave mogen volgnummers krijgen (optioneel).}
-        \requirement{aanduiding}{Het onderwerp van de slide die na een inhoudsopgave komt, mag een speciale aanduiding krijgen (i.e. een alternatieve letterstijl) (optioneel).}
-        \requirement{stijl}{De stijl van de inhoudsopgave is vrij te bepalen.}
-    \end{itemize}
-
-    De opdracht om een inhoudsopgave te implementeren in Jabberpoint is best interessant.
-    Om een inhoudsopgave te tonen, is kennis nodig van de hele presentatie.
-    Een verandering in elke slide kan invloed hebben op alle inhoudsopgaven.
-    Deze circulaire afhankelijkheid maakt de opdracht uitdagend.
-
-	\subsection{Refactoring}
 	In de eerste fase van de opdracht zijn een aantal problemen geconstateerd:
 	\begin{itemize}
 		\item De applicatie had geen duidelijke scheiding tussen gebruikersinterface en business-logica.
@@ -183,8 +146,87 @@
 		\item De Java-versie was verouderd geworden.
 	\end{itemize}
 
-\section{Ontwerp}
-    \label{sec:ontwerp}
+	Ten eerste is de applicatie verdeeld tussen model, view en controller (MVC patroon).
+	Vervolgens heb ik alle onderdelen doorgenomen en steeds verbeteringen doorgevoerd, met de volgende regels in gedachte:
+	\begin{itemize}
+		\item Elk klasse moet precies één verantwoordelijkheid hebben.
+		\item Elke methode moet precies één verantwoordelijkheid hebben.
+		\item Delegatie liever dan overerving.
+		\item Geen constructor-aanroepen buiten factories om.
+		\item Alles wat een klasse nodig heeft om te functioneren wordt in de constructor meegegeven.
+	\end{itemize}
+
+	De details over het resultaat van de refactoring worden belicht in de volgende secties.
+
+\section{Probleemanalyse}
+    \label{sec:probleemanalyse}
+
+	\subsection{Presentatie}\label{sec:presentatie-analyse}
+		Presentatie is het belangrijkste concept in Jabberpoint.
+		Elke presentatie bestaat uit een titel en een lijst met slides.
+		Eén van de slides wordt op een bepaald moment getoond.
+
+		In het originele ontwerp kent Jabberpoint een demo-presentatie.
+		Deze presentatie is echter een gewone presentatie met vaste inhoud.
+		Er zijn dus geen variaties op het concept van een presentatie.
+
+		\subsubsection{Presentaties lezen en schrijven}
+			Er zijn twee manieren om een presentatie te lezen:
+			\begin{itemize}
+				\item Vanuit code (demo-presentatie).
+					In dit geval is de inhoud van de presentatie vast.
+				\item Vanuit een bestand (XML-formaat).
+					In dit geval heeft Jabberpoint een bestandsnaam nodig.
+			\end{itemize}
+
+			Er is één manier om presentaties te schrijven: naar een XML-bestand.
+			In de toekomst kunnen meerdere output-formaten worden ondersteund.
+
+			Er is op dit moment één manier om presentaties te tonen en bedienen: met de awt-gebruikersinterface.
+
+	\subsection{Slides}\label{sec:slides-analyse}
+		In de originele versie van Jabberpoint bestond maar één soort slide, maar nu krijgen we ook slides met inhoudsopgave.
+
+		Om de inhoudsopgave te analyseren kunnen we het beste de opdracht in eisen omschrijven:
+		\begin{itemize}
+			\requirement{toevoegen}{De gebruiker moet één of meer slides met inhoudsopgaven kunnen toevoegen aan een presentatie.}
+			\requirement{tonen}{Een inhoudsopgave-slide moet alle onderwerpen van de presentatie tonen.}
+			\requirement{samenvoegen}{Het onderwerp moet slechts eenmaal worden getoond wanneer meerdere slides achter elkaar hetzelfde onderwerp hebben.}
+			\requirement{updaten}{De inhoudsopgave moet automatisch worden geüpdatet wanneer slides worden toegevoegd of verwijderd.}
+			\requirement{titel}{De titel moet als onderwerp worden gebruikt wanneer een slide geen onderwerp heeft (\textbf{aanname}).}
+			\requirement{onderwerpen}{Het onderwerp mag op slides worden getoond, behalve in de inhoudsopgave (optioneel).}
+			\requirement{volgnummers}{De onderwerpen in de inhoudsopgave mogen volgnummers krijgen (optioneel).}
+			\requirement{aanduiding}{Het onderwerp van de slide die na een inhoudsopgave komt, mag een speciale aanduiding krijgen (i.e. een alternatieve letterstijl) (optioneel).}
+			\requirement{stijl}{De stijl van de inhoudsopgave is vrij te bepalen.}
+		\end{itemize}
+
+		De opdracht om een inhoudsopgave te implementeren in Jabberpoint is best interessant.
+		Om een inhoudsopgave te tonen, is kennis nodig van de hele presentatie.
+		Een verandering in elke slide kan invloed hebben op alle inhoudsopgaven.
+		Deze circulaire afhankelijkheid maakt de opdracht uitdagend.
+
+		Slides met inhoud en inhoudsopgave hebben het volgende in algemeen (commonality):
+		\begin{itemize}
+			\item Alle slides moeten een titel krijgen.
+			\item Alle slides kunnen tekst-items hebben.
+		\end{itemize}
+
+		Slides met inhoud en inhoudsopgave hebben zijn in de volgende opzichten anders van elkaar (variability):
+		\begin{itemize}
+			\item Slide items worden anders gemaakt: Inhoud slides hebben een vaste inhoud; inhoudsopgaven hebben gegenereerde inhoud.
+			\item Inhoud slides kunnen veranderen tijdens uitvoering; alle inhoudsopgaven moeten dan automatisch worden geüpdatet (\reqref{updaten}).
+			\item Inhoud slides mogen een onderwerp hebben; inhoudsopgaven niet  (\reqref{onderwerpen}).
+		\end{itemize}
+
+		\subsubsection{Slide items}
+			Er zijn twee soorten slide-items: plaatjes en tekst.
+			Beide soorten hebben levels in algemeen.
+			Ze zien er echter helemaal anders van elkaar.
+
+	\subsection{Stylen}
+		\todo{Stylen}
+
+\section{Ontwerp}\label{sec:ontwerp}
 	De applicatie is nu gesplitst in meerdere Java-packages die volgen het MVC-patroon.
 	In de onderstaande secties worden de verschillende packages belicht.
 
@@ -192,6 +234,8 @@
 		In de package \code{jabberPoint} vinden we de \code{Jabberpoint} klasse, die verantwoordelijk is om alle afhankelijkheden aan elkaar te verbinden.
 		Hierdoor kan de hele applicatie werken zonder dat instanties buiten factories worden gemaakt (\textit{Depedency Injection} patroon).
 		Deze klasse heeft een \code{main} methode die een presentatie opent door middel van de gemaakte factories.
+
+		\todo{MVC Diagram}
 
 	\subsection{Model}
 		Het \code{jabberPoint.model} package bevat alle business-logica en is nu helemaal onafhankelijk van de gebruikersinterface.
@@ -225,9 +269,12 @@
 		Op deze manier kan de presentatie een \code{BaseObservable<Slide>} uitbreiden en \textit{observers} laten weten als een nieuwe slide moet worden getoond.
 		De \textit{observable}-klassen zijn gegroepeerd in het package \code{utils} omdat ze niet specifiek voor Jabberpoint zijn.
 
-		\subsubsection{Factories}
+		Aanvullende documentatie over de klassen en hun verantwoordelijkheden zijn beschikbaar in de Javadoc bij de code (zie sectie~\ref{sec:source}).
+		
+		\subsubsection{Factories}\label{sec:model-factories}
 			Alle klassen mogen alleen door factories worden gemaakt.
-			Deze factories worden gegroepeerd in het package \code{jabberPoint.model.factories}.
+			De factories geven alle nodige dependencies mee op het moment dat de klasse gemaakt wordt (\textit{dependency injection} patroon).
+			De model factories zijn gegroepeerd in het package \code{jabberPoint.model.factories}.
 			Een klassendiagram van dit package wordt in figuur~\ref{diagram:model-factories} getoond.
 
 			\diagram{model-factories}{
@@ -268,6 +315,14 @@
 
 	\subsection{View}\label{sec:view}
 		Het \code{jabberPoint.view} package bevat alle nodige code voor de gebruikersinterface.
+		Het klassendiagram van de view wordt in figuur~\ref{diagram:view} getoond.
+
+		\diagram[1]{view}{
+			Klassendiagram voor de view-klassen.
+			Factories zijn weggelaten.
+			Referenties naar controller en model zijn beperkt gehouden voor de duidelijkheid.
+		}
+
 		Het element dat het volledige scherm opbouwt is de \code{JabberpointFrame}.
 		Deze klasse bevat de twee controllers (zie sectie~\ref{sec:controller}) en de \code{PresentationView}.
 
@@ -278,17 +333,12 @@
 		De \code{SlideView} klasse is verantwoordelijk om de slide te tekenen, inclusief de \code{SlideItemView} instanties.
 		Deze kunnen of een \code{BitmapItemView} of een \code{TextItemView}, maar de keuze voor de juiste view gebeurt ook in de factory (zie sectie~\ref{sec:view-factories})
 
-		Het klassendiagram van de view wordt in figuur~\ref{diagram:view} getoond.
+		Aanvullende documentatie over de klassen en hun verantwoordelijkheden zijn beschikbaar in de Javadoc bij de code (zie sectie~\ref{sec:source}).
 
-		\diagram[1]{view}{
-			Klassendiagram voor de view-klassen.
-			Factories zijn weggelaten.
-			Referenties naar controller en model zijn beperkt gehouden voor de duidelijkheid.
-		}
-		
 		\subsubsection{Factories}\label{sec:view-factories}
 			Alle klassen mogen alleen door factories worden gemaakt.
-			Deze factories worden gegroepeerd in het package \code{jabberPoint.view.factories}.
+			De factories geven alle nodige dependencies mee op het moment dat de klasse gemaakt wordt (\textit{dependency injection} patroon).
+			De view factories worden gegroepeerd in het package \code{jabberPoint.view.factories}.
 			Een klassendiagram van dit package wordt in figuur~\ref{diagram:view-factories} getoond.
 
 			\begin{figure}[!htb]
@@ -296,13 +346,11 @@
 				Klassendiagram voor de view-factories.\label{diagram:view-factories}
 				Details zijn weggelaten voor de duide\-lijk\-heid.
 			 }
-			 \todo{factory diagram} % \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/view-factories.pdf}}%
+			 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/view-factories.pdf}}%
 			\end{figure}
 
 	\subsection{Controller}\label{sec:controller}
 		Het \code{jabberPoint.controller} package bevat alle nodige code voor het veranderen van de model via de gebruikersinterface.
-		Jabberpoint kent twee manieren om de presentatie te navigeren: via de menu of via het toetsenbord.
-		Daarom hebben we ook twee controllers: \code{MenuController} en \code{KeyController}.
 		Het klassendiagram wordt in figuur~\ref{diagram:controller} getoond.
 
 		\begin{figure}[!htb]
@@ -314,9 +362,14 @@
 		 \todo{diagram} % \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/controller.pdf}}%
 		\end{figure}
 
-		\subsubsection{Factories}
+		Jabberpoint kent twee manieren om de presentatie te navigeren: via de menu of via het toetsenbord.
+		Daarom hebben we ook twee controllers: \code{MenuController} en \code{KeyController}.
+		Aanvullende documentatie over de klassen en hun verantwoordelijkheden zijn beschikbaar in de Javadoc bij de code (zie sectie~\ref{sec:source}).
+
+		\subsubsection{Factories}\label{sec:controller-factories}
 			Alle klassen mogen alleen door factories worden gemaakt.
-			Deze factories worden gegroepeerd in het package \code{jabberPoint.controller.factories}.
+			De factories geven alle nodige dependencies mee op het moment dat de klasse gemaakt wordt (\textit{dependency injection} patroon).
+			De controller factories worden gegroepeerd in het package \code{jabberPoint.controller.factories}.
 			Een klassendiagram van dit package wordt in figuur~\ref{diagram:controller-factories} getoond.
 
 			\begin{figure}[!htb]
@@ -387,7 +440,13 @@
 		Met deze versie van Java is het gebruik van lambda-functies mogelijk.
 		Daardoor was het mogelijk om de controllers veel eenvoudiger te maken.
 
-\section{Sourcecode}
+	\question{Moet lezen en schrijven in een apart package komen?}
+		\todo{Moet lezen en schrijven in een apart package komen?}
+	
+	\question{Moeten er interfaces komen voor klassen met één implementatie?}
+		\todo{Presentation, PresentationWriter}
+
+\section{Sourcecode}\label{sec:source}
 	In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
 	Alle links betreffen zowel Jabberpoint als dit rapport.
 	\begin{itemize}
