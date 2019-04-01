@@ -205,13 +205,13 @@
 		Een verandering in elke slide kan invloed hebben op alle inhoudsopgaven.
 		Deze circulaire afhankelijkheid maakt de opdracht uitdagend.
 
-		Slides met inhoud en inhoudsopgave hebben het volgende in algemeen (commonality):
+		Slides met inhoud en inhoudsopgave hebben het volgende in algemeen (\textit{commonality}):
 		\begin{itemize}
 			\item Alle slides moeten een titel krijgen.
 			\item Alle slides kunnen tekst-items hebben.
 		\end{itemize}
 
-		Slides met inhoud en inhoudsopgave hebben zijn in de volgende opzichten anders van elkaar (variability):
+		Slides met inhoud en inhoudsopgave hebben zijn in de volgende opzichten anders van elkaar (\textit{variability}):
 		\begin{itemize}
 			\item Slide items worden anders gemaakt: Inhoud slides hebben een vaste inhoud; inhoudsopgaven hebben gegenereerde inhoud.
 			\item Inhoud slides kunnen veranderen tijdens uitvoering; alle inhoudsopgaven moeten dan automatisch worden geüpdatet (\reqref{updaten}).
@@ -220,11 +220,20 @@
 
 		\subsubsection{Slide items}
 			Er zijn twee soorten slide-items: plaatjes en tekst.
-			Beide soorten hebben levels in algemeen.
-			Ze zien er echter helemaal anders van elkaar.
+			Beide soorten hebben levels in algemeen, wat wordt gebruikt om de juiste stijl te kiezen.
+			Hiernaast zijn de slide items anders van elkaar: Plaatjes hebben een filenaam en tekst-items hebben tekst.
 
-	\subsection{Stylen}
-		\todo{Stylen}
+		\subsection{Stijlen}
+			Stijlen worden in Jabberpoint gebruikt om kleuren, indentatie en fonts te bepalen voor elke slide-item.
+			In de nieuwe versie van Jabberpoint staan we vrij om aparte stijlen te implementeren afhankelijk van het soort slide.
+			Zo kunnen we aparte stijlen definiëren voor inhoudsopgaven en voor inhoud-slides (\reqref{stijl}).
+
+	\subsection{Gebruikersinteractie}\label{sec:control-analyse}
+		In de originele en nieuwe versies van Jabberpoint wordt de interactie met de gebruikers niet veranderd.
+		Het verbeteren ervan valt buiten de scope van de opdracht tot refactoring.
+
+		Jabberpoint opent automatisch de demo-presentatie of een gegeven presentatiebestand bij het opstarten.
+		Daarna kan de gebruiker slides veranderen via het toetsenbord of via de menu.
 
 \section{Ontwerp}\label{sec:ontwerp}
 	De applicatie is nu gesplitst in meerdere Java-packages die volgen het MVC-patroon.
@@ -251,7 +260,7 @@
 		De \code{Presentation}-klasse is duidelijk centraal in het systeem.
 		Een presentatie heeft meerdere slides, en slides kunnen inhoud of inhoudsopgave bevatten.
 		Slides kunnen meerdere slide-items bevatten, welke plaatjes of tekst mogen zijn.
-		Samen met de stylen is de presentatie-datastructuur compleet.
+		Samen met de stijlen is de presentatie-datastructuur compleet.
 
 		Deze data-klassen mogen niets weten van de gebruikersinterface waarin ze worden getoond.
 		Wel zijn deze klassen verantwoordelijk om de gegevens op een generieke manieren te converteren.
