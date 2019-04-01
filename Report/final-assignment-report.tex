@@ -450,10 +450,21 @@
 		Daardoor was het mogelijk om de controllers veel eenvoudiger te maken.
 
 	\question{Moet lezen en schrijven in een apart package komen?}
-		\todo{Moet lezen en schrijven in een apart package komen?}
-	
+		Tijdens het splitsen van Jabberpoint in MVC-packages rijst de vraag waar de I/O klassen bij horen.
+		In beschrijvingen van MVC wordt de model vaak beschreven als ``\textit{business logic-related data}''.
+		Daarom vind ik dat de \code{Reader} en \code{Writer} klassen in ook in dit package horen, zeker gezien hoe eenvoudig de applicatie is.
+
+		Er zijn nog twee opties mogelijk die ik net zo passend vind:
+		\begin{itemize}
+			\item Een apart package \code{jabberPoint.io};
+			\item Een sub-package \code{jabberPoint.model.io}.
+		\end{itemize}
+
 	\question{Moeten er interfaces komen voor klassen met één implementatie?}
 		\todo{Presentation, PresentationWriter}
+
+	\question{Waarom aparte view-klassen voor slide items?}
+		\todo{SlideView, PresentationView maar TextItemView/BitmapItemView (interface SlideItemView)}
 
 \section{Sourcecode}\label{sec:source}
 	In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
