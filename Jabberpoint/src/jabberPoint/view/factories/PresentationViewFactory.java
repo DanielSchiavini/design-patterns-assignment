@@ -10,24 +10,28 @@ import jabberPoint.view.PresentationView;
  * @author Daniel Schiavini
  */
 public class PresentationViewFactory {
-	/** The class responsible for creating slide views **/
+	/** The object responsible for creating slide views **/
 	private SlideViewFactory slideViewFactory;
-	
+
+	/** The object responsible for creating controllers **/
+	private ControllerFactory controllerFactory;
+
 	/**
 	 * Creates a new presentation view factory.
-	 * @param styleFactory: The class responsible for creating slide views.
+	 * @param styleFactory: The object responsible for creating slide views.
+	 * @param controllerFactory: The controller factory.
 	 */
-	public PresentationViewFactory(SlideViewFactory styleFactory) {
+	public PresentationViewFactory(SlideViewFactory styleFactory, ControllerFactory controllerFactory) {
 		this.slideViewFactory = styleFactory;
+		this.controllerFactory = controllerFactory;
 	}
 
 	/**
 	 * Creates a new Jabberpoint frame.
 	 * @param presentation: The presentation.
-	 * @param controllerFactory: The controller factory.
 	 * @return: The created frame.
 	 */
-	public JabberpointFrame createFrame(Presentation presentation, ControllerFactory controllerFactory) {
+	public JabberpointFrame createFrame(Presentation presentation) {
 		PresentationView presentationView = this.createPresentationView(presentation);
 		return new JabberpointFrame(presentation, presentationView, controllerFactory);
 	}

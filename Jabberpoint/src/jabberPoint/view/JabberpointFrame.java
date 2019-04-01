@@ -54,7 +54,7 @@ public class JabberpointFrame extends JFrame {
 			System.exit(0);
 		}
 	};
-	
+
 	/**
 	 * Shows a message dialog when the user requests the about box.
 	 * @param e: The action event.

@@ -33,8 +33,8 @@ public class JabberPoint {
 	// Dependencies setup
 	private static final PresentationFactory presentationFactory = new PresentationFactory(new SlideFactory());
 	private static final SlideViewFactory slideViewFactory = new SlideViewFactory(new SlideItemViewFactory(new StyleFactory()));
-	private static final PresentationViewFactory presentationViewFactory = new PresentationViewFactory(slideViewFactory);
 	private static final ControllerFactory controllerFactory = new ControllerFactory(presentationFactory);
+	private static final PresentationViewFactory presentationViewFactory = new PresentationViewFactory(slideViewFactory, controllerFactory);
 
 	/**
 	 * The main method that starts up Jabberpoint.
@@ -47,7 +47,7 @@ public class JabberPoint {
 			String fileName = argv.length == 0 ? null : argv[0];
 			PresentationReader reader = presentationFactory.createReader(fileName);
 			Presentation presentation = reader.read();
-			JabberpointFrame frame = presentationViewFactory.createFrame(presentation, controllerFactory);
+			JabberpointFrame frame = presentationViewFactory.createFrame(presentation);
 			presentation.setSlideNumber(0);
 			frame.setVisible(true);
 		} catch (IOException ex) {

@@ -158,6 +158,8 @@
 
 	De details over het resultaat van de refactoring worden belicht in de volgende secties.
 
+	\todo{Explain diagrams: all methods public, all attributes private}
+	
 \section{Probleemanalyse}
     \label{sec:probleemanalyse}
 
@@ -350,6 +352,8 @@
 			De view factories worden gegroepeerd in het package \code{jabberPoint.view.factories}.
 			Een klassendiagram van dit package wordt in figuur~\ref{diagram:view-factories} getoond.
 
+			\todo{klassen uitleggen. frame vs view}
+
 			\begin{figure}[!htb]
 			 \caption{
 				Klassendiagram voor de view-factories.\label{diagram:view-factories}
@@ -373,6 +377,7 @@
 
 		Jabberpoint kent twee manieren om de presentatie te navigeren: via de menu of via het toetsenbord.
 		Daarom hebben we ook twee controllers: \code{MenuController} en \code{KeyController}.
+		\todo{Beide krijgen presentatie om commandos's te geven. MenuController krijgt bovendien presentationFactory. BiConsumer onIOException uitleggen}.
 		Aanvullende documentatie over de klassen en hun verantwoordelijkheden zijn beschikbaar in de Javadoc bij de code (zie sectie~\ref{sec:source}).
 
 		\subsubsection{Factories}\label{sec:controller-factories}
@@ -436,6 +441,8 @@
 		Bovendien gebruiken we nu een tool die specifiek gemaakt is om code-geschiedenis bij de houden, namelijk Git.
 		Daarom heb ik besloten om deze versiegeschiedenis te verwijderen van alle files en deze alleen in Git te houden.
 
+		\todo{author wel behouden}
+
     \question{Moet de code worden voorzien van Javadoc?}
 		Om software echt onderhoudbaar te maken is het ontwikkelen met ontwerp-patronen niet voldoende.
 		Ik ben namelijk van mening dat de documentatie bij de code van essentieel belang is.
@@ -460,7 +467,7 @@
 			\item Een sub-package \code{jabberPoint.model.io}.
 		\end{itemize}
 
-	\question{Moeten er interfaces komen voor klassen met één implementatie?}
+	\question{Moeten klassen met één implementatie een interface zijn?}
 		Een aantal concrete klassen in het ontwerp worden gebruikt door veel andere klassen.
 		Bijvoorbeeld de \code{Presentation} klasse heeft veel referenties.
 		Voor alle concrete klassen zouden we een interface kunnen definiëren met één implementatie.
@@ -479,6 +486,16 @@
 		Echter voor de slide-items was een dergelijke constructie niet mogelijk.
 		Er is dus een interface \code{SlideItemView} met implementaties \code{TextItemView} en \code{BitmapItemView}.
 		De slide-items zijn zodanig anders van elkaar dat het niet mogelijk is om op een generieke manier te tekenen.
+
+	\question{Waarom geen abstracte factory?}
+		\todo{
+			Waarom geen abstracte factories?
+			Vooral voor stijlen. (opties: interface + factoryFactory of circulaire referentie)
+			Interfaces vraag is relevant.
+		}
+
+	\question{Is het gebruik van constanten een goed idee?}
+		\todo{Constants klasse uitleggen}
 
 \section{Sourcecode}\label{sec:source}
 	In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
