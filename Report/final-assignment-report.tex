@@ -472,11 +472,18 @@
 		Zo houden we het ontwerp kort en bondig zonder verlies van flexibiliteit.
 
 	\question{Waarom aparte view-klassen voor slide items?}
-		\todo{SlideView, PresentationView maar TextItemView/BitmapItemView (interface SlideItemView)}
+		In het ontwerp zien we dat de \code{SlideView} werkt met de abstracte \code{Slide} klasse.
+		Daarom is geen \code{ContentSlideView} of \code{TableOfContentsSlideView} nodig.
+		De slides moeten namelijk op dezelfde manier worden getoond, alleen de inhoud is anders.
+
+		Echter voor de slide-items was een dergelijke constructie niet mogelijk.
+		Er is dus een interface \code{SlideItemView} met implementaties \code{TextItemView} en \code{BitmapItemView}.
+		De slide-items zijn zodanig anders van elkaar dat het niet mogelijk is om op een generieke manier te tekenen.
 
 \section{Sourcecode}\label{sec:source}
 	In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
 	Alle links betreffen zowel Jabberpoint als dit rapport.
+	De broncode is vanzelfsprekend in combinatie met het ontwerp-documentatie in dit document.
 	\begin{itemize}
 		\item Jabberpoint code:
 			\repolink{tree/master/Jabberpoint}\\
