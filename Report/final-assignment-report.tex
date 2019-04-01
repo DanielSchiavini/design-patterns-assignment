@@ -461,7 +461,15 @@
 		\end{itemize}
 
 	\question{Moeten er interfaces komen voor klassen met één implementatie?}
-		\todo{Presentation, PresentationWriter}
+		Een aantal concrete klassen in het ontwerp worden gebruikt door veel andere klassen.
+		Bijvoorbeeld de \code{Presentation} klasse heeft veel referenties.
+		Voor alle concrete klassen zouden we een interface kunnen definiëren met één implementatie.
+		Als resultaat zouden de concrete klassen alleen in de factories voorkomen.
+
+		Echter heb ik ervoor gekozen om geen interfaces te definiëren.
+		Het is namelijk simpel in Java om een klasse naar een interface te converteren.
+		Elke klasse kan altijd een interface worden zonder de gebruikers van de klasse te veranderen.
+		Zo houden we het ontwerp kort en bondig zonder verlies van flexibiliteit.
 
 	\question{Waarom aparte view-klassen voor slide items?}
 		\todo{SlideView, PresentationView maar TextItemView/BitmapItemView (interface SlideItemView)}
