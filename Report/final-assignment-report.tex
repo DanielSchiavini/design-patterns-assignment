@@ -158,7 +158,10 @@
 
 	De details over het resultaat van de refactoring worden belicht in de volgende secties.
 
-	\todo{Explain diagrams: all methods public, all attributes private}
+	\subsection*{Uitleg diagrammen}
+		De diagrammen in dit document worden gemaakt met de \textit{yEd} applicatie.
+		Hierin worden (tenzij anders vermeld) alleen publieke methods getoond en zijn de attributen private.
+		De broncode van de diagrammen wordt in sectie~\ref{sec:source} vermeld.
 	
 \section{Probleemanalyse}
     \label{sec:probleemanalyse}
@@ -355,7 +358,10 @@
 			De view factories worden gegroepeerd in het package \code{jabberPoint.view.factories}.
 			Een klassendiagram van dit package wordt in figuur~\ref{diagram:view-factories} getoond.
 
-			\todo{klassen uitleggen. frame vs view}
+			De \code{PresentationViewFactory} is verantwoordelijk om \code{JabberPointFrame} te maken met de juiste \code{PresentationView}.
+			\code{SlideViewFactory} maakt de implementaties van \code{Slide}.
+			\code{SlideItemViewFactory} maakt de implementaties van \code{SlideItemView}.
+			Ten slotte maakt \code{StyleFactory} de juiste \code{Style} afhankelijk van het soort slide.
 
 			\diagram[0.9]{view-factories}{
 				Klassendiagram voor de view-factories.\label{diagram:view-factories}
@@ -524,6 +530,8 @@
 			De werking ervan wordt uitgelegd in sectie~\ref{sec:ontwerp}.
 		\item \LaTeX ~code:
 			\repo{tree/master/Report}{github.com/DanielSchiavini/design-patterns-assignment/tree\-/master\-/Report}
+		\item Diagrammen:
+			\repolink{tree/master/Report/Diagrams}.
 		\item Aanpassingen op Jabberpoint:
 			\repolink{compare/v0.0.1...master}.
 		\item Gegenereerde bestanden:
