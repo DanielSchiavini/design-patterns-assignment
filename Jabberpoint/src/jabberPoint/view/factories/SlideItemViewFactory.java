@@ -31,7 +31,7 @@ public class SlideItemViewFactory {
 	 * @return The slide item view.
 	 */
 	public SlideItemView createItemView(Slide slide, SlideItem item) {
-		Style style = styleFactory.getStyle(slide, item.getLevel());
+		Style style = styleFactory.createStyle(slide, item);
 		if (item instanceof TextItem) {
 			return new TextItemView((TextItem)item, style, Constants.PREFERRED_WIDTH);
 		}

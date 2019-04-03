@@ -23,20 +23,20 @@ public class StyleTest {
 	@Test
 	public void testContentStyles() {
 		Slide slide = new ContentSlide(title);
-		assertEquals("[0,java.awt.Color[r=255,g=0,b=0]; 48 on 20]", styleFactory.getStyle(slide, 0).toString());
-		assertEquals("[20,java.awt.Color[r=0,g=0,b=255]; 40 on 10]", styleFactory.getStyle(slide, 1).toString());
-		assertEquals("[50,java.awt.Color[r=0,g=0,b=0]; 36 on 10]", styleFactory.getStyle(slide, 2).toString());
-		assertEquals("[70,java.awt.Color[r=0,g=0,b=0]; 30 on 10]", styleFactory.getStyle(slide, 3).toString());
-		assertEquals("[90,java.awt.Color[r=0,g=0,b=0]; 24 on 10]", styleFactory.getStyle(slide, 4).toString());
-		assertEquals("[90,java.awt.Color[r=0,g=0,b=0]; 24 on 10]", styleFactory.getStyle(slide, 5).toString());
+		assertEquals("[0,java.awt.Color[r=255,g=0,b=0]; 48 on 20]", styleFactory.createStyle(slide, new TextItem(0, null)).toString());
+		assertEquals("[20,java.awt.Color[r=0,g=0,b=255]; 40 on 10]", styleFactory.createStyle(slide, new TextItem(1, null)).toString());
+		assertEquals("[50,java.awt.Color[r=0,g=0,b=0]; 36 on 10]", styleFactory.createStyle(slide, new TextItem(2, null)).toString());
+		assertEquals("[70,java.awt.Color[r=0,g=0,b=0]; 30 on 10]", styleFactory.createStyle(slide, new TextItem(3, null)).toString());
+		assertEquals("[90,java.awt.Color[r=0,g=0,b=0]; 24 on 10]", styleFactory.createStyle(slide, new TextItem(4, null)).toString());
+		assertEquals("[90,java.awt.Color[r=0,g=0,b=0]; 24 on 10]", styleFactory.createStyle(slide, new TextItem(5, null)).toString());
 	}
 	
 	@Test
 	public void testTableOfContentStyles() {
 		Slide slide = new TableOfContentsSlide(new Presentation(), title);
-		assertEquals("[0,java.awt.Color[r=255,g=0,b=0]; 48 on 20]", styleFactory.getStyle(slide, 0).toString());
-		assertEquals("[50,java.awt.Color[r=0,g=0,b=255]; 36 on 10]", styleFactory.getStyle(slide, 1).toString());
-		assertEquals("[50,java.awt.Color[r=0,g=0,b=0]; 36 on 10]", styleFactory.getStyle(slide, 2).toString());
+		assertEquals("[0,java.awt.Color[r=255,g=0,b=0]; 48 on 20]", styleFactory.createStyle(slide, new TextItem(0, null)).toString());
+		assertEquals("[50,java.awt.Color[r=0,g=0,b=255]; 36 on 10]", styleFactory.createStyle(slide, new TextItem(1, null)).toString());
+		assertEquals("[50,java.awt.Color[r=0,g=0,b=0]; 36 on 10]", styleFactory.createStyle(slide, new TextItem(2, null)).toString());
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class StyleTest {
 		int[] expectedTopMargins = {20, 10, 10, 10, 10, 10};
 		Color[] expectedColors = {Color.RED, Color.BLUE, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK};
 		for (int i = 0; i <= 5; ++i) {
-			Style style = styleFactory.getStyle(slide, i);
+			Style style = styleFactory.createStyle(slide, new TextItem(i, null));
 			Font font = style.getFont(1.0F);
 			assertEquals("Helvetica", font.getName());
 			assertTrue(font.isBold());

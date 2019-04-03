@@ -6,6 +6,7 @@ import java.util.Map;
 
 import jabberPoint.model.ContentSlide;
 import jabberPoint.model.Slide;
+import jabberPoint.model.SlideItem;
 import jabberPoint.model.TableOfContentsSlide;
 import jabberPoint.view.Style;
 
@@ -29,11 +30,13 @@ public class StyleFactory {
 
 	/**
 	 * Gets the style for the given level.
-	 * @param level: The style level (0 for the highest level).
+	 * @param slide: The slide.
+	 * @param slideItem: The slide item.
 	 * @return The style.
 	 */
-	public Style getStyle(Slide slide, int level) {
+	public Style createStyle(Slide slide, SlideItem slideItem) {
 		Style[] classStyles = this.styles.get(slide.getClass());
+		int level = slideItem.getLevel();
 		if (level >= classStyles.length) {
 			level = classStyles.length - 1;
 		}
