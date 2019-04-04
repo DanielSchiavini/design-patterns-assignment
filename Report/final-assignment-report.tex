@@ -490,7 +490,7 @@
 			\item Een sub-package \code{jabberPoint.model.io}.
 		\end{itemize}
 
-	\question{Moeten klassen met één implementatie een interface zijn?}
+	\question{Moeten klassen met één implementatie een interface zijn?}\label{q:interfaces}
 		Een aantal concrete klassen in het ontwerp worden gebruikt door veel andere klassen.
 		Bijvoorbeeld de \code{Presentation} klasse heeft veel referenties.
 		Voor alle concrete klassen zouden we een interface kunnen definiëren met één implementatie.
@@ -511,11 +511,31 @@
 		De slide-items zijn zodanig anders van elkaar dat het niet mogelijk is om op een generieke manier te tekenen.
 
 	\question{Waarom geen abstracte factory?}
-		\todo{
-			Waarom geen abstracte factories?
-			Vooral voor stijlen. (opties: interface + factoryFactory of circulaire referentie)
-			Interfaces vraag is relevant.
-		}
+		In het cursus-tekstboek worden allerlei soorten factories besproken.
+		``Factory'' wordt echter niet benoemdt in de lisjt met patronen (zie chapter 20).
+		De meeste factories in het ontwerp passen daarom niet in deze lijsten.
+
+		Natuurlijk hebben de factories \textit{factory methods}.
+		\code{Presentation} is als \textit{singleton} geïmplementeerd, maar dit wordt geabstraheerd door de factory.
+		\code{Style} instanties worden ook één keer gemaakt, maar in verschillende versies: dit lijkt op \textit{object pool}, echter ook dit wordt geabstraheerd.
+		Ik vind namelijk belangrijk dat de rest van het systeem niet hoeft te weten hoe de instanties gemanaged moeten worden.
+
+		Een andere optie zou zijn om factories abstract of een interface te maken zodat er meerdere varianten van gemaakt kunnen worden.
+		Hier geldt echter hetzelfde argument als in sectie~\ref{q:interfaces}: het zou ingewikkelder worden dan noodzakelijk.
+
+		In het geval van \code{StyleFactory} is er wel wat te zeggen voor twee implementaties: één voor inhoud-slides en één voor inhoudsopgave-slides.
+		Maar dan moet ergens de beslissing worden genomen over welke factory gebruikt wordt.
+		Hiervoor zie ik de volgende opties:
+		\begin{itemize}
+			\item Een interface voor \code{StyleFactory} en een klasse om de factories te maken (feitelijk een \code{StyleFactoryFactory}).
+				Er bestaan dan 4 klassen/interfaces in plaats van één.
+			\item De gebruiker van de klasse kiest welke factory gebruikt wordt.
+				De \code{Style}\-\code{Factory} is dan niet meer verantwoordelijk voor deze beslissing.
+			\item Een abstracte \code{StyleFactory} kent de verschillende implementaties en kan de juiste kiezen (bijvoorbeeld in een static methode).
+				Hierdoor ontstaat een circulaire referentie.
+		\end{itemize}
+		Deze klasse is nog redelijk simpel is en biedt voldoende flexibiliteit.
+		Daarom heb ik gekozen voor de oplossing getoond in figuur~\ref{diagram:view} (pagina \pageref{diagram:view}).
 
 	\question{Is het gebruik van constanten een goed idee?}
 		\todo{Constants klasse uitleggen}
@@ -531,9 +551,11 @@
 		\item \LaTeX ~code:
 			\repo{tree/master/Report}{github.com/DanielSchiavini/design-patterns-assignment/tree\-/master\-/Report}
 		\item Diagrammen:
-			\repolink{tree/master/Report/Diagrams}.
+			\repo{tree/master/Report/Diagrams}{github.com/DanielSchiavini/design-patterns-assignment/tree\-/master\-/Report\-/Diagrams}
 		\item Aanpassingen op Jabberpoint:
 			\repolink{compare/v0.0.1...master}.
+		\item Refactoring:
+			\repolink{compare/v1.0.0...v2.0.0}.
 		\item Gegenereerde bestanden:
 			\repolink{tree/gh-pages}
 		\item Laatste build-rapport van TravisCI:
