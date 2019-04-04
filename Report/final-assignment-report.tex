@@ -28,9 +28,8 @@
   commentstyle=\color{mygreen},    % comment style
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{blue},       % keyword style
-  language=Python,                 % the language of the code
-  morekeywords={interface,abstract,static}, % if you want to add more keywords to the set
-  %numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  language=Java,                   % the language of the code
+  morekeywords={},                 % if you want to add more keywords to the set
   numbersep=5pt,                   % how far the line-numbers are from the code
   numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
   stringstyle=\color{mymauve}      % string literal style
@@ -363,7 +362,7 @@
 			\code{SlideItemViewFactory} maakt de implementaties van \code{SlideItemView}.
 			Ten slotte maakt \code{StyleFactory} de juiste \code{Style} afhankelijk van het soort slide.
 
-			\diagram[0.9]{view-factories}{
+			\diagram{view-factories}{
 				Klassendiagram voor de view-factories.\label{diagram:view-factories}
 				Details zijn weggelaten voor de duide\-lijk\-heid.
 			}
@@ -538,7 +537,17 @@
 		Daarom heb ik gekozen voor de oplossing getoond in figuur~\ref{diagram:view} (pagina \pageref{diagram:view}).
 
 	\question{Is het gebruik van constanten een goed idee?}
-		\todo{Constants klasse uitleggen}
+		Het \code{jabberPoint.view.factories} package bevat de klasse \code{Constants}.
+		Hierin bevinden zich de standaard breedte en hoogte van het scherm.
+		Deze klasse is gemaakt om code-duplicatie te voorkomen tussen de view-klassen.
+		De constante-waarden zijn opgenomen als \code{public final static int} attributen en worden dus niet opgehaald via een methode.
+
+		Een alternatieve optie zou zijn om de constanten \textit{singleton} te maken en de attributen via methoden beschikbaar te maken.
+		Zo zouden in de toekomst verschillende implementaties kunnen worden gemaakt.
+		Echter worden deze constanten alleen als \textit{preferred} waarden opgenomen in de views.
+		De views schalen vervolgens naar de grootte van het venster.
+		Het is dan ook niet realistisch te verwachten dat deze moeten veranderen.
+		Bovendien worden deze waarden alleen in de factories gebruikt (zie figuur~\ref{diagram:view-factories} op pagina \pageref{diagram:view-factories}).
 
 \section{Sourcecode}\label{sec:source}
 	In deze sectie geef ik links naar de verschillende resultaten van de opdracht.
