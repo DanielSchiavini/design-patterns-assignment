@@ -118,15 +118,14 @@
     Voordat ik wist dat ik de opdracht alleen mocht uitvoeren, had ik al een Git repository gemaakt.
     Ik heb de repository zo geconfigureerd dat dit document automatisch wordt gebouwd door het gebruik van TravisCI.
     Zodra een nieuwe versie van het rapport naar GitHub wordt gepushed, draait een script dat het PDF-bestand maakt.
-    Het script bouwt ook Jabberpoint, draait unit tests, en als alles gelukt is wordt ook een JAR-bestand gemaakt.
+    Het script bouwt ook Jabberpoint, draait unit tests, en als alles gelukt is wordt een JAR-bestand gemaakt.
     In de master branch hangt een deployment vast dat het PDF en JAR naar \href{https://github.com/DanielSchiavini/design-patterns-assignment/tree/gh-pages}{GitHub pages} publiceert.
     Deze automatisering is iets minder nodig zonder team, maar het is nog steeds wel nuttig.
-    De CI-configuratie is beschikbaar op \repolink{blob/master/.travis.yml}.
+    De CI-configuratie is beschikbaar in sectie~\ref{sec:source}.
 
     Jabberpoint had nog geen geautomatiseerde tests en omdat ik dat belangrijk vind, heb ik van tevoren JUnit tests geschreven (zie \PR{5}, \PR{9} en \PR{10}).
     Echter niet alle klassen waren testbaar -- TravisCI draait in een Linux-container waarin de Graphic Java-klassen niet gecreëerd kunnen worden.
     Ik had niet genoeg tijd had om dit probleem op te lossen, daarom heb ik alleen tests geschreven voor de domein- en accessor-klassen.
-    Het probleem van UI-domein vermenging wordt verder besproken in sectie~\ref{q:ui-domein-vermenging}.
 
     Het schrijven van de tests was een goede hulpmiddel om Jabberpoint te leren kennen en om het probleemanalyse van de volgende sectie beter uit te voeren.
 	De tests zijn hierbij erg waardevol geweest tijdens de refactoring.
@@ -237,7 +236,7 @@
 		Het verbeteren ervan valt buiten de scope van de opdracht tot refactoring.
 
 		Jabberpoint opent automatisch de demo-presentatie of een gegeven presentatiebestand bij het opstarten.
-		Daarna kan de gebruiker slides veranderen via het toetsenbord of via de menu.
+		Daarna kan de gebruiker slides veranderen via het toetsenbord of via het menu.
 
 \section{Ontwerp}\label{sec:ontwerp}
 	De applicatie is nu gesplitst in meerdere Java-packages die volgen het MVC-patroon.
@@ -380,9 +379,13 @@
 		 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/controller.pdf}}%
 		\end{figure}
 
-		Jabberpoint kent twee manieren om de presentatie te navigeren: via de menu of via het toetsenbord.
+		Jabberpoint kent twee manieren om de presentatie te navigeren: via het menu of via het toetsenbord.
 		Daarom hebben we ook twee controllers: \code{MenuController} en \code{KeyController}.
-		\todo{Beide krijgen presentatie om commandos's te geven. MenuController krijgt bovendien presentationFactory. BiConsumer onIOException uitleggen}.
+		Beide krijgen een presentatie in de constructors zodat de controllers commando's kunnen doorgeven.
+		\code{MenuController} krijgt bovendien een instance van \code{PresentationFactory} omdat deze presentaties moet kunnen openen.
+		Hierin kunnen fouten optreden, en \code{MenuController} is niet zelf verantwoordelijk om een foutmelding te tonen.
+		Deze worden getoond door de view via de \textit{callback}-functie \code{BiConsumer onIOException}.
+
 		Aanvullende documentatie over de klassen en hun verantwoordelijkheden zijn beschikbaar in de Javadoc bij de code (zie sectie~\ref{sec:source}).
 
 		\subsubsection{Factories}\label{sec:controller-factories}
@@ -559,6 +562,8 @@
 			De werking ervan wordt uitgelegd in sectie~\ref{sec:ontwerp}.
 		\item \LaTeX ~code:
 			\repo{tree/master/Report}{github.com/DanielSchiavini/design-patterns-assignment/tree\-/master\-/Report}
+		\item CI-configuratie:
+			\repolink{blob/master/.travis.yml}
 		\item Diagrammen:
 			\repo{tree/master/Report/Diagrams}{github.com/DanielSchiavini/design-patterns-assignment/tree\-/master\-/Report\-/Diagrams}
 		\item Aanpassingen op Jabberpoint:
