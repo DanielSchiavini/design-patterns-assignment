@@ -361,7 +361,7 @@
 			Ten slotte maakt \code{StyleFactory} de juiste \code{Style} afhankelijk van de slide en slide-item.
 
 			\diagram{view-factories}{
-				Klassendiagram voor de view-factories.\label{diagram:view-factories}
+				Klassendiagram voor de view-factories.
 				Details zijn weggelaten voor de duide\-lijk\-heid.
 			}
 
@@ -369,14 +369,11 @@
 		Het \code{jabberPoint.controller} package bevat alle nodige code voor het veranderen van de model via de gebruikersinterface.
 		Het klassendiagram wordt in figuur~\ref{diagram:controller} getoond.
 
-		\begin{figure}[!htb]
-		 \caption{
-			Klassendiagram voor de controller-klassen.\label{diagram:controller}
+		\diagram{controller}{
+			Klassendiagram voor de controller-klassen.
 			Factories zijn weggelaten.
 			Referenties naar view en model zijn beperkt gehouden voor de duidelijkheid.
-		 }
-		 \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{Diagrams/controller.pdf}}%
-		\end{figure}
+		}
 
 		Jabberpoint kent twee manieren om de presentatie te navigeren: via het menu of via het toetsenbord.
 		Daarom hebben we ook twee controllers: \code{Menu}\-\code{Controller} en \code{KeyController}.
@@ -394,7 +391,7 @@
 			Een klassendiagram van dit package wordt in figuur~\ref{diagram:controller-factories} getoond.
 
 			\diagram[0.8]{controller-factories}{
-				Klassendiagram voor de controller-factories.\label{diagram:controller-factories}
+				Klassendiagram voor de controller-factories.
 				Details zijn weggelaten voor de duide\-lijk\-heid.
 			}
 
