@@ -208,18 +208,19 @@
 		Een verandering in elke slide kan invloed hebben op alle inhoudsopgaven.
 		Deze circulaire afhankelijkheid maakt de opdracht uitdagend.
 
-		Slides met inhoud en inhoudsopgave hebben het volgende in algemeen (\textit{commonality}):
-		\begin{itemize}
-			\item Alle slides moeten een titel krijgen.
-			\item Alle slides kunnen tekst-items hebben.
-		\end{itemize}
+		\subsubsection{Commonality-variability analyse}
+			Slides met inhoud en inhoudsopgave hebben het volgende in algemeen (\textit{commonality}):
+			\begin{itemize}
+				\item Alle slides moeten een titel krijgen.
+				\item Alle slides kunnen tekst-items hebben.
+			\end{itemize}
 
-		Slides met inhoud en inhoudsopgave hebben zijn in de volgende opzichten anders van elkaar (\textit{variability}):
-		\begin{itemize}
-			\item Slide items worden anders gemaakt: Inhoud slides hebben een vaste inhoud; inhoudsopgaven hebben gegenereerde inhoud.
-			\item Inhoud slides kunnen veranderen tijdens uitvoering; alle inhoudsopgaven moeten dan automatisch worden geüpdatet (\reqref{updaten}).
-			\item Inhoud slides mogen een onderwerp hebben; inhoudsopgaven niet  (\reqref{onderwerpen}).
-		\end{itemize}
+			Slides met inhoud en inhoudsopgave hebben zijn in de volgende opzichten anders van elkaar (\textit{variability}):
+			\begin{itemize}
+				\item Slide items worden anders gemaakt: Inhoud slides hebben een flexibele inhoud; inhoudsopgaven hebben gegenereerde inhoud.
+				\item Inhoud slides kunnen veranderen tijdens uitvoering; alle inhoudsopgaven moeten dan automatisch worden geüpdatet (\reqref{updaten}).
+				\item Inhoud slides mogen een onderwerp hebben; inhoudsopgaven niet  (\reqref{onderwerpen}).
+			\end{itemize}
 
 		\subsubsection{Slide items}
 			Er zijn twee soorten slide-items: plaatjes en tekst.
@@ -256,7 +257,7 @@
 		De applicatie wordt verdeeld tussen model (sectie~\ref{sec:model}), view (sectie~\ref{sec:view}) en controller (sectie~\ref{sec:controller}).
 		Daarnaast hebben we een package \code{utils} voor klassen die niet JabberPoint-specifiek zijn (sectie~\ref{sec:utils}).
 
-	\subsection{Model}\label{ref:model}
+	\subsection{Model}\label{sec:model}
 		Het \code{jabberPoint.model} package bevat alle business-logica en is nu helemaal onafhankelijk van de gebruikersinterface.
 		Het klassendiagram wordt in figuur~\ref{diagram:model} getoond.
 
@@ -268,7 +269,7 @@
 		}
 
 		De \code{Presentation}-klasse is duidelijk centraal in het systeem.
-		Een presentatie heeft meerdere slides, en slides kunnen inhoud of inhoudsopgave bevatten.
+		Een presentatie bevat meerdere slides, en slides kunnen inhoud of inhoudsopgave bevatten.
 		Slides kunnen meerdere slide-items bevatten, welke plaatjes of tekst mogen zijn.
 		Samen met de stijlen is de presentatie-datastructuur compleet.
 
@@ -277,9 +278,9 @@
 		In dit geval was het vanzelfsprekend om een XML-formaat te gebruiken, maar dit had ook JSON kunnen zijn.
 
 		Naast de data-klassen hebben we de I/O klassen voor het lezen en schrijven van presentaties.
-		Het lezen van presentaties kan op twee manieren gebeuren: vanuit een file of vanuit een demo-presentatie.
-		De presentatie kan ook naar een bestand worden geschreven.
-		De klasse verantwoordelijk daarvoor is veel simpeler geworden doordat deze geen kennis hoeft te hebben van de datastructuur.
+		Het lezen van presentaties kan op twee manieren gebeuren: vanuit een file of vanuit een demo-presentatie (\code{PresentationReader}-boom).
+		De presentatie kan ook naar een bestand worden geschreven (\code{PresentationWriter}-klasse).
+		Deze klasse is veel simpeler geworden doordat deze geen kennis hoeft te hebben van de datastructuur.
 
 		Om te voorkomen dat de presentatie iets weet van de gebruikersinterface maar toch deze kan updaten, wordt het \textit{observable}-patroon geïmplementeerd (zie sectie~\ref{sec:utils}).
 		De presentatie breidt \code{BaseObservable<Slide>} uit en kan \textit{observers} laten weten als een nieuwe slide moet worden getoond.
@@ -306,8 +307,6 @@
 
 			De \code{Slide} klasse heeft nu een \code{getSlideItems} abstracte methode.
 			Voor de normale slides zijn de slide items aanpasbaar, voor de inhoudsopgave worden de items gegenereerd.
-			Omdat er geen speciale stijl-eisen zijn voor de inhoudsopgave, kunnen wij eenvoudig de al ingebouwde levels gebruiken om de stijl te bepalen.
-			De views hoeven dus ook niet te weten wat voor soort slide getoond wordt.
 
 			Een screenshot van de inhoudsopgave van de demo-presentatie wordt in figuur~\ref{fig:master} getoond.
 			\begin{figure}[!htb]
@@ -342,11 +341,11 @@
 		Deze klasse bevat de twee controllers (zie sectie~\ref{sec:controller}) en de \code{PresentationView}.
 
 		\code{PresentationView} krijgt de presentatie als referentie en is verantwoordelijk om de juiste slide te tonen.
-		Om te weten wanneer een nieuwe slide moet worden getoond maak ik gebruik van het \textit{observable-patroon}.
+		Om te weten wanneer een nieuwe slide moet worden getoond maak ik gebruik van het \textit{observable-patroon} (zie sectie~\ref{sec:utils}).
 		Op het moment dat de \code{update} methode wordt aangeroepen, wordt een nieuwe \code{SlideView} gemaakt via de bijbehorende factory.
 
-		De \code{SlideView} klasse is verantwoordelijk om de slide te tekenen, inclusief de \code{SlideItemView} instanties.
-		Deze kunnen of een \code{BitmapItemView} of een \code{TextItemView}, maar de keuze voor de juiste view gebeurt ook in de factory (zie sectie~\ref{sec:view-factories})
+		De \code{SlideView} klasse is verantwoordelijk om de slide te tekenen en maakt gebruikt van \code{SlideItemView} instanties.
+		Deze kunnen of een \code{BitmapItemView} of een \code{TextItemView} zijn, maar de keuze voor de juiste view gebeurt in de factory (zie sectie~\ref{sec:view-factories})
 
 		Aanvullende documentatie over de klassen en hun verantwoordelijkheden zijn beschikbaar in de Javadoc bij de code (zie sectie~\ref{sec:source}).
 
@@ -359,7 +358,7 @@
 			De \code{PresentationViewFactory} is verantwoordelijk om \code{JabberPointFrame} te maken met de juiste \code{PresentationView}.
 			\code{SlideViewFactory} maakt de implementaties van \code{Slide}.
 			\code{SlideItemViewFactory} maakt de implementaties van \code{SlideItemView}.
-			Ten slotte maakt \code{StyleFactory} de juiste \code{Style} afhankelijk van het soort slide.
+			Ten slotte maakt \code{StyleFactory} de juiste \code{Style} afhankelijk van de slide en slide-item.
 
 			\diagram{view-factories}{
 				Klassendiagram voor de view-factories.\label{diagram:view-factories}
@@ -380,7 +379,7 @@
 		\end{figure}
 
 		Jabberpoint kent twee manieren om de presentatie te navigeren: via het menu of via het toetsenbord.
-		Daarom hebben we ook twee controllers: \code{MenuController} en \code{KeyController}.
+		Daarom hebben we ook twee controllers: \code{Menu}\-\code{Controller} en \code{KeyController}.
 		Beide krijgen een presentatie in de constructors zodat de controllers commando's kunnen doorgeven.
 		\code{MenuController} krijgt bovendien een instance van \code{PresentationFactory} omdat deze presentaties moet kunnen openen.
 		Hierin kunnen fouten optreden, en \code{MenuController} is niet zelf verantwoordelijk om een foutmelding te tonen.
@@ -400,7 +399,7 @@
 			}
 
 	\section{Utils}\label{sec:utils}
-		De klassen het \code{utils}-package zijn in een apart package geplaatst omdat ze niet specifiek voor Jabberpoint zijn
+		De klassen het \code{utils}-package zijn in een apart package geplaatst omdat ze niet specifiek voor Jabberpoint zijn.
 		Het gaat namelijk om de implementatie van het \textit{Observable-patroon}.
 		De Java-klassen hiervoor hebben geen typing, waardoor casts nodig zijn.
 		Door de toepassing van generics kan dit verbeterd worden.
@@ -410,13 +409,13 @@
 			\item \code{Observer<ObservedType>} is de interface voor klassen die andere klassen kunnen observeren.
 				Deze interface bevat de method \code{update} om updates te krijgen.
 			\item \code{Observable<ObservedType>} is de interface voor klassen die geobserveerd kunnen worden.
-				Deze interface bevat de methoden \code{addObserver} en \code{notifyObservers}.
-			\item \code{BaseObservable<ObservedType>} is een abstracte implementatie van \code{Observable}.
+				Deze interface bevat de methoden \code{addObserver} en \code{notify}\-\code{Observers}.
+			\item \code{BaseObservable<ObservedType>} is een abstracte implementatie van \code{Ob}\-\code{servable}.
 				Deze implementatie zorgt voor een standaard implementatie van de vereiste methoden.
 		\end{itemize}
 
 		Op deze manier kan de presentatie \code{Observable<Slide>} implementeren door \code{BaseObservable<Slide>} uit te breiden.
-		View-\textit{observers} implementeren \code{Observer<Slide>} om te weten als een nieuwe slide moet worden getoond.
+		View-\textit{observers} implementeren \code{Obser}\-\code{ver<Slide>} om te weten als een nieuwe slide moet worden getoond.
 		Het package wordt afgebeeld in het model-diagram (figuur~\ref{diagram:model}, pagina~\pageref{diagram:model}).
 
 \section{Keuzen}\label{sec:keuzen}
@@ -447,17 +446,12 @@
 
 		De keuze om de lijst van onderwerpen in de inhoudsopgave te implementeren geeft dus een betere inkapseling.
 
-    \question{Moet een inhoudsopgave verplicht een titel hebben?}
-		In de opdracht wordt niet benoemd of elke inhoudsopgave verplicht een titel moet krijgen.
-		De opgeleverde versie van de applicatie geeft een standaard-titel (``inhoudsopgave'') als er geen titel wordt gegeven.
-		Echter aangezien alle slides een titel nodig hebben, is het niet raar om de titel van de inhoudsopgave ook verplicht te maken.
-		Deze aanpassing is geïmplementeerd in \PR{21}.
-    
     \question{Moet een inhoudsopgave een andere stijl krijgen?}
 		De standaard stijl van de slides is niet optimaal voor een inhoudsopgave, alhoewel \reqref{stijl} expliciet aangeeft dat stijlen vrij te bepalen zijn.
-		Het is echter niet helemaal duidelijk dat het om een lijst van onderwerpen gaat.
-		Door een icoontje of nummer toe te voegen aan elke item en steeds dezelfde indentatie te gebruiken, wordt het duidelijker.
-		Een screenshot van de inhoudsopgave met deze stijl wordt in figuur~\ref{fig:master} getoond.
+		Het is met deze stijl echter niet helemaal duidelijk dat het om een lijst van onderwerpen gaat.
+		Door een icoontje toe te voegen aan elke item en steeds dezelfde indentatie te gebruiken, wordt het duidelijker.
+		Daarom heb ik aparte stijlen geïmplementeerd via de \code{StyleFactory}.
+		Een screenshot van de inhoudsopgave met deze stijl wordt in figuur~\ref{fig:master} getoond (pagina~\pageref{fig:master}).
 
     \question{Moet de versiegeschiedenis in de bestanden zijn?}
 		In de initiële versie van Jabberpoint stond bovenaan in elk bestand een geschiedenis van de versies.
@@ -467,12 +461,13 @@
 
 		De auteur-melding is wel gehouden omdat deze kort is en niet zo vaak verandert.
 		Git zou dit prima kunnen bijhouden, echter is de historie kwijt toen ik de code importeerde in een nieuwe repository.
+		Het is dan netjes om de oorspronkelijke auteurs te benoemen.
 
     \question{Moet de code worden voorzien van Javadoc?}
 		Om software echt onderhoudbaar te maken is het ontwikkelen met ontwerp-patronen niet voldoende.
 		Ik ben namelijk van mening dat de documentatie bij de code van essentieel belang is.
 		Daarnaast is het schrijven van de bedoeling van een stukje code een belangrijk hulpmiddel om de codekwaliteit te evalueren.
-		Daarom heb ik de hele applicatie voorzien van Javadoc op het niveau van klassen en methoden.
+		Daarom heb ik de hele applicatie voorzien van Javadoc op het niveau van klassen en methoden (inclusief parameters).
 		De meeste attributen zijn overigens ook gedocumenteerd.
 
 	\question{Is het updaten van Java verstandig?}
@@ -482,17 +477,17 @@
 		Daardoor was het mogelijk om de controllers veel eenvoudiger te maken.
 
 	\question{Moet lezen en schrijven in een apart package komen?}
-		Tijdens het splitsen van Jabberpoint in MVC-packages rijst de vraag waar de I/O klassen bij horen.
+		Tijdens het splitsen van Jabberpoint in MVC-packages rees de vraag: waar horen de I/O klassen bij?
 		In beschrijvingen van MVC wordt de model vaak beschreven als ``\textit{business logic-related data}''.
 		Daarom vind ik dat de \code{Reader} en \code{Writer} klassen in ook in dit package horen, zeker gezien hoe eenvoudig de applicatie is.
 
 		Er zijn nog twee opties mogelijk die ik net zo passend vind:
 		\begin{itemize}
-			\item Een apart package \code{jabberPoint.io};
-			\item Een sub-package \code{jabberPoint.model.io}.
+			\item Een apart package onder JabberPoint, bijvoorbeeld \code{jabberPoint.io};
+			\item Een sub-package van model, bijvoorbeeld \code{jabberPoint.model.io}.
 		\end{itemize}
 
-	\question{Moeten klassen met één implementatie een interface zijn?}\label{q:interfaces}
+	\question{Moeten overal interfaces worden gedefinieerd?}\label{q:interfaces}
 		Een aantal concrete klassen in het ontwerp worden gebruikt door veel andere klassen.
 		Bijvoorbeeld de \code{Presentation} klasse heeft veel referenties.
 		Voor alle concrete klassen zouden we een interface kunnen definiëren met één implementatie.
@@ -509,20 +504,20 @@
 		De slides moeten namelijk op dezelfde manier worden getoond, alleen de inhoud is anders.
 
 		Echter voor de slide-items was een dergelijke constructie niet mogelijk.
-		Er is dus een interface \code{SlideItemView} met implementaties \code{TextItemView} en \code{BitmapItemView}.
+		Er is dus een interface \code{SlideItemView} met implementaties \code{TextItemView} en \code{Bitmap}\-\code{ItemView}.
 		De slide-items zijn zodanig anders van elkaar dat het niet mogelijk is om op een generieke manier te tekenen.
 
 	\question{Waarom geen abstracte factory?}
 		In het cursus-tekstboek worden allerlei soorten factories besproken.
-		``Factory'' wordt echter niet benoemdt in de lisjt met patronen (zie chapter 20).
-		De meeste factories in het ontwerp passen daarom niet in deze lijsten.
+		``Factory'' wordt echter niet benoemdt in de lisjt met patronen (zie chapter 20, bijvoorbeeld page 348).
+		De meeste factories in het ontwerp passen daarom niet in de genoemde factory patronen.
 
 		Natuurlijk hebben de factories \textit{factory methods}.
 		\code{Presentation} is als \textit{singleton} geïmplementeerd, maar dit wordt geabstraheerd door de factory.
 		\code{Style} instanties worden ook één keer gemaakt, maar in verschillende versies: dit lijkt op \textit{object pool}, echter ook dit wordt geabstraheerd.
 		Ik vind namelijk belangrijk dat de rest van het systeem niet hoeft te weten hoe de instanties gemanaged moeten worden.
 
-		Een andere optie zou zijn om factories abstract of een interface te maken zodat er meerdere varianten van gemaakt kunnen worden.
+		Een andere optie zou zijn om factories abstract te maken of een interface te definiëren zodat er meerdere varianten van gemaakt kunnen worden.
 		Hier geldt echter hetzelfde argument als in sectie~\ref{q:interfaces}: het zou ingewikkelder worden dan noodzakelijk.
 
 		In het geval van \code{StyleFactory} is er wel wat te zeggen voor twee implementaties: één voor inhoud-slides en één voor inhoudsopgave-slides.
@@ -549,7 +544,7 @@
 		Zo zouden in de toekomst verschillende implementaties kunnen worden gemaakt.
 		Echter worden deze constanten alleen als \textit{preferred} waarden opgenomen in de views.
 		De views schalen vervolgens naar de grootte van het venster.
-		Het is dan ook niet realistisch te verwachten dat deze moeten veranderen.
+		Het is dan ook niet realistisch te verwachten dat deze verschillende versies moeten krijgen.
 		Bovendien worden deze waarden alleen in de factories gebruikt (zie figuur~\ref{diagram:view-factories} op pagina \pageref{diagram:view-factories}).
 
 \section{Sourcecode}\label{sec:source}
@@ -561,23 +556,21 @@
 			\repolink{tree/master/Jabberpoint}\\
 			De werking ervan wordt uitgelegd in sectie~\ref{sec:ontwerp}.
 		\item \LaTeX ~code:
-			\repo{tree/master/Report}{github.com/DanielSchiavini/design-patterns-assignment/tree\-/master\-/Report}
+			\repo{tree/master/Report}{github.com/DanielSchiavini/design-patterns-assignment\-/tree\-/master\-/Report}
 		\item CI-configuratie:
 			\repolink{blob/master/.travis.yml}
 		\item Diagrammen:
-			\repo{tree/master/Report/Diagrams}{github.com/DanielSchiavini/design-patterns-assignment/tree\-/master\-/Report\-/Diagrams}
+			\repo{tree/master/Report/Diagrams}{github.com/DanielSchiavini/design-patterns-assignment\-/tree\-/master\-/Report\-/Diagrams}
 		\item Aanpassingen op Jabberpoint:
 			\repolink{compare/v0.0.1...master}.
 		\item Refactoring:
-			\repolink{compare/v1.0.0...v2.0.0}.
+			\repo{compare/v1.0.0...v2.0.0}{github.com/DanielSchiavini/design-patterns-assignment\-/com\-pare\-/v1.0.0...v2.0.0}
 		\item Gegenereerde bestanden:
 			\repolink{tree/gh-pages}
 		\item Laatste build-rapport van TravisCI:
 			\cilink{}
 		\item Rapporten van TravisCI:
 			\cilink{builds}
-		\item Optionele implementaties:
-			\repolink{pulls}
 	\end{itemize}
 
 \end{document}
