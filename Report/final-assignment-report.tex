@@ -93,10 +93,23 @@
 \chead{IM0102, Design patterns}
 \rhead{Eindopdracht}
 
+\title{Eindopdracht Design Patterns, Open Universiteit}
+\author{Daniel S. C. Schiavini}
+
 \begin{document}
 \pagestyle{fancy}
 
+\maketitle
+{
+	\renewcommand{\contentsname}{Inhoudsopgave}
+	\setcounter{tocdepth}{2}
+	\hypersetup{linkcolor=black}
+	\tableofcontents
+	\pagebreak
+}
+
 \section*{Studentgegevens}
+	\addcontentsline{toc}{section}{\protect\numberline{}Studentgegevens}%
     \begin{description}
         \item [Cursuscode] IM0102
         \item [Opdracht] Jabberpoint Inhoudsopgave
@@ -105,6 +118,7 @@
     \end{description}
 
 \section*{Aanpak}
+	\addcontentsline{toc}{section}{\protect\numberline{}Aanpak}%
     \label{sec:aanpak}
 	De eerste versie van deze opdracht is afgekeurd doordat de opdracht niet goed begrepen was.
 	De refactoring was niet compleet doorgevoerd, maar alleen in de onderdelen die nodig waren om de inhoudsopgave toe te voegen.
@@ -161,6 +175,7 @@
 		Hierin worden (tenzij anders vermeld) alleen publieke methods getoond en zijn de attributen private.
 		De broncode van de diagrammen wordt in sectie~\ref{sec:source} vermeld.
 	
+\pagebreak
 \section{Probleemanalyse}
     \label{sec:probleemanalyse}
 
@@ -239,6 +254,7 @@
 		Jabberpoint opent automatisch de demo-presentatie of een gegeven presentatiebestand bij het opstarten.
 		Daarna kan de gebruiker slides veranderen via het toetsenbord of via het menu.
 
+\pagebreak
 \section{Ontwerp}\label{sec:ontwerp}
 	De applicatie is nu gesplitst in meerdere Java-packages die volgen het MVC-patroon.
 	In de onderstaande secties worden de verschillende packages belicht.
@@ -395,7 +411,7 @@
 				Details zijn weggelaten voor de duide\-lijk\-heid.
 			}
 
-	\section{Utils}\label{sec:utils}
+	\subsection{Utils}\label{sec:utils}
 		De klassen het \code{utils}-package zijn in een apart package geplaatst omdat ze niet specifiek voor Jabberpoint zijn.
 		Het gaat namelijk om de implementatie van het \textit{Observable-patroon}.
 		De Java-klassen hiervoor hebben geen typing, waardoor casts nodig zijn.
@@ -415,6 +431,7 @@
 		View-\textit{observers} implementeren \code{Obser}\-\code{ver<Slide>} om te weten als een nieuwe slide moet worden getoond.
 		Het package wordt afgebeeld in het model-diagram (figuur~\ref{diagram:model}, pagina~\pageref{diagram:model}).
 
+\pagebreak
 \section{Keuzen}\label{sec:keuzen}
     In deze sectie gaan we een aantal vragen door die zijn opgeroepen tijdens het analyseproces.
    
