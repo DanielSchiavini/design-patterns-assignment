@@ -6,8 +6,6 @@ import java.awt.image.ImageObserver;
 
 import jabberPoint.model.Slide;
 import jabberPoint.model.SlideItem;
-import jabberPoint.model.Style;
-import jabberPoint.model.factories.StyleFactory;
 import jabberPoint.view.factories.SlideItemViewFactory;
 
 /**
@@ -21,9 +19,6 @@ public class SlideView {
 	/** The class responsible for creating item views. **/
 	private SlideItemViewFactory itemFactory;
 
-	/** The class responsible for creating styles. **/
-	private StyleFactory styleFactory;
-	
 	/** The base width of the slide, excluding scaling **/
 	private int preferredWidth;
 
@@ -34,15 +29,13 @@ public class SlideView {
 	 * Creates a new slide view.
 	 * @param slide: The slide to display.
 	 * @param itemFactory: The class responsible for creating item views.
-	 * @param styleFactory: The class responsible for creating styles.
 	 * @param preferredWidth: The base width of the slide, excluding scaling.
 	 * @param preferredHeight: The base height of the slide, excluding scaling.
 	 */
-	public SlideView(Slide slide, SlideItemViewFactory itemFactory, StyleFactory styleFactory,
+	public SlideView(Slide slide, SlideItemViewFactory itemFactory,
 			int preferredWidth, int preferredHeight) {
 		this.slide = slide;
 		this.itemFactory = itemFactory;
-		this.styleFactory = styleFactory;
 		this.preferredWidth = preferredWidth;
 		this.preferredHeight = preferredHeight;
 	}
@@ -56,20 +49,17 @@ public class SlideView {
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
 		int y = area.y;
-		/* De titel hoeft niet meer apart behandeld te worden */
 		SlideItem titleItem = slide.getTitleItem();
-		Style style = styleFactory.getStyle(slide, titleItem.getLevel());
-		SlideItemView itemView = itemFactory.getItemView(titleItem);
-		itemView.draw(g, view, scale, style, area.x, y);
-		y += itemView.getBoundingBox(g, view, scale, style).height;
+		SlideItemView itemView = itemFactory.createItemView(slide, titleItem);
+		itemView.draw(g, view, scale, area.x, y);
+		y += itemView.getBoundingBox(g, view, scale).height;
 		for (SlideItem item : slide.getSlideItems()) {
-			itemView = itemFactory.getItemView(item);
-			style = styleFactory.getStyle(slide, item.getLevel());
-		  	itemView.draw(g, view, scale, style, area.x, y);
-			y += itemView.getBoundingBox(g, view, scale, style).height;
+			itemView = itemFactory.createItemView(slide, item);
+		  	itemView.draw(g, view, scale, area.x, y);
+			y += itemView.getBoundingBox(g, view, scale).height;
 		}
 	}
-	
+
 	/**
 	 * Gets the scale to define how big the items should be.
 	 * This is based on the difference between the standard window size and the current size.

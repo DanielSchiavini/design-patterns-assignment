@@ -36,7 +36,6 @@ public class JabberpointFrame extends JFrame {
 		addWindowListener(windowAdapter);
 		getContentPane().add(presentationView);
 		setSize(presentationView.getPreferredSize());
-		setVisible(true);
 
 		// setup controllers
 		addKeyListener(controllerFactory.getKeyController(presentation));
@@ -55,7 +54,7 @@ public class JabberpointFrame extends JFrame {
 			System.exit(0);
 		}
 	};
-	
+
 	/**
 	 * Shows a message dialog when the user requests the about box.
 	 * @param e: The action event.

@@ -14,7 +14,7 @@ public class KeyController extends KeyAdapter {
 	private Presentation presentation;
 
 	/**
-	 * Initializes a new key controller.
+	 * Initializes a key controller.
 	 * @param presentation: The presentation instance.
 	 */
 	public KeyController(Presentation presentation) {

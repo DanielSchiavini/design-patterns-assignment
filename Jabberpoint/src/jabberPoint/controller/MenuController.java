@@ -118,7 +118,7 @@ public class MenuController extends MenuBar {
 	/**
 	 * Opens a presentation.
 	 */
-	public void openPresentation() {
+	private void openPresentation() {
 		try {
 			PresentationReader reader = presentationFactory.createReader(TEST_FILE);
 			presentation = reader.read();
@@ -142,7 +142,7 @@ public class MenuController extends MenuBar {
 	/**
 	 * Shows an input dialog so the user can choose a slide number to go to.
 	 */
-	public void goToSlide() {
+	private void goToSlide() {
 		String pageNumberStr = JOptionPane.showInputDialog(PAGE_NR);
 		int pageNumber = Integer.parseInt(pageNumberStr);
 		presentation.setSlideNumber(pageNumber - 1);
